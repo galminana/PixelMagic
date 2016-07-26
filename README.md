@@ -14,9 +14,10 @@ Anyone using / copying any part of the software must include this license<br>
 <br>
 ![Alt Text](http://i.imgur.com/1nplBST.png)
 <br>
+Screenshot
 <br>
 ![Alt Text](http://i.imgur.com/478ZRTS.png)
 <br>
-<br>
 Sample recount from Unholy DK in Legion
+<br>
 ![Alt Text](http://i.imgur.com/xicfSBl.jpg)
