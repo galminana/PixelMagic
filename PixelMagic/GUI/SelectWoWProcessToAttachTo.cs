@@ -60,10 +60,16 @@ namespace PixelMagic.GUI
         private void SelectWoWProcessToAttachTo_Load(object sender, EventArgs e)
         {
             cmbWoW.KeyDown += CmbWoW_KeyDown;
+            FormClosing += SelectWoWProcessToAttachTo_FormClosing;
 
             cmbWoW.Focus();
 
             refreshProcessList();            
+        }
+
+        private void SelectWoWProcessToAttachTo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            parent.process = null;            
         }
 
         private void CmbWoW_KeyDown(object sender, KeyEventArgs e)

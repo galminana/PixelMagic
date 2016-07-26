@@ -45,18 +45,6 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.cmdRotationSettings = new System.Windows.Forms.Button();
-            this.transparentLabel3 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.prgTargetHealth = new ColorProgressBar.ColorProgressBar();
-            this.transparentLabel12 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.transparentLabel11 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.transparentLabel10 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.transparentLabel9 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.transparentLabel7 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.transparentLabel8 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.transparentLabel6 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.transparentLabel5 = new PixelMagic.GUI.GUI.TransparentLabel();
-            this.prgPower = new ColorProgressBar.ColorProgressBar();
-            this.prgPlayerHealth = new ColorProgressBar.ColorProgressBar();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadRotationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +58,18 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.submitTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transparentLabel3 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.prgTargetHealth = new ColorProgressBar.ColorProgressBar();
+            this.transparentLabel12 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.transparentLabel11 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.transparentLabel10 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.transparentLabel9 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.transparentLabel7 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.transparentLabel8 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.transparentLabel6 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.transparentLabel5 = new PixelMagic.GUI.GUI.TransparentLabel();
+            this.prgPower = new ColorProgressBar.ColorProgressBar();
+            this.prgPlayerHealth = new ColorProgressBar.ColorProgressBar();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPulse)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -271,6 +271,112 @@
             this.cmdRotationSettings.UseVisualStyleBackColor = false;
             this.cmdRotationSettings.Click += new System.EventHandler(this.cmdRotationSettings_Click);
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadRotationToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Image = global::PixelMagic.GUI.Properties.Resources.Project_16x16;
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // loadRotationToolStripMenuItem
+            // 
+            this.loadRotationToolStripMenuItem.Name = "loadRotationToolStripMenuItem";
+            this.loadRotationToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.loadRotationToolStripMenuItem.Text = "Load Rotation...";
+            this.loadRotationToolStripMenuItem.Click += new System.EventHandler(this.loadRotationToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // setupToolStripMenuItem
+            // 
+            this.setupToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hotkeysToolStripMenuItem,
+            this.spellbookToolStripMenuItem,
+            this.reloadAddonToolStripMenuItem});
+            this.setupToolStripMenuItem.Image = global::PixelMagic.GUI.Properties.Resources.PageSetup_16x16;
+            this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
+            this.setupToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.setupToolStripMenuItem.Text = "Setup";
+            // 
+            // hotkeysToolStripMenuItem
+            // 
+            this.hotkeysToolStripMenuItem.Name = "hotkeysToolStripMenuItem";
+            this.hotkeysToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.hotkeysToolStripMenuItem.Text = "Hotkeys";
+            this.hotkeysToolStripMenuItem.Click += new System.EventHandler(this.hotkeysToolStripMenuItem_Click);
+            // 
+            // spellbookToolStripMenuItem
+            // 
+            this.spellbookToolStripMenuItem.Enabled = false;
+            this.spellbookToolStripMenuItem.Name = "spellbookToolStripMenuItem";
+            this.spellbookToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.spellbookToolStripMenuItem.Text = "Spellbook";
+            this.spellbookToolStripMenuItem.Click += new System.EventHandler(this.spellbookToolStripMenuItem_Click);
+            // 
+            // reloadAddonToolStripMenuItem
+            // 
+            this.reloadAddonToolStripMenuItem.Name = "reloadAddonToolStripMenuItem";
+            this.reloadAddonToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.reloadAddonToolStripMenuItem.Text = "Reload Addon";
+            this.reloadAddonToolStripMenuItem.Click += new System.EventHandler(this.reloadAddonToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.encryptCombatRoutineToolStripMenuItem,
+            this.imageToByteArrayToolStripMenuItem});
+            this.toolsToolStripMenuItem.Image = global::PixelMagic.GUI.Properties.Resources.Version_16x16;
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // encryptCombatRoutineToolStripMenuItem
+            // 
+            this.encryptCombatRoutineToolStripMenuItem.Name = "encryptCombatRoutineToolStripMenuItem";
+            this.encryptCombatRoutineToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.encryptCombatRoutineToolStripMenuItem.Text = "Encrypt Combat Routine";
+            this.encryptCombatRoutineToolStripMenuItem.Click += new System.EventHandler(this.encryptCombatRoutineToolStripMenuItem_Click);
+            // 
+            // imageToByteArrayToolStripMenuItem
+            // 
+            this.imageToByteArrayToolStripMenuItem.Name = "imageToByteArrayToolStripMenuItem";
+            this.imageToByteArrayToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.imageToByteArrayToolStripMenuItem.Text = "Image to byte array";
+            this.imageToByteArrayToolStripMenuItem.Click += new System.EventHandler(this.imageToByteArrayToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkForUpdatesToolStripMenuItem,
+            this.submitTicketToolStripMenuItem});
+            this.helpToolStripMenuItem.Image = global::PixelMagic.GUI.Properties.Resources.help;
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.checkForUpdatesToolStripMenuItem.Text = "Check for updates...";
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
+            // 
+            // submitTicketToolStripMenuItem
+            // 
+            this.submitTicketToolStripMenuItem.Enabled = false;
+            this.submitTicketToolStripMenuItem.Name = "submitTicketToolStripMenuItem";
+            this.submitTicketToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.submitTicketToolStripMenuItem.Text = "Submit Ticket";
+            this.submitTicketToolStripMenuItem.Click += new System.EventHandler(this.submitTicketToolStripMenuItem_Click);
+            // 
             // transparentLabel3
             // 
             this.transparentLabel3.ForeColor = System.Drawing.Color.White;
@@ -417,112 +523,6 @@
             this.prgPlayerHealth.Step = 10;
             this.prgPlayerHealth.TabIndex = 24;
             this.prgPlayerHealth.Value = 70;
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadRotationToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Image = global::PixelMagic.GUI.Properties.Resources.Project_16x16;
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // loadRotationToolStripMenuItem
-            // 
-            this.loadRotationToolStripMenuItem.Name = "loadRotationToolStripMenuItem";
-            this.loadRotationToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.loadRotationToolStripMenuItem.Text = "Load Rotation...";
-            this.loadRotationToolStripMenuItem.Click += new System.EventHandler(this.loadRotationToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // setupToolStripMenuItem
-            // 
-            this.setupToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hotkeysToolStripMenuItem,
-            this.spellbookToolStripMenuItem,
-            this.reloadAddonToolStripMenuItem});
-            this.setupToolStripMenuItem.Image = global::PixelMagic.GUI.Properties.Resources.PageSetup_16x16;
-            this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
-            this.setupToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.setupToolStripMenuItem.Text = "Setup";
-            // 
-            // hotkeysToolStripMenuItem
-            // 
-            this.hotkeysToolStripMenuItem.Name = "hotkeysToolStripMenuItem";
-            this.hotkeysToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.hotkeysToolStripMenuItem.Text = "Hotkeys";
-            this.hotkeysToolStripMenuItem.Click += new System.EventHandler(this.hotkeysToolStripMenuItem_Click);
-            // 
-            // spellbookToolStripMenuItem
-            // 
-            this.spellbookToolStripMenuItem.Enabled = false;
-            this.spellbookToolStripMenuItem.Name = "spellbookToolStripMenuItem";
-            this.spellbookToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.spellbookToolStripMenuItem.Text = "Spellbook";
-            this.spellbookToolStripMenuItem.Click += new System.EventHandler(this.spellbookToolStripMenuItem_Click);
-            // 
-            // reloadAddonToolStripMenuItem
-            // 
-            this.reloadAddonToolStripMenuItem.Name = "reloadAddonToolStripMenuItem";
-            this.reloadAddonToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.reloadAddonToolStripMenuItem.Text = "Reload Addon";
-            this.reloadAddonToolStripMenuItem.Click += new System.EventHandler(this.reloadAddonToolStripMenuItem_Click);
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.encryptCombatRoutineToolStripMenuItem,
-            this.imageToByteArrayToolStripMenuItem});
-            this.toolsToolStripMenuItem.Image = global::PixelMagic.GUI.Properties.Resources.Version_16x16;
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // encryptCombatRoutineToolStripMenuItem
-            // 
-            this.encryptCombatRoutineToolStripMenuItem.Name = "encryptCombatRoutineToolStripMenuItem";
-            this.encryptCombatRoutineToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.encryptCombatRoutineToolStripMenuItem.Text = "Encrypt Combat Routine";
-            this.encryptCombatRoutineToolStripMenuItem.Click += new System.EventHandler(this.encryptCombatRoutineToolStripMenuItem_Click);
-            // 
-            // imageToByteArrayToolStripMenuItem
-            // 
-            this.imageToByteArrayToolStripMenuItem.Name = "imageToByteArrayToolStripMenuItem";
-            this.imageToByteArrayToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.imageToByteArrayToolStripMenuItem.Text = "Image to byte array";
-            this.imageToByteArrayToolStripMenuItem.Click += new System.EventHandler(this.imageToByteArrayToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.checkForUpdatesToolStripMenuItem,
-            this.submitTicketToolStripMenuItem});
-            this.helpToolStripMenuItem.Image = global::PixelMagic.GUI.Properties.Resources.help;
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // checkForUpdatesToolStripMenuItem
-            // 
-            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.checkForUpdatesToolStripMenuItem.Text = "Check for updates...";
-            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
-            // 
-            // submitTicketToolStripMenuItem
-            // 
-            this.submitTicketToolStripMenuItem.Enabled = false;
-            this.submitTicketToolStripMenuItem.Name = "submitTicketToolStripMenuItem";
-            this.submitTicketToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.submitTicketToolStripMenuItem.Text = "Submit Ticket";
-            this.submitTicketToolStripMenuItem.Click += new System.EventHandler(this.submitTicketToolStripMenuItem_Click);
             // 
             // frmMain
             // 
