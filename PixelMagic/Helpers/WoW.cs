@@ -613,7 +613,7 @@ namespace PixelMagic.Helpers
 
             var ret = CanCast(spell.InternalSpellNo, checkIfPlayerIsCasting, checkIfSpellIsOnCooldown, checkIfSpellIsInRange, checkSpellCharges, checkIfTargetIsVisible);
 
-            Log.Write($"CanCast [{spellBookSpellName}] = {ret}", ret ? Color.Green : Color.Red);
+            //Log.Write($"CanCast [{spellBookSpellName}] = {ret}", ret ? Color.Green : Color.Gray);
 
             return ret;
         }

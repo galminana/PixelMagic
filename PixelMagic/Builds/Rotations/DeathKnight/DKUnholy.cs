@@ -46,29 +46,29 @@ namespace PixelMagic.Rotation
                     {
                         WoW.CastSpellByName("Outbreak");
                     }
-                    if (WoW.CanCast("Dark Transformation", true, true, true, true, true) && WoW.GetSpellCharges("Dark Transformation") > 0)
+                    if (WoW.CanCast("Dark Transformation", true, true, true, false, true))
                     {
                         WoW.CastSpellByName("Dark Transformation");
                     }
-
-                    //if (WoW.CanCast("Death Coil", true, false, false, false, true) && (WoW.RunicPower >= 80) || (WoW.HasBuff("Sudden Doom") && WoW.IsSpellOnCooldown("Dark Arbiter")))
-                    //{
-                    //    WoW.CastSpellByName("Death Coil");
-                    //}
-                    //if (WoW.CanCast("Festering Strike", true, false, true, false, true) && WoW.GetDebuffStacks("Festering Wound") <= 4)
-                    //{
-                    //    WoW.CastSpellByName("Festering Strike");
-                    //}
-                    //if (WoW.CanCast("Clawing Shadows", true, false, false, false, true) && WoW.CurrentRunes >= 3)
-                    //{
-                    //    WoW.CastSpellByName("Clawing Shadows");
-                    //}                        
+                    if ((WoW.CanCast("Death Coil", true, true, false, false, true) && (WoW.RunicPower >= 80)) || 
+                        (WoW.HasBuff("Sudden Doom") && WoW.IsSpellOnCooldown("Dark Arbiter")))
+                    {
+                        WoW.CastSpellByName("Death Coil");
+                    }
+                    if (WoW.CanCast("Festering Strike", true, true, true, false, true) && WoW.GetDebuffStacks("Festering Wound") <= 4)
+                    {
+                        WoW.CastSpellByName("Festering Strike");
+                    }
+                    if (WoW.CanCast("Clawing Shadows", true, true, false, false, true) && WoW.CurrentRunes >= 3)
+                    {
+                        WoW.CastSpellByName("Clawing Shadows");
+                    }
                 }
             }
             if (combatRoutine.Type == RotationType.AOE)
             {
                 //Log.Write("Spell Charges: " + WoW.GetSpellCharges("Dark Transformation"));
-                Log.Write("Spell Charges: " + WoW.GetSpellCharges("Dark Transformation"));
+                Log.Write("Runic Power: " + WoW.RunicPower);
             }
         }
 

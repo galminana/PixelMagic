@@ -140,36 +140,25 @@ local function updateSpellCooldowns()
 		-- start is the value of GetTime() at the point the spell began cooling down
 		-- duration is the total duration of the cooldown, NOT the remaining
 		local start, duration, _ = GetSpellCooldown(spellId)
-		if start and duration then -- the spell is on cooldown
-			local getTime = GetTime()
-
-			-- start + duration gives us the value of GetTime() at the point when the cd will end
-			-- the time when the cd ends (a time in the future) minus the current time gives us the remaining duration on the cooldown
-			local remainingCD = start + duration - getTime
-
-			if (remainingCD > 0) then
-																-- if (spellId == 642) Divine Shield is on CD
-																-- BUG: when trigger global CD on ANY spell this increases to 1 second
-																-- dont have a workaround for now
-				if (lastCooldownState[spellId] ~= ""onCD"") then										 
-					print(""Spell with Id = "" .. spellId .. "" is on CD: "" .. remainingCD)
+		if duration ~= 0 then -- the spell is not ready to be cast
+			if (lastCooldownState[spellId] ~= ""onCD"") then										 
+				--print(""Spell with Id = "" .. spellId .. "" is on CD"")
 					
-					cooldownframes[spellId].t:SetColorTexture(1, 0, 0, 1)
-					cooldownframes[spellId].t:SetAllPoints(false)
+				cooldownframes[spellId].t:SetColorTexture(1, 0, 0, 1)
+				cooldownframes[spellId].t:SetAllPoints(false)
 					
-					lastCooldownState[spellId] = ""onCD""
-				end				
-			else
-				if (lastCooldownState[spellId] ~= ""offCD"") then
-					--print(""Spell with Id = "" .. spellId .. "" is off CD and can be cast"")
-					
-					cooldownframes[spellId].t:SetColorTexture(1, 1, 1, 1)
-					cooldownframes[spellId].t:SetAllPoints(false)
-					
-					lastCooldownState[spellId] = ""offCD""
-				end
+				lastCooldownState[spellId] = ""onCD""
 			end				
-		end
+		else
+			if (lastCooldownState[spellId] ~= ""offCD"") then
+				--print(""Spell with Id = "" .. spellId .. "" is off CD and can be cast"")
+					
+				cooldownframes[spellId].t:SetColorTexture(1, 1, 1, 1)
+				cooldownframes[spellId].t:SetAllPoints(false)
+					
+				lastCooldownState[spellId] = ""offCD""
+			end
+		end						
 	end
 end
 
@@ -253,7 +242,7 @@ local function updateTargetDebuffs()
             return
         end
         
-		print(""Getting debuff for Id = "" .. auraName)
+		--print(""Getting debuff for Id = "" .. auraName)
 		
         local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId, canApplyAura, isBossDebuff, value1, value2, value3 = UnitDebuff(""target"", auraName)		        
 
@@ -607,7 +596,7 @@ local function initFrames()
 	for _, spellId in pairs(cooldowns) do	
 		cooldownframes[spellId] = CreateFrame(""frame"")
 		cooldownframes[spellId]:SetSize(size, size)
-		cooldownframes[spellId]:SetPoint(""TOPLEFT"", i * size, -size)          -- column 1+, row 2
+		cooldownframes[spellId]:SetPoint(""TOPLEFT"", (i - 1) * size, -size)          -- column 1+, row 2
 		cooldownframes[spellId].t = cooldownframes[spellId]:CreateTexture()        
 		cooldownframes[spellId].t:SetColorTexture(1, 1, 1, 1)
 		cooldownframes[spellId].t:SetAllPoints(cooldownframes[spellId])
