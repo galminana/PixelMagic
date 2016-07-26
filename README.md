@@ -12,4 +12,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 <br>
 Anyone using / copying any part of the software must include this license<br>
 <br>
-![Alt Text](http://i.imgur.com/hjsQyfC.png)
+![Alt Text](http://i.imgur.com/7cjbnkf.png)
+<br>
+![Alt Text](http://i.imgur.com/7cjbnkf.png)

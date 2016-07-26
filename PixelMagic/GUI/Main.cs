@@ -264,7 +264,20 @@ namespace PixelMagic.GUI
             txtMouseXYClick.Text = $"{e.X}, {e.Y}";
         }
 
-        public Process process;
+        private Process _process;
+
+        public Process process
+        {
+            get
+            {
+                return _process;
+            }
+            set
+            {
+                _process = value;
+                Log.Write("Process Id = " + value.Id);
+            }
+        }
 
         private void FrmMain_Shown(object sender, EventArgs e)
         {

@@ -69,7 +69,7 @@ namespace PixelMagic.GUI
 
         private void SelectWoWProcessToAttachTo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            parent.process = null;            
+            //parent.process = null;            
         }
 
         private void CmbWoW_KeyDown(object sender, KeyEventArgs e)
@@ -101,7 +101,7 @@ namespace PixelMagic.GUI
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            parent.process = null;
+            //parent.process = null;
             Close();
         }
     }

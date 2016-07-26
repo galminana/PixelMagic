@@ -46,13 +46,13 @@ local function updateHolyPower()
 		local i = 1
 
 		while i <= power do
-			hpframes[i].t:SetTexture(1, 0, 0, 1)
+			hpframes[i].t:SetColorTexture(1, 0, 0, 1)
 			hpframes[i].t:SetAllPoints(false)
 			i = 1 + i
 		end
 		
 		while i <= 5 do
-			hpframes[i].t:SetTexture(0, 1, 1, 1)
+			hpframes[i].t:SetColorTexture(0, 1, 1, 1)
 			hpframes[i].t:SetAllPoints(false)
 			i = 1 + i
 		end
@@ -70,14 +70,14 @@ local function updateComboPoints()
         print(""Combo Points: "" .. power)
 
         while i <= power do                             -- update all power frames to red (this should update all 8, need to confirm)
-            hpframes[i].t:SetTexture(1, 0, 0, 1)
+            hpframes[i].t:SetColorTexture(1, 0, 0, 1)
             hpframes[i].t:SetAllPoints(false)
             i = 1 + i
         end		
     end
   
     while i <= 8 do                                     -- mark the remaining frames in color white
-        hpframes[i].t:SetTexture(1, 1, 0, 1)
+        hpframes[i].t:SetColorTexture(1, 1, 0, 1)
         hpframes[i].t:SetAllPoints(false)
         i = 1 + i
     end    
@@ -92,13 +92,13 @@ local function updateSoulShards()
         local i = 1
 
         while i <= power do
-            hpframes[i].t:SetTexture(1, 0, 0, 1)
+            hpframes[i].t:SetColorTexture(1, 0, 0, 1)
             hpframes[i].t:SetAllPoints(false)
             i = 1 + i
         end
 		    
         while i <= 5 do
-            hpframes[i].t:SetTexture(1, 1, 0, 1)
+            hpframes[i].t:SetColorTexture(1, 1, 0, 1)
             hpframes[i].t:SetAllPoints(false)
             i = 1 + i
         end
@@ -120,13 +120,13 @@ local function updateRunes()
     if selRune ~= runePrev then	
 
         while i <= selRune do
-            hpframes[i].t:SetTexture(1, 0, 0, 1)
+            hpframes[i].t:SetColorTexture(1, 0, 0, 1)
             hpframes[i].t:SetAllPoints(false)
             i = 1 + i
         end
     
         while i <= 6 do
-            hpframes[i].t:SetTexture(1, 1, 1, 1)
+            hpframes[i].t:SetColorTexture(1, 1, 1, 1)
             hpframes[i].t:SetAllPoints(false)
             i = i + 1
 		end
@@ -139,7 +139,7 @@ local function updateSpellCooldowns()
 	for _, spellId in pairs(cooldowns) do
 		-- start is the value of GetTime() at the point the spell began cooling down
 		-- duration is the total duration of the cooldown, NOT the remaining
-		local start, duration, = GetSpellCooldown(spellId)
+		local start, duration, _ = GetSpellCooldown(spellId)
 		if start and duration then -- the spell is on cooldown
 			local getTime = GetTime()
 
@@ -154,7 +154,7 @@ local function updateSpellCooldowns()
 				if (lastCooldownState[spellId] ~= ""onCD"") then										 
 					print(""Spell with Id = "" .. spellId .. "" is on CD: "" .. remainingCD)
 					
-					cooldownframes[spellId].t:SetTexture(1, 0, 0, 1)
+					cooldownframes[spellId].t:SetColorTexture(1, 0, 0, 1)
 					cooldownframes[spellId].t:SetAllPoints(false)
 					
 					lastCooldownState[spellId] = ""onCD""
@@ -163,7 +163,7 @@ local function updateSpellCooldowns()
 				if (lastCooldownState[spellId] ~= ""offCD"") then
 					--print(""Spell with Id = "" .. spellId .. "" is off CD and can be cast"")
 					
-					cooldownframes[spellId].t:SetTexture(1, 1, 1, 1)
+					cooldownframes[spellId].t:SetColorTexture(1, 1, 1, 1)
 					cooldownframes[spellId].t:SetAllPoints(false)
 					
 					lastCooldownState[spellId] = ""offCD""
@@ -188,7 +188,7 @@ local function updateSpellCharges()
 
             print(""Spell with Id = "" .. spellId .. "" has charges: "" .. charges .. "" Green = "" .. green)
 
-            updateSpellChargesFrame[spellId].t:SetTexture(0, green, 0, 1)
+            updateSpellChargesFrame[spellId].t:SetColorTexture(0, green, 0, 1)
 		    updateSpellChargesFrame[spellId].t:SetAllPoints(false)
 		    		
 		    lastSpellChargeCharges[spellId] = charges		
@@ -200,6 +200,17 @@ local function updateMyBuffs()
 	for _, auraId in pairs(buffs) do
         local buff = ""UnitBuff"";
 		local auraName = GetSpellInfo(auraId)
+		
+		if auraName == nil then
+			if (lastBuffState[auraId] ~= ""BuffOff"") then
+                buffFrames[auraId].t:SetColorTexture(1, 1, 1, 1)
+                buffFrames[auraId].t:SetAllPoints(false)
+                lastBuffState[auraId] = ""BuffOff""
+                --print(""["" .. buff .. ""] "" .. auraName.. "" Off"")
+            end
+			return
+		end
+		
 		local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitBuff(""player"", auraName)		
 		
 		if (name == auraName) then -- We have Aura up and Aura ID is matching our list					
@@ -231,7 +242,20 @@ local function updateTargetDebuffs()
 	for _, auraId in pairs(debuffs) do
         local buff = ""UnitDebuff"";
 		local auraName = GetSpellInfo(auraId)
-        name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitDebuff(""target"", auraName)		        
+
+        if auraName == nil then
+            if (lastDebuffState[auraId] ~= ""DebuffOff"") then
+                targetDebuffFrames[auraId].t:SetColorTexture(1, 1, 1, 1)
+                targetDebuffFrames[auraId].t:SetAllPoints(false)
+                lastDebuffState[auraId] = ""DebuffOff""               
+            end
+    
+            return
+        end
+        
+		print(""Getting debuff for Id = "" .. auraName)
+		
+        local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId, canApplyAura, isBossDebuff, value1, value2, value3 = UnitDebuff(""target"", auraName)		        
 
 		if (name == auraName) then -- We have Aura up and Aura ID is matching our list					
             local getTime = GetTime()
@@ -273,18 +297,22 @@ end
 local lastSpellInRange = {}
 
 local function updateSpellInRangeFrames() 
-	for _, spellId in pairs(cooldowns) do
-		
+	for _, spellId in pairs(cooldowns) do		
+		local inRange = 0		
 		local name, rank, icon, castTime, minRange, maxRange = GetSpellInfo(spellId)
 		
-		-- http://wowwiki.wikia.com/wiki/API_IsSpellInRange	
-		local inRange = IsSpellInRange(name, ""target"")  -- '0' if out of range, '1' if in range, or 'nil' if the unit is invalid. 
+		if (name == nil) then		
+			inRange = 0		
+		else
+			-- http://wowwiki.wikia.com/wiki/API_IsSpellInRange	
+			inRange = IsSpellInRange(name, ""target"")  -- '0' if out of range, '1' if in range, or 'nil' if the unit is invalid.	
+		end
 								
 		if lastSpellInRange[spellId] ~= inRange then
 			if (inRange == 1) then
-				spellInRangeFrames[spellId].t:SetTexture(1, 0, 0, 1)
+				spellInRangeFrames[spellId].t:SetColorTexture(1, 0, 0, 1)
 			else
-				spellInRangeFrames[spellId].t:SetTexture(1, 1, 1, 1)
+				spellInRangeFrames[spellId].t:SetColorTexture(1, 1, 1, 1)
 			end 
 			spellInRangeFrames[spellId].t:SetAllPoints(false)
 			
@@ -324,9 +352,9 @@ local function updateHealth()
 			local currentBit = string.sub(binaryHealth, i, i)
 			
 			if (currentBit == ""1"") then
-				healthFrames[i].t:SetTexture(1, 0, 0, 1)
+				healthFrames[i].t:SetColorTexture(1, 0, 0, 1)
 			else
-				healthFrames[i].t:SetTexture(1, 1, 1, 1)
+				healthFrames[i].t:SetColorTexture(1, 1, 1, 1)
 			end
 			healthFrames[i].t:SetAllPoints(false)
 		end
@@ -358,9 +386,9 @@ local function updateTargetHealth()
 			local currentBit = string.sub(binaryHealth, i, i)
 			
 			if (currentBit == ""1"") then
-				targetHealthFrames[i].t:SetTexture(0, 0, 1, 1)
+				targetHealthFrames[i].t:SetColorTexture(0, 0, 1, 1)
 			else
-				targetHealthFrames[i].t:SetTexture(1, 1, 1, 1)
+				targetHealthFrames[i].t:SetColorTexture(1, 1, 1, 1)
 			end
 			targetHealthFrames[i].t:SetAllPoints(false)
 		end
@@ -408,9 +436,9 @@ local function updatePower()
 			local currentBit = string.sub(binaryPower, i, i)
 			
 			if (currentBit == ""1"") then
-				powerFrames[i].t:SetTexture(0, 1, 0, 1)
+				powerFrames[i].t:SetColorTexture(0, 1, 0, 1)
 			else
-				powerFrames[i].t:SetTexture(1, 1, 1, 1)
+				powerFrames[i].t:SetColorTexture(1, 1, 1, 1)
 			end
 			powerFrames[i].t:SetAllPoints(false)
 		end	
@@ -427,11 +455,11 @@ local function updateIsFriendly()
 		if (isFriend == true) then
 			--print (""Unit is friendly: True"")
 			
-			isTargetFriendlyFrame.t:SetTexture(0, 1, 0, 1)
+			isTargetFriendlyFrame.t:SetColorTexture(0, 1, 0, 1)
 		else
 			--print (""Unit is friendly: False"")
 			
-			isTargetFriendlyFrame.t:SetTexture(0, 0, 1, 1)
+			isTargetFriendlyFrame.t:SetColorTexture(0, 0, 1, 1)
 		end
 	
 		lastIsFriend = isFriend
@@ -447,11 +475,11 @@ local function hasTarget()
 		if (guid == nil) then
 			--print (""Target GUID: None"" )	
 			
-			hasTargetFrame.t:SetTexture(0, 0, 0, 1)
+			hasTargetFrame.t:SetColorTexture(0, 0, 0, 1)
 		else			
 			--print (""Target GUID: "" .. guid )	
 			
-			hasTargetFrame.t:SetTexture(1, 0, 0, 1)
+			hasTargetFrame.t:SetColorTexture(1, 0, 0, 1)
 		end
 			
 		lastTargetGUID = guid		
@@ -467,7 +495,7 @@ local function updatePlayerIsCasting()
 		if castID ~= lastCastID then
 			--print(""Casting spell: "" .. spell)
 		
-			playerIsCastingFrame.t:SetTexture(1, 0, 0, 1)
+			playerIsCastingFrame.t:SetColorTexture(1, 0, 0, 1)
 		
 			lastCastID = castID		
 		end
@@ -475,7 +503,7 @@ local function updatePlayerIsCasting()
 		if castID ~= lastCastID then
 			--print(""Not casting"")
 			
-			playerIsCastingFrame.t:SetTexture(1, 1, 1, 1)
+			playerIsCastingFrame.t:SetColorTexture(1, 1, 1, 1)
 			
 			lastCastID = castID		
 		end	
@@ -491,7 +519,7 @@ local function updateTargetIsCasting()
 		if castID ~= lastTargetCastID then
 			--print(""Casting spell: "" .. spell)
 		
-			targetIsCastingFrame.t:SetTexture(1, 0, 0, 1)
+			targetIsCastingFrame.t:SetColorTexture(1, 0, 0, 1)
 		
 			lastTargetCastID = castID		
 		end
@@ -499,7 +527,7 @@ local function updateTargetIsCasting()
 		if castID ~= lastTargetCastID then
 			--print(""Not casting"")
 			
-			targetIsCastingFrame.t:SetTexture(1, 1, 1, 1)
+			targetIsCastingFrame.t:SetColorTexture(1, 1, 1, 1)
 			
 			lastTargetCastID = castID		
 		end	
@@ -515,14 +543,14 @@ local function updateUnitIsVisible()
         if (vis ~= lastVis) then
 		    --print(""Target Is Not Visible"")		
 
-	        unitIsVisibleFrame.t:SetTexture(1, 1, 1, 1)
+	        unitIsVisibleFrame.t:SetColorTexture(1, 1, 1, 1)
 		    lastVis = vis				
         end
 	else
 		if vis ~= lastVis then
 			--print(""Target Is Visible"")			
 
-			unitIsVisibleFrame.t:SetTexture(1, 0, 0, 1)			
+			unitIsVisibleFrame.t:SetColorTexture(1, 0, 0, 1)			
 			lastVis = vis		
 		end	
 	end
@@ -538,7 +566,7 @@ local function initFrames()
 		healthFrames[i]:SetSize(size, size)
 		healthFrames[i]:SetPoint(""TOPLEFT"", (i - 1) * size, 0)                -- column 1 - 7, row 1
 		healthFrames[i].t = healthFrames[i]:CreateTexture()        
-		healthFrames[i].t:SetTexture(1, 1, 1, 1)
+		healthFrames[i].t:SetColorTexture(1, 1, 1, 1)
 		healthFrames[i].t:SetAllPoints(healthFrames[i])
 		healthFrames[i]:Show()		
 		
@@ -553,7 +581,7 @@ local function initFrames()
 		powerFrames[i-start]:SetSize(size, size)
 		powerFrames[i-start]:SetPoint(""TOPLEFT"", (i - 1) * size, 0)           -- column 8-15, row 1
 		powerFrames[i-start].t = powerFrames[i-start]:CreateTexture()        
-		powerFrames[i-start].t:SetTexture(1, 1, 1, 1)
+		powerFrames[i-start].t:SetColorTexture(1, 1, 1, 1)
 		powerFrames[i-start].t:SetAllPoints(powerFrames[i-start])
 		powerFrames[i-start]:Show()		
 		
@@ -567,7 +595,7 @@ local function initFrames()
 		targetHealthFrames[i-start]:SetSize(size, size)
 		targetHealthFrames[i-start]:SetPoint(""TOPLEFT"", (i - 1) * size, 0)    -- column 16 - 23, row 1        
 		targetHealthFrames[i-start].t = targetHealthFrames[i-start]:CreateTexture()        
-		targetHealthFrames[i-start].t:SetTexture(1, 1, 1, 1)
+		targetHealthFrames[i-start].t:SetColorTexture(1, 1, 1, 1)
 		targetHealthFrames[i-start].t:SetAllPoints(targetHealthFrames[i-start])
 		targetHealthFrames[i-start]:Show()		
 		
@@ -581,7 +609,7 @@ local function initFrames()
 		cooldownframes[spellId]:SetSize(size, size)
 		cooldownframes[spellId]:SetPoint(""TOPLEFT"", i * size, -size)          -- column 1+, row 2
 		cooldownframes[spellId].t = cooldownframes[spellId]:CreateTexture()        
-		cooldownframes[spellId].t:SetTexture(1, 1, 1, 1)
+		cooldownframes[spellId].t:SetColorTexture(1, 1, 1, 1)
 		cooldownframes[spellId].t:SetAllPoints(cooldownframes[spellId])
 		cooldownframes[spellId]:Show()
 		               
@@ -596,7 +624,7 @@ local function initFrames()
 		updateSpellChargesFrame[spellId]:SetSize(size, size)
 		updateSpellChargesFrame[spellId]:SetPoint(""TOPLEFT"", (i - 1) * size, -size * 8)          -- column 1+, row 9
 		updateSpellChargesFrame[spellId].t = updateSpellChargesFrame[spellId]:CreateTexture()        
-		updateSpellChargesFrame[spellId].t:SetTexture(1, 1, 1, 1)
+		updateSpellChargesFrame[spellId].t:SetColorTexture(1, 1, 1, 1)
 		updateSpellChargesFrame[spellId].t:SetAllPoints(updateSpellChargesFrame[spellId])
 		updateSpellChargesFrame[spellId]:Show()
 		               
@@ -611,7 +639,7 @@ local function initFrames()
 		    hpframes[i]:SetSize(size, size)
 		    hpframes[i]:SetPoint(""TOPLEFT"", i * size - 5, -size * 6)          -- column 1 - 5, row 7
 		    hpframes[i].t = hpframes[i]:CreateTexture()        
-		    hpframes[i].t:SetTexture(0, 1, 1, 1)
+		    hpframes[i].t:SetColorTexture(0, 1, 1, 1)
 		    hpframes[i].t:SetAllPoints(hpframes[i])
 		    hpframes[i]:Show()
 		
@@ -626,7 +654,7 @@ local function initFrames()
 		    hpframes[i]:SetSize(size, size)
 		    hpframes[i]:SetPoint(""TOPLEFT"", i * size - 5, -size * 6)          -- column 1 - 5, row 7
 		    hpframes[i].t = hpframes[i]:CreateTexture()        
-		    hpframes[i].t:SetTexture(0, 1, 1, 1)
+		    hpframes[i].t:SetColorTexture(0, 1, 1, 1)
 		    hpframes[i].t:SetAllPoints(hpframes[i])
 		    hpframes[i]:Show()
 		
@@ -641,7 +669,7 @@ local function initFrames()
 		    hpframes[i]:SetSize(size, size)
 		    hpframes[i]:SetPoint(""TOPLEFT"", i * size - 5, -size * 6)          -- column 1 - 5, row 7
 		    hpframes[i].t = hpframes[i]:CreateTexture()        
-		    hpframes[i].t:SetTexture(0, 1, 1, 1)
+		    hpframes[i].t:SetColorTexture(0, 1, 1, 1)
 		    hpframes[i].t:SetAllPoints(hpframes[i])
 		    hpframes[i]:Show()
 		
@@ -656,7 +684,7 @@ local function initFrames()
 		    hpframes[i]:SetSize(size, size)
 		    hpframes[i]:SetPoint(""TOPLEFT"", i * size - 5, -size * 6)          -- column 1 - 6, row 7
 		    hpframes[i].t = hpframes[i]:CreateTexture()        
-		    hpframes[i].t:SetTexture(0, 1, 1, 1)
+		    hpframes[i].t:SetColorTexture(0, 1, 1, 1)
 		    hpframes[i].t:SetAllPoints(hpframes[i])
 		    hpframes[i]:Show()	
 		    hpframes[i]:SetScript(""OnUpdate"", updateRunes)
@@ -670,7 +698,7 @@ local function initFrames()
 		spellInRangeFrames[spellId]:SetSize(size, size)
 		spellInRangeFrames[spellId]:SetPoint(""TOPLEFT"", i * size, -size * 5)  -- entire row 6
 		spellInRangeFrames[spellId].t = spellInRangeFrames[spellId]:CreateTexture()        
-		spellInRangeFrames[spellId].t:SetTexture(1, 1, 1, 1)
+		spellInRangeFrames[spellId].t:SetColorTexture(1, 1, 1, 1)
 		spellInRangeFrames[spellId].t:SetAllPoints(spellInRangeFrames[spellId])
 		spellInRangeFrames[spellId]:Show()
 		               
@@ -683,7 +711,7 @@ local function initFrames()
 	isTargetFriendlyFrame:SetSize(size, size);
 	isTargetFriendlyFrame:SetPoint(""TOPLEFT"", 0, -(size * 2))                 -- column 1 row 3
 	isTargetFriendlyFrame.t = isTargetFriendlyFrame:CreateTexture()        
-	isTargetFriendlyFrame.t:SetTexture(0, 1, 0, 1)
+	isTargetFriendlyFrame.t:SetColorTexture(0, 1, 0, 1)
 	isTargetFriendlyFrame.t:SetAllPoints(isTargetFriendlyFrame)
 	isTargetFriendlyFrame:Show()		
 		
@@ -694,7 +722,7 @@ local function initFrames()
 	hasTargetFrame:SetSize(size, size);
 	hasTargetFrame:SetPoint(""TOPLEFT"", size, -(size * 2))                     -- column 2 row 3
 	hasTargetFrame.t = hasTargetFrame:CreateTexture()        
-	hasTargetFrame.t:SetTexture(0, 1, 0, 1)
+	hasTargetFrame.t:SetColorTexture(0, 1, 0, 1)
 	hasTargetFrame.t:SetAllPoints(hasTargetFrame)
 	hasTargetFrame:Show()		
 		
@@ -705,7 +733,7 @@ local function initFrames()
 	playerIsCastingFrame:SetSize(size, size);
 	playerIsCastingFrame:SetPoint(""TOPLEFT"", size * 2, -(size * 2))           -- column 3 row 3
 	playerIsCastingFrame.t = playerIsCastingFrame:CreateTexture()        
-	playerIsCastingFrame.t:SetTexture(1, 1, 1, 1)
+	playerIsCastingFrame.t:SetColorTexture(1, 1, 1, 1)
 	playerIsCastingFrame.t:SetAllPoints(playerIsCastingFrame)
 	playerIsCastingFrame:Show()		
 		
@@ -716,7 +744,7 @@ local function initFrames()
 	targetIsCastingFrame:SetSize(size, size);
 	targetIsCastingFrame:SetPoint(""TOPLEFT"", size * 3, -(size * 2))           -- column 4 row 3
 	targetIsCastingFrame.t = targetIsCastingFrame:CreateTexture()        
-	targetIsCastingFrame.t:SetTexture(1, 1, 1, 1)
+	targetIsCastingFrame.t:SetColorTexture(1, 1, 1, 1)
 	targetIsCastingFrame.t:SetAllPoints(targetIsCastingFrame)
 	targetIsCastingFrame:Show()		
 		
@@ -727,7 +755,7 @@ local function initFrames()
 	unitIsVisibleFrame:SetSize(size, size);
 	unitIsVisibleFrame:SetPoint(""TOPLEFT"", size * 4, -(size * 2))             -- column 5 row 3
 	unitIsVisibleFrame.t = unitIsVisibleFrame:CreateTexture()        
-	unitIsVisibleFrame.t:SetTexture(0, 1, 0, 1)
+	unitIsVisibleFrame.t:SetColorTexture(0, 1, 0, 1)
 	unitIsVisibleFrame.t:SetAllPoints(unitIsVisibleFrame)
 	unitIsVisibleFrame:Show()		
 		
@@ -740,7 +768,7 @@ local function initFrames()
 		buffFrames[buffId]:SetSize(size, size)
 		buffFrames[buffId]:SetPoint(""TOPLEFT"", i * size, -(size * 2))         -- column 6+ row 3
 		buffFrames[buffId].t = buffFrames[buffId]:CreateTexture()        
-		buffFrames[buffId].t:SetTexture(1, 1, 1, 1)
+		buffFrames[buffId].t:SetColorTexture(1, 1, 1, 1)
 		buffFrames[buffId].t:SetAllPoints(buffFrames[buffId])
 		buffFrames[buffId]:Show()
 		               
@@ -755,7 +783,7 @@ local function initFrames()
 		targetDebuffFrames[debuffId]:SetSize(size, size)
 		targetDebuffFrames[debuffId]:SetPoint(""TOPLEFT"", i * size, -(size * 7))         -- column 1+ row 8
 		targetDebuffFrames[debuffId].t = targetDebuffFrames[debuffId]:CreateTexture()        
-		targetDebuffFrames[debuffId].t:SetTexture(1, 1, 1, 1)
+		targetDebuffFrames[debuffId].t:SetColorTexture(1, 1, 1, 1)
 		targetDebuffFrames[debuffId].t:SetAllPoints(targetDebuffFrames[debuffId])
 		targetDebuffFrames[debuffId]:Show()
 		               
@@ -769,8 +797,8 @@ end
 local function eventHandler(self, event, ...)
 	local arg1 = ...
 	if event == ""ADDON_LOADED"" then
-		if (arg1 == ""DoIt"") then
-			print(""Addon Loaded... DoIt"")
+		if (arg1 == ""PixMag"") then
+			print(""Addon Loaded... PixMag"")
 			print(""Tracking "" .. table.getn(cooldowns) .. "" cooldowns"")
 			initFrames()
 		end
@@ -778,5 +806,6 @@ local function eventHandler(self, event, ...)
 end	
 
 f:SetScript(""OnEvent"", eventHandler) ";
+
     }
 }
