@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using PixelMagic.GUI;
 using PixelMagic.Helpers;
+using System.Media;
 
 // ReSharper disable FunctionNeverReturns
 // ReSharper disable MemberCanBeProtected.Global
@@ -32,7 +33,8 @@ namespace PixelMagic.Rotation
         public enum RotationType
         {
             SingleTarget = 0,
-            AOE = 1
+            SingleTargetCleave = 1,     // Some classes like Warriors need support for this
+            AOE = 2
         }
 
         private volatile RotationType _rotationType = RotationType.SingleTarget;
@@ -205,6 +207,11 @@ namespace PixelMagic.Rotation
                 _rotationType = rotationType;
 
                 Log.Write("Rotation type: " + rotationType);
+
+                if (ConfigFile.PlayErrorSounds)
+                {
+                    SystemSounds.Beep.Play();
+                }
 
                 Overlay.updateLabels();
             }

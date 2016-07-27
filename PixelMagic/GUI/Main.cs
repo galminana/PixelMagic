@@ -256,6 +256,7 @@ namespace PixelMagic.GUI
                 hook.RegisterHotKey(Helpers.ModifierKeys.Ctrl, Keys.S, "Start / Stop Rotation");
                 hook.RegisterHotKey(Helpers.ModifierKeys.Alt, Keys.S, "Single Target");
                 hook.RegisterHotKey(Helpers.ModifierKeys.Alt, Keys.A, "AOE Targets");
+                hook.RegisterHotKey(Helpers.ModifierKeys.Alt, Keys.C, "Single Target Cleave Targets");
             }
         }
 
@@ -387,24 +388,50 @@ namespace PixelMagic.GUI
                 if (combatRoutine == null)
                     return;
 
-                if (e.Modifier == Keyboard.SingleTargetModifierKey && e.Key == Keyboard.SingleTargetKey)
+
+                if (Keyboard.SingleTargetModifierKey == Keyboard.AOEModifierKey && Keyboard.SingleTargetKey == Keyboard.AOEKey)
                 {
-                    if (combatRoutine.Type != CombatRoutine.RotationType.SingleTarget)
+                    if (e.Modifier == Keyboard.SingleTargetModifierKey && e.Key == Keyboard.SingleTargetKey) // or AOEKey - since they the same in this case
                     {
+                        if (combatRoutine.Type == CombatRoutine.RotationType.SingleTarget)
+                        {
+                            combatRoutine.ChangeType(CombatRoutine.RotationType.AOE);
+                            return;
+                        }
+                        if (combatRoutine.Type == CombatRoutine.RotationType.AOE)
+                        {
+                            combatRoutine.ChangeType(CombatRoutine.RotationType.SingleTargetCleave);
+                            return;
+                        }
+                        
                         combatRoutine.ChangeType(CombatRoutine.RotationType.SingleTarget);
-                        return;
                     }
                 }
-
-                if (e.Modifier == Keyboard.AOEModifierKey && e.Key == Keyboard.AOEKey)
+                else
                 {
-                    if (combatRoutine.Type != CombatRoutine.RotationType.AOE)
+                    if (e.Modifier == Keyboard.SingleTargetModifierKey && e.Key == Keyboard.SingleTargetKey)
                     {
-                        combatRoutine.ChangeType(CombatRoutine.RotationType.AOE);
+                        if (combatRoutine.Type != CombatRoutine.RotationType.SingleTarget)
+                        {
+                            combatRoutine.ChangeType(CombatRoutine.RotationType.SingleTarget);
+                            return;
+                        }
+                    }
+
+                    if (e.Modifier == Keyboard.AOEModifierKey && e.Key == Keyboard.AOEKey)
+                    {
+                        if (combatRoutine.Type != CombatRoutine.RotationType.AOE)
+                        {
+                            combatRoutine.ChangeType(CombatRoutine.RotationType.AOE);
+                        }
+                        else
+                        {
+                            combatRoutine.ChangeType(CombatRoutine.RotationType.SingleTargetCleave);
+                        }
                     }
                 }
             }
-            else
+            else  // If defaults are not setup, then use these as defaults
             {
                 if (e.Modifier == Helpers.ModifierKeys.Ctrl)
                 {
@@ -424,6 +451,11 @@ namespace PixelMagic.GUI
                     if (e.Key == Keys.A)
                     {
                         combatRoutine.ChangeType(CombatRoutine.RotationType.AOE);
+                    }
+
+                    if (e.Key == Keys.C)
+                    {
+                        combatRoutine.ChangeType(CombatRoutine.RotationType.SingleTargetCleave);
                     }
                 }
             }

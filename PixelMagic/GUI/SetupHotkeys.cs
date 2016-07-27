@@ -86,5 +86,23 @@ namespace PixelMagic.GUI
             MessageBox.Show("Settings saved.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
+
+        private void cmdDefaults_Click(object sender, EventArgs e)
+        {
+            ConfigFile.WriteValue("Hotkeys", cmbStartRotationModifierKey.Name, "");
+            ConfigFile.WriteValue("Hotkeys", cmbStartRotationKey.Name, "");
+
+            ConfigFile.WriteValue("Hotkeys", cmbStopRotationModifierKey.Name, "");
+            ConfigFile.WriteValue("Hotkeys", cmbStopRotationKey.Name, "");
+
+            ConfigFile.WriteValue("Hotkeys", cmbSingleTargetModifierKey.Name, "");
+            ConfigFile.WriteValue("Hotkeys", cmbSingleTargetKey.Name, "");
+
+            ConfigFile.WriteValue("Hotkeys", cmbAOEModifierKey.Name, "");
+            ConfigFile.WriteValue("Hotkeys", cmbAOEKey.Name, "");
+
+            MessageBox.Show("Defaults restored and saved.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Close();
+        }
     }
 }

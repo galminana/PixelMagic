@@ -48,6 +48,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmdSave = new System.Windows.Forms.Button();
+            this.cmdDefaults = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -73,7 +74,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 29);
+            this.label3.Location = new System.Drawing.Point(11, 30);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 2;
@@ -82,11 +83,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 56);
+            this.label4.Location = new System.Drawing.Point(11, 58);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 13);
+            this.label4.Size = new System.Drawing.Size(139, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "AOE";
+            this.label4.Text = "Single Target Cleave / AOE";
             // 
             // cmbStartRotationModifierKey
             // 
@@ -95,7 +96,7 @@
             "Ctrl",
             "Alt",
             "Shift"});
-            this.cmbStartRotationModifierKey.Location = new System.Drawing.Point(98, 28);
+            this.cmbStartRotationModifierKey.Location = new System.Drawing.Point(157, 28);
             this.cmbStartRotationModifierKey.Name = "cmbStartRotationModifierKey";
             this.cmbStartRotationModifierKey.Size = new System.Drawing.Size(85, 21);
             this.cmbStartRotationModifierKey.TabIndex = 4;
@@ -150,7 +151,7 @@
             "8",
             "9",
             "0"});
-            this.cmbStartRotationKey.Location = new System.Drawing.Point(208, 28);
+            this.cmbStartRotationKey.Location = new System.Drawing.Point(267, 28);
             this.cmbStartRotationKey.Name = "cmbStartRotationKey";
             this.cmbStartRotationKey.Size = new System.Drawing.Size(85, 21);
             this.cmbStartRotationKey.TabIndex = 6;
@@ -196,7 +197,7 @@
             "8",
             "9",
             "0"});
-            this.cmbStopRotationKey.Location = new System.Drawing.Point(208, 55);
+            this.cmbStopRotationKey.Location = new System.Drawing.Point(267, 55);
             this.cmbStopRotationKey.Name = "cmbStopRotationKey";
             this.cmbStopRotationKey.Size = new System.Drawing.Size(85, 21);
             this.cmbStopRotationKey.TabIndex = 9;
@@ -218,7 +219,7 @@
             "Ctrl",
             "Alt",
             "Shift"});
-            this.cmbStopRotationModifierKey.Location = new System.Drawing.Point(98, 55);
+            this.cmbStopRotationModifierKey.Location = new System.Drawing.Point(157, 55);
             this.cmbStopRotationModifierKey.Name = "cmbStopRotationModifierKey";
             this.cmbStopRotationModifierKey.Size = new System.Drawing.Size(85, 21);
             this.cmbStopRotationModifierKey.TabIndex = 7;
@@ -264,7 +265,7 @@
             "8",
             "9",
             "0"});
-            this.cmbSingleTargetKey.Location = new System.Drawing.Point(208, 26);
+            this.cmbSingleTargetKey.Location = new System.Drawing.Point(267, 27);
             this.cmbSingleTargetKey.Name = "cmbSingleTargetKey";
             this.cmbSingleTargetKey.Size = new System.Drawing.Size(85, 21);
             this.cmbSingleTargetKey.TabIndex = 12;
@@ -273,7 +274,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(189, 29);
+            this.label7.Location = new System.Drawing.Point(248, 30);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(13, 13);
             this.label7.TabIndex = 11;
@@ -286,7 +287,7 @@
             "Ctrl",
             "Alt",
             "Shift"});
-            this.cmbSingleTargetModifierKey.Location = new System.Drawing.Point(98, 26);
+            this.cmbSingleTargetModifierKey.Location = new System.Drawing.Point(157, 27);
             this.cmbSingleTargetModifierKey.Name = "cmbSingleTargetModifierKey";
             this.cmbSingleTargetModifierKey.Size = new System.Drawing.Size(85, 21);
             this.cmbSingleTargetModifierKey.TabIndex = 10;
@@ -332,7 +333,7 @@
             "8",
             "9",
             "0"});
-            this.cmbAOEKey.Location = new System.Drawing.Point(208, 53);
+            this.cmbAOEKey.Location = new System.Drawing.Point(267, 54);
             this.cmbAOEKey.Name = "cmbAOEKey";
             this.cmbAOEKey.Size = new System.Drawing.Size(85, 21);
             this.cmbAOEKey.TabIndex = 15;
@@ -341,7 +342,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(189, 56);
+            this.label8.Location = new System.Drawing.Point(248, 57);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(13, 13);
             this.label8.TabIndex = 14;
@@ -354,7 +355,7 @@
             "Ctrl",
             "Alt",
             "Shift"});
-            this.cmbAOEModifierKey.Location = new System.Drawing.Point(98, 53);
+            this.cmbAOEModifierKey.Location = new System.Drawing.Point(157, 54);
             this.cmbAOEModifierKey.Name = "cmbAOEModifierKey";
             this.cmbAOEModifierKey.Size = new System.Drawing.Size(85, 21);
             this.cmbAOEModifierKey.TabIndex = 13;
@@ -372,7 +373,7 @@
             this.groupBox1.Controls.Add(this.cmbStopRotationKey);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(308, 100);
+            this.groupBox1.Size = new System.Drawing.Size(414, 100);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rotation Hotkeys";
@@ -389,14 +390,14 @@
             this.groupBox2.Controls.Add(this.cmbSingleTargetKey);
             this.groupBox2.Location = new System.Drawing.Point(12, 118);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(308, 100);
+            this.groupBox2.Size = new System.Drawing.Size(414, 100);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Rotation Type";
             // 
             // cmdSave
             // 
-            this.cmdSave.Location = new System.Drawing.Point(245, 227);
+            this.cmdSave.Location = new System.Drawing.Point(351, 229);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(75, 23);
             this.cmdSave.TabIndex = 18;
@@ -404,11 +405,22 @@
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
+            // cmdDefaults
+            // 
+            this.cmdDefaults.Location = new System.Drawing.Point(270, 229);
+            this.cmdDefaults.Name = "cmdDefaults";
+            this.cmdDefaults.Size = new System.Drawing.Size(75, 23);
+            this.cmdDefaults.TabIndex = 19;
+            this.cmdDefaults.Text = "Defaults";
+            this.cmdDefaults.UseVisualStyleBackColor = true;
+            this.cmdDefaults.Click += new System.EventHandler(this.cmdDefaults_Click);
+            // 
             // SetupHotkeys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 262);
+            this.ClientSize = new System.Drawing.Size(436, 262);
+            this.Controls.Add(this.cmdDefaults);
             this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -446,5 +458,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button cmdSave;
+        private System.Windows.Forms.Button cmdDefaults;
     }
 }
