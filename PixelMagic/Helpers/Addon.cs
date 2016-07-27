@@ -786,8 +786,8 @@ end
 local function eventHandler(self, event, ...)
 	local arg1 = ...
 	if event == ""ADDON_LOADED"" then
-		if (arg1 == ""PixMag"") then
-			print(""Addon Loaded... PixMag"")
+		if (arg1 == ""DoIt"") then
+			print(""Addon Loaded... DoIt"")
 			print(""Tracking "" .. table.getn(cooldowns) .. "" cooldowns"")
 			initFrames()
 		end
