@@ -36,7 +36,7 @@ namespace PixelMagic.Rotation
         {
         }
 
-        public override void Pulse()
+        public override void Pulse()        // Updated for Legion (tested and working for single target)
         {
             if (combatRoutine.Type == RotationType.SingleTarget)  // Do Single Target Stuff here
             {
@@ -67,8 +67,11 @@ namespace PixelMagic.Rotation
             }
             if (combatRoutine.Type == RotationType.AOE)
             {
-                //Log.Write("Spell Charges: " + WoW.GetSpellCharges("Dark Transformation"));
-                Log.Write("Runic Power: " + WoW.RunicPower);
+                // Do AOE stuff here
+            }
+            if (combatRoutine.Type == RotationType.SingleTargetCleave)
+            {
+                // Do Single Target Cleave stuff here if applicable else ignore this one
             }
         }
 
