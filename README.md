@@ -30,6 +30,10 @@ rotation file.
 <br>
 ![Alt Text](http://i.imgur.com/478ZRTS.png)
 <br>
+**Sample ingame screenshot of the addon in action**
+<br>
+![Alt Text](http://i.imgur.com/4Afi2pp.jpg)
+<br>
 **Sample recount from Unholy DK in Legion**
 <br>
 ![Alt Text](http://i.imgur.com/xicfSBl.jpg)
