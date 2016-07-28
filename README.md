@@ -43,6 +43,7 @@ damages or other liability, whether in an action of contract, tort or otherwise,
 out of or in connection with the software or the use or other dealings in the software.<br>
 <br>
 Anyone using / copying any part of the software must include this license<br>
+Icon backlink: [HADezign](http://hadezign.com)
 
 **Supported Commands in combat routines**<br>
 ```javascript
