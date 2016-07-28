@@ -2,7 +2,7 @@
 
 Developer: WiNiFiX<br>
 Copyright Owner: WiNiFiX<br>
-Started on Project: Jan 2016<br>
+Start Date: January 2016<br>
 
 **Last Readme Update: 2016.07.28**
 
@@ -27,9 +27,9 @@ Instructions on how to use / test / build this version are on Discord
 - Warlords of Dreanor
 - Legion
 
+Sample screenshots
 ![Alt Text](http://i.imgur.com/1nplBST.png)
 <br>
-Screenshot
 <br>
 ![Alt Text](http://i.imgur.com/478ZRTS.png)
 <br>
@@ -37,12 +37,12 @@ Sample recount from Unholy DK in Legion
 <br>
 ![Alt Text](http://i.imgur.com/xicfSBl.jpg)
 
-<br>
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING<br>
-BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<br>
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,<br>
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
+**License Agreement**<br>
+The software is provided "as is", without warranty of any kind, express or implied, including<br>
+but not limited to the warranties of merchantability, fitness for a particular purpose and<br>
+noninfringement. In no event shall the authors or copyright holders be liable for any claim,<br>
+damages or other liability, whether in an action of contract, tort or otherwise, arising from,<br>
+out of or in connection with the software or the use or other dealings in the software.<br>
 <br>
 Anyone using / copying any part of the software must include this license<br>
 <br>
