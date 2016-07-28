@@ -1,22 +1,23 @@
 # Pixel Magic - where colour unlocks the World of Warcraft.
 
-Developer: WiNiFiX<br>
-Copyright Owner: WiNiFiX<br>
-Start Date: January 2016<br>
+Developer and copyright owner: WiNiFiX<br>
+Project stated on: January 2016<br>
 
 **Last Readme Update: 2016.07.28**
 
 **Latest Build:**<br>
-For those of you whom don't know how to compile the source and run it you can download this version here
-then unzip the "PixelMagic-OpenSource-master.zip" file and look in the "PixelMagic-OpenSource-master\PixelMagic\Builds" folder and run the application "PixelMagic.exe"
+For those of you whom don't know how to compile the source and run it you can download this version here then unzip the<br> 
+"PixelMagic-OpenSource-master.zip" file and look in the "PixelMagic-OpenSource-master\PixelMagic\Builds" folder and run<br> 
+the application "PixelMagic.exe"<br>
 
 **Sample Rotations:**<br>
-For a good working sample rotation (with Legion support) look at the DKUnholy.cs rotation file.
-For a sample rotation which shows you how to create custom configuration screens for your rotation look at the Warrior.cs rotation file.
+For a good working sample rotation (with Legion support) look at the DKUnholy.cs rotation file.<br>
+For a sample rotation which shows you how to create custom configuration screens for your rotation look at the Warrior.cs<br>
+rotation file.
 
 **Website for FAQ:** [here](http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-bots-questions-requests/542750-pixel-based-bot.html)<br>
 **Official Discord:** [here](https://discord.gg/0rnM62Wx5pQp8tjT)<br>
-Instructions on how to use / test / build this version are on Discord
+*Instructions on how to use / test / build this version are on Discord along with support*
 
 **Table of contents.**
 - Basic usage guide (Pixel Based Bot)
