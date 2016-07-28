@@ -60,7 +60,7 @@ Returns true / false
  - WoW.HasDebuff(string debuffName)
  
 Returns int
- - WoW.CurrentRunes;
+ / WoW.CurrentRunes;
  - WoW.CurrentComboPoints;
  - WoW.CurrentSoulShards;
  - WoW.CurrentHolyPower;
@@ -74,7 +74,7 @@ Returns int
  - WoW.Fury;
  - WoW.RunicPower;
  - WoW.HasFocus;
- - WoW.GetBuffStacks(string auraName);
+ / WoW.GetBuffStacks(string auraName);
  - WoW.GetDebuffTimeRemaining(string debuffName);
  - WoW.GetDebuffStacks(string debuffName);
  - WoW.GetSpellCharges(string spellName);
