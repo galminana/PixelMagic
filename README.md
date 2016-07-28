@@ -55,12 +55,11 @@ Returns true / false
  - WoW.TargetIsEnemy
  - WoW.IsSpellOnCooldown(string spellBookSpellName)
  - WoW.IsSpellInRange(string spellBookSpellName)
- - WoW.CanCast(string spellBookSpellName, bool checkIfPlayerIsCasting = true, bool checkIfSpellIsOnCooldown = true, bool checkIfSpellIsInRange = true, bool checkSpellCharges = true, bool checkIfTargetIsVisible = true)
+ - WoW.CanCast(string spellBookSpellName, ...)
  - WoW.HasBuff(string buffName)
  - WoW.HasDebuff(string debuffName)
-```
-```javascript
-Returns integer
+ 
+Returns int
  - WoW.CurrentRunes;
  - WoW.CurrentComboPoints;
  - WoW.CurrentSoulShards;
@@ -79,9 +78,8 @@ Returns integer
  - WoW.GetDebuffTimeRemaining(string debuffName);
  - WoW.GetDebuffStacks(string debuffName);
  - WoW.GetSpellCharges(string spellName);
-```
-```javascript
-Returns void / nothing
+ 
+Returns void
  - WoW.CastSpellByName(string spellBookSpellName)
  - Log.Write(string message, System.Drawing.Color c)
  - WoW.SendKeyAtLocation(Keys key, int x, int y)
