@@ -100,9 +100,9 @@ Returns void
  - Log.Write(string message, System.Drawing.Color c)
  - WoW.SendKeyAtLocation(Keys key, int x, int y)
  - WoW.SendMacro(string macro)
- - WoW.KeyDown(Keys Key) 		 // When you use this method ensure that you make these keys a configurable setting !!!
- - WoW.KeyUp(Keys Key)   		 // When you use this method ensure that you make these keys a configurable setting !!!
- - WoW.KeyPressRelease(Keys Key) // When you use this method ensure that you make these keys a configurable setting !!!
+ - WoW.KeyDown(Keys Key) 		 // Make key a configurable setting !!!
+ - WoW.KeyUp(Keys Key)   		 // Make key a configurable setting !!!
+ - WoW.KeyPressRelease(Keys Key) // Make key a configurable setting !!!
  
 Rotation Types
  - combatRoutine.Type = RotationType.SingleTarget or RotationType.AOE or RotationType.SingleTargetCleave 

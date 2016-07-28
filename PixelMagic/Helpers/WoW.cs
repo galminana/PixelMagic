@@ -960,17 +960,17 @@ namespace PixelMagic.Helpers
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, UIntPtr lParam);
 
-        private static void KeyDown(Keys Key)
+        public static void KeyDown(Keys Key)
         {
             SendMessage(pWow.MainWindowHandle, 0x100, (int) Key, 0);
         }
 
-        private static void KeyUp(Keys Key)
+        public static void KeyUp(Keys Key)
         {
             SendMessage(pWow.MainWindowHandle, 0x101, (int) Key, 0);
         }
 
-        private static void KeyPressRelease(Keys key)
+        public static void KeyPressRelease(Keys key)
         {
             KeyDown(key);
             Thread.Sleep(50);
