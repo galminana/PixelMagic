@@ -24,8 +24,9 @@ rotation file.
 **Additional Sample Rotations:** [here](https://github.com/winifix/PixelMagic-OpenSource/tree/master/Additional%20Sample%20Rotations)<br>
 *Instructions on how to use / test / build this version are on Discord along with support*
 
-**Xcesius Rotations:** [here](https://github.com/Xcesius/)<br>
-*Xcesius has been assisting with testing the rotations and developing his own custom ones, see the above GitHub for samples*
+**Xcesius Rotations:** [here](https://github.com/Xcesius/PixelMagic-OpenSource/tree/master/Rotations)<br>
+*[Xcesius](https://github.com/Xcesius/) has been assisting with testing the rotations and developing his own custom ones, see the above GitHub for samples*<br>
+*Note: he will only update rotations in that folder, not the bot itself*
 
 **Currently supports WoW Versions**
 - Warlords of Dreanor
