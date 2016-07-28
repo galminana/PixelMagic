@@ -14,8 +14,8 @@ then unzip the "PixelMagic-OpenSource-master.zip" file and look in the "PixelMag
 For a good working sample rotation (with Legion support) look at the DKUnholy.cs rotation file.
 For a sample rotation which shows you how to create custom configuration screens for your rotation look at the Warrior.cs rotation file.
 
-**Website for FAQ:** [here](http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-bots-questions-requests/542750-pixel-based-bot.html)
-**Official Discord:** [here](https://discord.gg/0rnM62Wx5pQp8tjT)
+**Website for FAQ:** [here](http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-bots-questions-requests/542750-pixel-based-bot.html)<br>
+**Official Discord:** [here](https://discord.gg/0rnM62Wx5pQp8tjT)<br>
 Instructions on how to use / test / build this version are on Discord
 
 **Table of contents.**
