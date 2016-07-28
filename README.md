@@ -19,23 +19,17 @@ rotation file.
 **Official Discord:** [here](https://discord.gg/0rnM62Wx5pQp8tjT)<br>
 *Instructions on how to use / test / build this version are on Discord along with support*
 
-**Table of contents.**
-- Basic usage guide (Pixel Based Bot)
-- Setup custom hotkeys
-- Support please, its BroK-en
-
 **Currently supports WoW Versions**
 - Warlords of Dreanor
 - Legion
 
-Sample screenshots
+**Sample screenshots**<br><br>
 ![Alt Text](http://i.imgur.com/1nplBST.png)
-<br>
-<br>
+<br><br>
 ![Alt Text](http://i.imgur.com/478ZRTS.png)
-<br>
-Sample recount from Unholy DK in Legion
-<br>
+<br><br>
+**Sample recount from Unholy DK in Legion**
+<br><br>
 ![Alt Text](http://i.imgur.com/xicfSBl.jpg)
 
 **License Agreement**<br>
