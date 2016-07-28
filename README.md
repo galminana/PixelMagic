@@ -19,6 +19,8 @@ rotation file.
 
 **Website for FAQ:** [here](http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-bots-questions-requests/542750-pixel-based-bot.html)<br>
 **Official Discord:** [here](https://discord.gg/0rnM62Wx5pQp8tjT)<br>
+**Additional Sample Rotations:** [here](https://github.com/winifix/PixelMagic-OpenSource/tree/master/Additional%20Sample%20Rotations)
+**Xcesius Rotations:** [here](https://github.com/Xcesius/)
 *Instructions on how to use / test / build this version are on Discord along with support*
 
 **Currently supports WoW Versions**
