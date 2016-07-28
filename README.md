@@ -60,7 +60,7 @@ WoW.HasBuff(string buffName)
 WoW.HasDebuff(string debuffName)
 ```
 **Returns integer**<br>
-```javascript
+```python
 int x = WoW.CurrentRunes;
 WoW.CurrentComboPoints;
 WoW.CurrentSoulShards;
