@@ -528,7 +528,7 @@ namespace PixelMagic.Helpers
             Log.Write("Disposing of WoW Process Completed.");
         }
 
-        public static bool IsSpellOnCooldown(int spellNoInArrayOfSpells) // This will take the spell no from the array of spells, 1, 2, 3 ..... n
+        private static bool IsSpellOnCooldown(int spellNoInArrayOfSpells) // This will take the spell no from the array of spells, 1, 2, 3 ..... n
         {
             var c = GetBlockColor(spellNoInArrayOfSpells, 2);
             return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
@@ -547,7 +547,7 @@ namespace PixelMagic.Helpers
             return IsSpellOnCooldown(spell.InternalSpellNo);
         }
 
-        public static bool IsSpellInRange(int spellNoInArrayOfSpells) // This will take the spell no from the array of spells, 1, 2, 3 ..... n
+        private static bool IsSpellInRange(int spellNoInArrayOfSpells) // This will take the spell no from the array of spells, 1, 2, 3 ..... n
         {
             var c = GetBlockColor(spellNoInArrayOfSpells, 6);
             return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
@@ -566,7 +566,7 @@ namespace PixelMagic.Helpers
             return IsSpellInRange(spell.InternalSpellNo);
         }
 
-        public static bool CanCast(int spellNoInArrayOfSpells, 
+        private static bool CanCast(int spellNoInArrayOfSpells, 
                                    bool checkIfPlayerIsCasting = true, 
                                    bool checkIfSpellIsOnCooldown = true, 
                                    bool checkIfSpellIsInRange = true, 
@@ -599,8 +599,8 @@ namespace PixelMagic.Helpers
         public static bool CanCast(string spellBookSpellName,
                                    bool checkIfPlayerIsCasting = true,
                                    bool checkIfSpellIsOnCooldown = true,
-                                   bool checkIfSpellIsInRange = true,
-                                   bool checkSpellCharges = true,
+                                   bool checkIfSpellIsInRange = false,
+                                   bool checkSpellCharges = false,
                                    bool checkIfTargetIsVisible = true)
         {
             var spell = SpellBook.Spells.FirstOrDefault(s => s.SpellName == spellBookSpellName);
