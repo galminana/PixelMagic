@@ -4,6 +4,8 @@ Developer and copyright owner: WiNiFiX<br>
 Project stated on: January 2016<br>
 
 **Last Readme Update: 2016.07.28**
+**Note:** This project will be getting delayed updates from 01 Aug 2016 for atleast 1 month (from myself)<br>
+*However Xcesius will be avaialble on Discord should you have any queries during this time.*
 
 **Latest Build:**<br>
 For those of you whom don't know how to compile the source and run it you can download this version **[here](https://github.com/winifix/PixelMagic-OpenSource/archive/master.zip)** then unzip the<br> 
