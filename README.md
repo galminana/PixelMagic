@@ -31,6 +31,10 @@ rotation file.
 **Sample recount from Unholy DK in Legion**
 <br>
 ![Alt Text](http://i.imgur.com/xicfSBl.jpg)
+<br>
+
+**How to setup your spellbook** (sample for basic hunter)<br>
+![Alt Text](http://i.imgur.com/HGhFJve.png)
 
 **License Agreement**<br>
 The software is provided "as is", without warranty of any kind, express or implied, including<br>
