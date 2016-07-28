@@ -3,7 +3,7 @@
 Developer and copyright owner: WiNiFiX<br>
 Project stated on: January 2016<br>
 
-**Last Readme Update: 2016.07.28**
+**Last Readme Update: 2016.07.28**<br>
 **Note:** This project will be getting delayed updates from 01 Aug 2016 for atleast 1 month (from myself)<br>
 *However Xcesius will be avaialble on Discord should you have any queries during this time.*
 
