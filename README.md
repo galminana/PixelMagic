@@ -4,10 +4,7 @@ Developer: WiNiFiX<br>
 Copyright Owner: WiNiFiX<br>
 Started on Project: Jan 2016<br>
 
-**Pixel Magic WoW x86/x64 Bot**
-Please note this is a work in progress...
-
-**Last Update: 2016.07.28**
+**Last Readme Update: 2016.07.28**
 
 **Latest Build:**
 For those of you whom don't know how to compile the source and run it you can download this version here
@@ -17,7 +14,8 @@ then unzip the "PixelMagic-OpenSource-master.zip" file and look in the "PixelMag
 For a good working sample rotation (with Legion support) look at the DKUnholy.cs rotation file.
 For a sample rotation which shows you how to create custom configuration screens for your rotation look at the Warrior.cs rotation file.
 
-**Official Discord:** https://discord.gg/0rnM62Wx5pQp8tjT
+**Website for FAQ:** [here](http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-bots-questions-requests/542750-pixel-based-bot.html)
+**Official Discord:** [here](https://discord.gg/0rnM62Wx5pQp8tjT)
 Instructions on how to use / test / build this version are on Discord
 
 **Table of contents.**
