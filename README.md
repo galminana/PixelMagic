@@ -84,9 +84,10 @@ Returns void
  - Log.Write(string message, System.Drawing.Color c)
  - WoW.SendKeyAtLocation(Keys key, int x, int y)
  - WoW.SendMacro(string macro)
-```
+ 
 Rotation Types
-combatRoutine.Type = RotationType.SingleTarget / RotationType.AOE / RotationType.SingleTargetCleave
+ - combatRoutine.Type = RotationType.SingleTarget / RotationType.AOE / RotationType.SingleTargetCleave 
+```
 
 **Sample Combat Routine**<br>
 ```javascript
