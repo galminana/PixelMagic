@@ -23,13 +23,13 @@ rotation file.
 - Warlords of Dreanor
 - Legion
 
-**Sample screenshots**<br><br>
+**Sample screenshots**<br>
 ![Alt Text](http://i.imgur.com/1nplBST.png)
-<br><br>
+<br>
 ![Alt Text](http://i.imgur.com/478ZRTS.png)
-<br><br>
+<br>
 **Sample recount from Unholy DK in Legion**
-<br><br>
+<br>
 ![Alt Text](http://i.imgur.com/xicfSBl.jpg)
 
 **License Agreement**<br>
