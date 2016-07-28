@@ -6,7 +6,7 @@ Project stated on: January 2016<br>
 **Last Readme Update: 2016.07.28**
 
 **Latest Build:**<br>
-For those of you whom don't know how to compile the source and run it you can download this version here then unzip the<br> 
+For those of you whom don't know how to compile the source and run it you can download this version [here](https://github.com/winifix/PixelMagic-OpenSource/archive/master.zip) then unzip the<br> 
 "PixelMagic-OpenSource-master.zip" file and look in the "PixelMagic-OpenSource-master\PixelMagic\Builds" folder and run<br> 
 the application "PixelMagic.exe"<br>
 
