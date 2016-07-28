@@ -43,7 +43,52 @@ damages or other liability, whether in an action of contract, tort or otherwise,
 out of or in connection with the software or the use or other dealings in the software.<br>
 <br>
 Anyone using / copying any part of the software must include this license<br>
-<br>
+
+**Supported Commands in combat routines**<br>
+**Returns true / false**<br>
+```javascript
+WoW.HasTarget<br>
+WoW.PlayerIsCasting<br>
+WoW.TargetIsCasting<br>
+WoW.TargetIsVisible<br>
+WoW.TargetIsFriend<br>
+WoW.TargetIsEnemy<br>
+WoW.IsSpellOnCooldown(string spellBookSpellName)<br>
+WoW.IsSpellInRange(string spellBookSpellName)<br>
+WoW.CanCast(string spellBookSpellName, bool checkIfPlayerIsCasting = true, bool checkIfSpellIsOnCooldown = true, bool checkIfSpellIsInRange = true, bool checkSpellCharges = true, bool checkIfTargetIsVisible = true)<br>
+WoW.HasBuff(string buffName)<br>
+WoW.HasDebuff(string debuffName)<br>
+```
+**Returns integer**<br>
+```javascript
+WoW.CurrentRunes
+WoW.CurrentComboPoints
+WoW.CurrentSoulShards
+WoW.CurrentHolyPower
+WoW.HealthPercent
+WoW.TargetHealthPercent
+WoW.Power
+WoW.Focus
+WoW.Mana
+WoW.Energy
+WoW.Rage
+WoW.Fury
+WoW.RunicPower
+WoW.HasFocus
+WoW.GetBuffStacks(string auraName)
+WoW.GetDebuffTimeRemaining(string debuffName)
+WoW.GetDebuffStacks(string debuffName)
+WoW.GetSpellCharges(string spellName)
+```
+**Returns nothing**<br>
+```javascript
+WoW.CastSpellByName(string spellBookSpellName)
+Log.Write(string message, System.Drawing.Color c)
+WoW.SendKeyAtLocation(Keys key, int x, int y)
+WoW.SendMacro(string macro)
+```
+Rotation Types
+combatRoutine.Type = RotationType.SingleTarget / RotationType.AOE / RotationType.SingleTargetCleave
 
 **Sample Combat Routine**<br>
 ```javascript
