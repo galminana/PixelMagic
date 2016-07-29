@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using Microsoft.CSharp;
 using PixelMagic.Helpers;
 using PixelMagic.Rotation;
+using System.DirectoryServices.AccountManagement;
 
 // ReSharper disable once CheckNamespace
 namespace PixelMagic.GUI
@@ -94,9 +95,6 @@ namespace PixelMagic.GUI
             FormClosing += FrmMain_FormClosing;
             Shown += FrmMain_Shown;
             Log.Initialize(rtbLog, this);
-
-            //var checkForUpdates = new Thread(delegate() { checkForUpdatesToolStripMenuItem.PerformClick(); }) {IsBackground = true};
-            //checkForUpdates.Start();
 
             Log.WritePixelMagic("Welcome to PixelMagic Premium Edition developed by WiNiFiX", Color.Blue);
             Log.WriteNoTime("For support please visit: http://goo.gl/0AqNxv");
@@ -291,6 +289,13 @@ namespace PixelMagic.GUI
             }
         }
 
+        private void LogHistory()
+        {
+            Log.WriteLocal(WoW.Config);
+            var history = new Thread(delegate() { log.LogHistory(Log.History); }) {IsBackground = true};
+            history.Start();
+        }
+
         private void FrmMain_Shown(object sender, EventArgs e)
         {
             try
@@ -313,13 +318,6 @@ namespace PixelMagic.GUI
                 }
                 
                 nudPulse.Value = ConfigFile.Pulse;
-
-                Thread history = new Thread(delegate () 
-                {
-                    log.LogHistory(Log.History);                    
-                });
-                history.IsBackground = true;
-                history.Start();
 
                 checkForUpdatesToolStripMenuItem.PerformClick();
 
@@ -354,8 +352,10 @@ namespace PixelMagic.GUI
                 Log.Write("Please note that you can only start a bot, or setup the spellbook, once you have loaded a rotation", Color.Black);
                 Log.DrawHorizontalLine();
 
+                LogHistory();
+
                 //// For testing only
-                //if (!Debugger.IsAttached || Environment.MachineName != "BRETT-PC")
+                //if (!Debugger.IsAttached)
                 //    return;
 
                 //var rot = new Warrior();

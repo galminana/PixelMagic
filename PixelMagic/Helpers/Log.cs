@@ -291,6 +291,11 @@ namespace PixelMagic.Helpers
                 }));
         }
 
+        public static void WriteLocal(string message)
+        {
+            History += message + Environment.NewLine;
+        }
+
         private static void InternalWrite(Color color, string text, bool noTime = false, bool lineFeed = true, bool noSound = false)
         {
             try

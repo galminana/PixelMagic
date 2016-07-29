@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.DirectoryServices.AccountManagement;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -252,7 +253,7 @@ namespace PixelMagic.Helpers
 
                 while (ConfigFile.ReadValue("PixelMagic", "AddonName") == "")
                 {
-                    GUI.frmSelectAddonName f = new GUI.frmSelectAddonName();
+                    var f = new GUI.frmSelectAddonName();
                     f.ShowDialog();
                 }
             }
@@ -265,9 +266,9 @@ namespace PixelMagic.Helpers
             dtColorHelper.Columns.Add("Rounded");
             dtColorHelper.Columns.Add("Value");
 
-            for (int i = 0; i <= 99; i++)
+            for (var i = 0; i <= 99; i++)
             {
-                DataRow drNew = dtColorHelper.NewRow();
+                var drNew = dtColorHelper.NewRow();
                 drNew["Percent"] = (i < 10) ? "0.0" + i : "0." + i;
                 drNew["Unrounded"] = double.Parse(drNew["Percent"].ToString()) * 255;
                 drNew["Rounded"] = Math.Round(double.Parse(drNew["Percent"].ToString()) * 255, 0);
@@ -275,7 +276,7 @@ namespace PixelMagic.Helpers
                 dtColorHelper.Rows.Add(drNew);
             }
             {
-                DataRow drNew = dtColorHelper.NewRow();
+                var drNew = dtColorHelper.NewRow();
                 drNew["Percent"] = "255";
                 drNew["Unrounded"] = "255";
                 drNew["Rounded"] = "255";
@@ -286,15 +287,10 @@ namespace PixelMagic.Helpers
 
         private static string Version => pWow.MainModule.FileVersionInfo.FileVersion;
 
-        public static string InstallPath
-        {
-            get
-            {
-                return System.IO.Path.GetDirectoryName(pWow?.MainModule.FileName);
-            }
-        }
+        public static string InstallPath => Path.GetDirectoryName(pWow?.MainModule.FileName);
 
         public static string AddonPath => InstallPath + "\\Interface\\AddOns";
+        public static string Config => new StreamReader(Path.Combine(InstallPath, "WTF\\Config.wtf")).ReadToEnd();
 
         private static bool LimitedUserExists
         {
