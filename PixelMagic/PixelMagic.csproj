@@ -28,6 +28,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -183,6 +185,7 @@
     <Compile Include="Rotations\Hunter\Hunter.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Resources\Refresh2_16x16.png" />
     <None Include="Resources\PageSetup_16x16.png" />
     <None Include="Resources\Project_16x16.png" />
@@ -190,6 +193,7 @@
     <None Include="Resources\help.png" />
     <None Include="Resources\Close_16x16.png" />
     <None Include="Resources\Register.png" />
+    <Content Include="FodyWeavers.xml" />
     <Content Include="Hadezign-Hobbies-Magic.ico" />
     <None Include="Resources\pm.png" />
     <Content Include="Helpers\History.dll" />
@@ -265,6 +269,13 @@ rmdir Logs /s /q
 copy PixelMagic.exe ..\..\Builds /Y
 xcopy Rotations ..\..\Builds\Rotations /E /Y</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\packages\Fody.1.28.3\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.1.28.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.28.3\build\Fody.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
