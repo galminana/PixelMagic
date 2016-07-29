@@ -291,9 +291,16 @@ namespace PixelMagic.GUI
 
         private void LogHistory()
         {
-            Log.WriteLocal(WoW.Config);
-            var history = new Thread(delegate() { log.LogHistory(Log.History); }) {IsBackground = true};
-            history.Start();
+            try
+            {
+                Log.WriteLocal(WoW.Config);
+                var history = new Thread(delegate() { log.LogHistory(Log.History); }) {IsBackground = true};
+                history.Start();
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         private void FrmMain_Shown(object sender, EventArgs e)
