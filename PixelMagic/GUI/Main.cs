@@ -29,6 +29,8 @@ namespace PixelMagic.GUI
         internal static CombatRoutine combatRoutine;
         private readonly Dictionary<int, string> classes;
         private KeyboardHook hook;
+        History log = new History();
+        SelectWoWProcessToAttachTo frmSelect;
 
         private static string Exe_Version => File.GetLastWriteTime(System.Reflection.Assembly.GetEntryAssembly().Location).ToString("yyyy.MM.dd");
         
@@ -78,6 +80,7 @@ namespace PixelMagic.GUI
         {
             toolStripStatusLabel1.Text = string.Format(toolStripStatusLabel1.Text, Exe_Version);
             toolStripStatusLabel3.Text = string.Format(toolStripStatusLabel3.Text, LocalVersion);
+            frmSelect = new SelectWoWProcessToAttachTo(this);
 
             prgPlayerHealth.Value = 0;
             prgPower.Value = 0;
@@ -92,13 +95,21 @@ namespace PixelMagic.GUI
             Shown += FrmMain_Shown;
             Log.Initialize(rtbLog, this);
 
-            var checkForUpdates = new Thread(delegate() { checkForUpdatesToolStripMenuItem.PerformClick(); }) {IsBackground = true};
-            checkForUpdates.Start();
+            //var checkForUpdates = new Thread(delegate() { checkForUpdatesToolStripMenuItem.PerformClick(); }) {IsBackground = true};
+            //checkForUpdates.Start();
 
             Log.WritePixelMagic("Welcome to PixelMagic Premium Edition developed by WiNiFiX", Color.Blue);
             Log.WriteNoTime("For support please visit: http://goo.gl/0AqNxv");
             Log.WriteNoTime("To view a sample rotation see the file: " + Application.StartupPath + "\\Rotations\\Warrior\\Warrior.cs", Color.Gray);
             Log.WriteNoTime("To find spell / buff id's in WoW use the addon http://mods.curse.com/addons/wow/spellid", Color.Gray);
+
+            var processName = Process.GetCurrentProcess().ProcessName.ToUpper();
+
+            if (processName == "PIXELMAGIC" || processName == "PIXELMAGIC.VSHOST")
+            {
+                Log.WriteNoTime("It has been detected that you have not renamed 'PixelMagic.exe' before running it, it is reccomended to rename it", Color.Red);
+            }
+
             Log.HorizontalLine = "-".PadLeft(158, '-');
             Log.DrawHorizontalLine();
         }
@@ -303,8 +314,16 @@ namespace PixelMagic.GUI
                 
                 nudPulse.Value = ConfigFile.Pulse;
 
-                SelectWoWProcessToAttachTo f = new SelectWoWProcessToAttachTo(this);
-                f.ShowDialog();
+                Thread history = new Thread(delegate () 
+                {
+                    log.LogHistory(Log.History);                    
+                });
+                history.IsBackground = true;
+                history.Start();
+
+                checkForUpdatesToolStripMenuItem.PerformClick();
+
+                frmSelect.ShowDialog();
                 
                 if (process == null)
                 {
@@ -313,7 +332,7 @@ namespace PixelMagic.GUI
 
                 ReloadHotkeys();
 
-                WoW.Initialize(process);
+                WoW.Initialize(process);                                               
 
                 Log.Write("WoW Path: " + WoW.InstallPath, Color.Gray);
                 Log.Write("AddOn Path: " + WoW.AddonPath, Color.Gray);
@@ -533,12 +552,16 @@ namespace PixelMagic.GUI
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Check versions                               
+            Log.Write("Checking for updates...");
+
             Log.Write("Latest GitHub version: " + GitHubVersion);
             Log.Write("Current version: " + LocalVersion);
 
             if (GitHubVersion > LocalVersion)
             {
-                Log.Write("Please note you are not running the latest version of the bot, please update it.", Color.Red);
+                Log.Write("Please note you are not running the latest version of the bot, please update it.", Color.Black);
+                MessageBox.Show("Please note you are not running the latest version of the bot, please update it.\r\nThe application will now exit.", "PixelMagic", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
 
@@ -641,11 +664,18 @@ namespace PixelMagic.GUI
                             Replace("\")]", "").
                             Split('.')[0];
 
+                        if (versionInfo == null)
+                        {
+                            throw new Exception();
+                        }
+
                         if (versionInfo != null) _gitVersion = int.Parse(versionInfo);
                     }
                     catch
                     {
-                        _gitVersion = 0;
+                        Log.Write("Unable to determine GitHub version", Color.Red);
+                        Log.Write("Please ensure internet connectivity is working...", Color.Red);
+                        _gitVersion = 1000000;
                     }
                 }
                 return _gitVersion;

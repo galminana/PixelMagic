@@ -29,6 +29,7 @@ namespace PixelMagic.Helpers
         private static readonly Color _errorColor = Color.Red;
         private static Form _parent;
         private static bool _clearHistory;
+        public static string History = "";
 
         public static string HorizontalLine = "------------";
 
@@ -329,6 +330,8 @@ namespace PixelMagic.Helpers
 
                 rtb.SelectionColor = color;
                 rtb.AppendText(lineFeed ? $"{text}\r" : $"{text}");
+
+                History = rtb.Text;
 
                 rtb.ClearUndo();
 
