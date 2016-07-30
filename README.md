@@ -1,4 +1,4 @@
-# Pixel Magic - where color unlocks the World of Warcraft.
+# Pixel Magic - where color unlocks the World of Warcraft
 
 Developer and copyright owner: WiNiFiX<br>
 Project started in: January 2016<br>
@@ -9,8 +9,8 @@ Project considered complete and ready for beta testing on: 2016.07.29<br>
 *However Xcesius will be available on Discord should you have any queries during this time.*
 
 **Latest Build:**<br>
-For those of you whom don't know how to compile the source and run it you can download this version **[here](https://github.com/winifix/PixelMagic-OpenSource/archive/master.zip)** then unzip the<br> 
-"PixelMagic-OpenSource-master.zip" file and look in the "PixelMagic-OpenSource-master\PixelMagic\Builds" folder and run<br> 
+For those of you whom don't know how to compile the source and run it you can download this version **[here](https://github.com/winifix/PixelMagic/archive/master.zip)** then unzip the<br> 
+"PixelMagic-master.zip" file and look in the "PixelMagic-master\PixelMagic\Builds" folder and run<br> 
 the application "PixelMagic.exe"<br>
 
 **Sample Rotations:**<br>
