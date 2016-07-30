@@ -193,6 +193,8 @@ namespace PixelMagic.GUI
                             cmdStartBot.Enabled = true;
                             cmdStartBot.BackColor = Color.LightGreen;
                             cmdRotationSettings.Enabled = true;
+                            cmdReloadRotation.Enabled = true;
+
                             return true;
                         }
 
@@ -360,6 +362,15 @@ namespace PixelMagic.GUI
                 Log.DrawHorizontalLine();
 
                 LogHistory();
+
+                var lastRotation = ConfigFile.ReadValue("PixelMagic", "LastProfile");
+
+                if (!File.Exists(lastRotation)) return;
+
+                if (!LoadProfile(lastRotation))
+                {
+                    Log.Write("Failed to load profile, please select a valid file.", Color.Red);
+                }
 
                 //// For testing only
                 //if (!Debugger.IsAttached)
@@ -709,7 +720,7 @@ namespace PixelMagic.GUI
 
         private void submitTicketToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSubmitTicket f = new frmSubmitTicket(rtbLog.Text);
+            var f = new frmSubmitTicket(rtbLog.Text);
             f.ShowDialog();
         }
 
@@ -750,8 +761,20 @@ namespace PixelMagic.GUI
 
         private void imageToByteArrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GUI.frmImageToByteArray f = new GUI.frmImageToByteArray();
+            var f = new GUI.frmImageToByteArray();
             f.ShowDialog();
+        }
+
+        private void cmdReloadRotation_Click(object sender, EventArgs e)
+        {
+            var lastRotation = ConfigFile.ReadValue("PixelMagic", "LastProfile");
+
+            if (!File.Exists(lastRotation)) return;
+
+            if (!LoadProfile(lastRotation))
+            {
+                Log.Write("Failed to load profile, please select a valid file.", Color.Red);
+            }
         }
     }
 }

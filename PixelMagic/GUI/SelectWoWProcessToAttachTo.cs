@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
+using PixelMagic.Helpers;
 
 namespace PixelMagic.GUI
 {
@@ -55,6 +57,33 @@ namespace PixelMagic.GUI
             {
                 cmbWoW.Enabled = false;
             }
+
+            foreach (string fileName in Directory.GetFiles(Application.StartupPath + "\\Rotations", "*.*", SearchOption.AllDirectories))
+            {
+                cmbRotation.Items.Add(fileName.Replace(Application.StartupPath + "\\Rotations", "").Substring(1));
+            }
+
+            if (cmbRotation.Items.Count > 0)
+            {
+                string lastRotation = ConfigFile.ReadValue("PixelMagic", "LastProfile");
+
+                if (lastRotation != "")
+                {
+                    lastRotation = lastRotation.Replace(Application.StartupPath + "\\Rotations", "").Substring(1);
+
+                    cmbRotation.Text = lastRotation;
+                }
+                else
+                {
+                    cmbRotation.SelectedIndex = 0;
+                }
+
+                cmbRotation.Enabled = true;
+            }
+            else
+            {
+                cmbRotation.Enabled = false;
+            }
         }
 
         private void SelectWoWProcessToAttachTo_Load(object sender, EventArgs e)
@@ -86,6 +115,9 @@ namespace PixelMagic.GUI
             {
                 int PID = int.Parse(cmbWoW.Text.Split('>')[1]);
                 parent.process = Process.GetProcessById(PID);
+
+                ConfigFile.WriteValue("PixelMagic", "LastProfile", Application.StartupPath + "\\Rotations\\" + cmbRotation.Text);
+
                 Close();
             }
             else
@@ -103,6 +135,11 @@ namespace PixelMagic.GUI
         {
             //parent.process = null;
             Close();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -33,6 +33,7 @@
             this.cmdConnect = new System.Windows.Forms.Button();
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cmbRotation = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             // cmdConnect
             // 
             this.cmdConnect.Image = global::PixelMagic.GUI.Properties.Resources.Register;
-            this.cmdConnect.Location = new System.Drawing.Point(270, 128);
+            this.cmdConnect.Location = new System.Drawing.Point(270, 140);
             this.cmdConnect.Name = "cmdConnect";
             this.cmdConnect.Size = new System.Drawing.Size(75, 23);
             this.cmdConnect.TabIndex = 2;
@@ -60,7 +61,7 @@
             // cmdRefresh
             // 
             this.cmdRefresh.Image = global::PixelMagic.GUI.Properties.Resources.Refresh2_16x16;
-            this.cmdRefresh.Location = new System.Drawing.Point(241, 128);
+            this.cmdRefresh.Location = new System.Drawing.Point(241, 140);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(23, 23);
             this.cmdRefresh.TabIndex = 5;
@@ -77,11 +78,22 @@
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
+            // cmbRotation
+            // 
+            this.cmbRotation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRotation.FormattingEnabled = true;
+            this.cmbRotation.Location = new System.Drawing.Point(12, 156);
+            this.cmbRotation.Name = "cmbRotation";
+            this.cmbRotation.Size = new System.Drawing.Size(223, 21);
+            this.cmbRotation.TabIndex = 7;
+            this.cmbRotation.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // SelectWoWProcessToAttachTo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(356, 160);
+            this.ClientSize = new System.Drawing.Size(356, 189);
+            this.Controls.Add(this.cmbRotation);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cmbWoW);
             this.Controls.Add(this.cmdConnect);
@@ -104,5 +116,6 @@
         private System.Windows.Forms.Button cmdConnect;
         private System.Windows.Forms.ComboBox cmbWoW;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox cmbRotation;
     }
 }
