@@ -4,7 +4,7 @@ Developer and copyright owner: WiNiFiX<br>
 Project started in: January 2016<br>
 Project considered complete and ready for beta testing on: 2016.07.29<br>
 
-**Last Readme Update: 2016.07.29**<br>
+**Last Readme Update: 2016.07.30**<br>
 **Note:** This project will be getting delayed updates from 01 Aug 2016 for at least 1 month (from myself)<br>
 *However Xcesius will be available on Discord should you have any queries during this time.*
 
