@@ -1,4 +1,4 @@
-# Pixel Magic - where colour unlocks the World of Warcraft.
+# Pixel Magic - where color unlocks the World of Warcraft.
 
 Developer and copyright owner: WiNiFiX<br>
 Project started in: January 2016<br>

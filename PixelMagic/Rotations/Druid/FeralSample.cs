@@ -15,7 +15,7 @@ namespace PixelMagic.Rotation
         {
             get
             {
-                return "Feral Seed Rotation";
+                return "Feral Sample";
             }
         }
 
@@ -29,13 +29,11 @@ namespace PixelMagic.Rotation
 
         public override void Initialize()
         {
-            Log.Write("Welcome to Feral Seed", Color.Green);
+            Log.Write("Welcome to Feral Sample", Color.Green);
         }
 
         public override void Stop()
         {
-            // Move pet to me
-            // WoW.SendKeyAtLocation(WoW.Keys.Z, 900, 500);   // Pet Passive and Move To = /petpassive /petmoveto
         }
 
         public override void Pulse()

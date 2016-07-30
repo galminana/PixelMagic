@@ -1,4 +1,10 @@
-﻿namespace PixelMagic.Helpers
+﻿//////////////////////////////////////////////////
+//                                              //
+//   See License.txt for Licensing information  //
+//                                              //
+//////////////////////////////////////////////////
+
+namespace PixelMagic.Helpers
 {
     public class Aura
     {

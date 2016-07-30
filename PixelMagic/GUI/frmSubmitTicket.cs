@@ -1,4 +1,10 @@
-﻿using System;
+﻿//////////////////////////////////////////////////
+//                                              //
+//   See License.txt for Licensing information  //
+//                                              //
+//////////////////////////////////////////////////
+
+using System;
 using System.Windows.Forms;
 
 namespace PixelMagic.GUI

@@ -1,5 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿//////////////////////////////////////////////////
+//                                              //
+//   See License.txt for Licensing information  //
+//                                              //
+//////////////////////////////////////////////////
+
+using System;
 using System.Windows.Forms;
 using PixelMagic.Helpers;
 

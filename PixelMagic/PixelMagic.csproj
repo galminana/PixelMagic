@@ -63,10 +63,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="History, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Helpers\History.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -162,30 +158,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Rotations\DeathKnight\DeathKnight_3.3.5a.cs" />
-    <Compile Include="Rotations\DeathKnight\DKUnholy.cs">
+    <Compile Include="Rotations\DeathKnight\UnholySample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Rotations\DemonHunter\DemonHunter-Havoc.cs">
+    <Compile Include="Rotations\DemonHunter\HavocSample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Rotations\Druid\FeralSeed.cs">
+    <Compile Include="Rotations\Druid\FeralSample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Rotations\Hunter\Hunter-Incorrect %28for testing%29.cs">
+    <Compile Include="Rotations\Shaman\EnhancementSample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Rotations\Rogue\Rogue.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Rotations\Warrior\Warrior.cs">
+    <Compile Include="Rotations\Warrior\FurySample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Rotation\CombatRoutine.cs" />
-    <Compile Include="Rotations\Hunter\Hunter.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <None Include="packages.config" />
     <None Include="Resources\Refresh2_16x16.png" />
     <None Include="Resources\PageSetup_16x16.png" />
     <None Include="Resources\Project_16x16.png" />
@@ -196,7 +184,6 @@
     <Content Include="FodyWeavers.xml" />
     <Content Include="Hadezign-Hobbies-Magic.ico" />
     <None Include="Resources\pm.png" />
-    <Content Include="Helpers\History.dll" />
     <Content Include="ToDoList.txt" />
     <EmbeddedResource Include="ColorProgressBar\ColorProgressBar.resx">
       <DependentUpon>ColorProgressBar.cs</DependentUpon>
@@ -269,13 +256,6 @@ rmdir Logs /s /q
 copy PixelMagic.exe ..\..\Builds /Y
 xcopy Rotations ..\..\Builds\Rotations /E /Y</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\packages\Fody.1.28.3\build\Fody.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.1.28.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.28.3\build\Fody.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

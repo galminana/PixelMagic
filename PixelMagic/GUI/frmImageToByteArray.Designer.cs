@@ -111,6 +111,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Image To Byte Array";
+            this.Load += new System.EventHandler(this.frmImageToByteArray_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picSample)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

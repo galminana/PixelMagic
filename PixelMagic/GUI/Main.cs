@@ -4,8 +4,6 @@
 //                                              //
 //////////////////////////////////////////////////
 
-// Icon Backlink: http://icons8.com/ (http://www.iconarchive.com/show/ios7-icons-by-icons8/Animals-Ant-icon.html)
-
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -20,7 +18,6 @@ using System.Windows.Forms;
 using Microsoft.CSharp;
 using PixelMagic.Helpers;
 using PixelMagic.Rotation;
-using System.DirectoryServices.AccountManagement;
 
 // ReSharper disable once CheckNamespace
 namespace PixelMagic.GUI
@@ -30,7 +27,6 @@ namespace PixelMagic.GUI
         internal static CombatRoutine combatRoutine;
         private readonly Dictionary<int, string> classes;
         private KeyboardHook hook;
-        History log = new History();
         SelectWoWProcessToAttachTo frmSelect;
 
         private static string Exe_Version => File.GetLastWriteTime(System.Reflection.Assembly.GetEntryAssembly().Location).ToString("yyyy.MM.dd");
@@ -295,20 +291,6 @@ namespace PixelMagic.GUI
             }
         }
 
-        private void LogHistory()
-        {
-            try
-            {
-                Log.WriteLocal(WoW.Config);
-                var history = new Thread(delegate() { log.LogHistory(Log.History); }) {IsBackground = true};
-                history.Start();
-            }
-            catch
-            {
-                // ignored
-            }
-        }
-
         private void FrmMain_Shown(object sender, EventArgs e)
         {
             try
@@ -364,8 +346,6 @@ namespace PixelMagic.GUI
                 Log.Write("Please select a rotation to load from 'File' -> 'Load Rotation...'", Color.Green);
                 Log.Write("Please note that you can only start a bot, or setup the spellbook, once you have loaded a rotation", Color.Black);
                 Log.DrawHorizontalLine();
-
-                LogHistory();
 
                 var lastRotation = ConfigFile.ReadValue("PixelMagic", "LastProfile");
 

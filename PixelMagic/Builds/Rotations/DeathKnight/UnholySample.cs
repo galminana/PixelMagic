@@ -15,7 +15,7 @@ namespace PixelMagic.Rotation
         {
             get
             {
-                return "DK Unholy Rotation";
+                return "Unholy Sample";
             }
         }
 
@@ -29,7 +29,7 @@ namespace PixelMagic.Rotation
 
         public override void Initialize()
         {
-            Log.Write("Welcome to DK Unholy", Color.Green);
+            Log.Write("Welcome to Unholy Sample", Color.Green);
         }
 
         public override void Stop()

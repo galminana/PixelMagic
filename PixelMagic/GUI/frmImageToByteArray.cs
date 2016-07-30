@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿//////////////////////////////////////////////////
+//                                              //
+//   See License.txt for Licensing information  //
+//                                              //
+//////////////////////////////////////////////////
+
+using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PixelMagic.GUI.GUI
@@ -18,16 +19,16 @@ namespace PixelMagic.GUI.GUI
             InitializeComponent();
         }
 
-        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        public byte[] imageToByteArray(Image imageIn)
         {
-            MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+            var ms = new MemoryStream();
+            imageIn.Save(ms, ImageFormat.Gif);
             return ms.ToArray();
         }
 
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
-            DialogResult res = openFileDialog1.ShowDialog();
+            var res = openFileDialog1.ShowDialog();
 
             if (res == DialogResult.OK)
             {
@@ -37,9 +38,9 @@ namespace PixelMagic.GUI.GUI
 
                 Cursor = Cursors.WaitCursor;
                 Application.DoEvents();
-                
+
                 var bytes = imageToByteArray(picSample.Image);
-                string byteString = string.Join(",", bytes);
+                var byteString = string.Join(",", bytes);
                 txtByteString.Text = byteString;
 
                 Cursor = Cursors.Arrow;
@@ -49,7 +50,10 @@ namespace PixelMagic.GUI.GUI
 
         private void picSample_Click(object sender, EventArgs e)
         {
+        }
 
+        private void frmImageToByteArray_Load(object sender, EventArgs e)
+        {
         }
     }
 }

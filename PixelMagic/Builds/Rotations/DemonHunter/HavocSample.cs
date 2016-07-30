@@ -9,13 +9,13 @@ using System.Windows.Forms;
 
 namespace PixelMagic.Rotation
 {
-    public class Hunter : CombatRoutine
+    public class DemonHunterHavoc : CombatRoutine
     {
         public override string Name
         {
             get
             {
-                return "Hunter Sample";
+                return "Havoc Sample";
             }
         }
 
@@ -23,19 +23,17 @@ namespace PixelMagic.Rotation
         {
             get
             {
-                return "Hunter";
+                return "Demon Hunter";
             }
         } 
 
         public override void Initialize()
         {
-            Log.Write("Welcome to Hunter Sample", Color.Green);
+            Log.Write("Welcome to Havoc Sample", Color.Green);
         }
 
         public override void Stop()
         {
-            // Move pet to me
-            WoW.SendKeyAtLocation(WoW.Keys.Z, 900, 500);   // Pet Passive and Move To = /petpassive /petmoveto
         }
 
         public override void Pulse()
@@ -44,33 +42,22 @@ namespace PixelMagic.Rotation
             {
                 if (WoW.HasTarget && WoW.TargetIsEnemy)
                 {
-                    if (WoW.CanCast("Kill Command") && WoW.Focus >= 40) // Kill Command
+                    if (WoW.CanCast("Chaos Strike") && WoW.Fury >= 40) // Fury Spender
                     {
-                        WoW.CastSpellByName("Kill Command");
+                        WoW.CastSpellByName("Chaos Strike");
                         return;
                     }
 
-                    if (WoW.CanCast("Arcane Shot") && WoW.Focus >= 30) // Arcane Shot
+                    if (WoW.CanCast("Demons Bite") && WoW.Fury <= 60)  // Fury Generator
                     {
-                        WoW.CastSpellByName("Arcane Shot");
+                        WoW.CastSpellByName("Demons Bite");
                         return;
-                    }
-
-                    if (WoW.CanCast("Steady Shot")) // Steady Shot
-                    {
-                        WoW.CastSpellByName("Steady Shot");
-                        Thread.Sleep(1000);
-                        return;
-                    }
+                    }                    
                 }
             }
             if (combatRoutine.Type == RotationType.AOE)
             {
                 // Do AOE Stuff here
-
-                // Log.Write("Has Aura: " + WoW.HasAura("Furious Howl"));
-                // Log.Write("Aura Count: " + WoW.GetAuraCount("Furious Howl"));
-                // Log.Write("Aura Count: " + WoW.GetAuraCount("Taste for Blood"));
             }            
         }
 
@@ -80,13 +67,11 @@ namespace PixelMagic.Rotation
 
 /*
 [AddonDetails.db]
-AddonAuthor=Hunter
+AddonAuthor=DemonHunter
 AddonName=PixelMagic
 WoWVersion=Legion - 70000
 [SpellBook.db]
-Spell,56641,Steady Shot, T
-Spell,3044,Arcane Shot, Y
-Spell,34026,Kill Command, S
-Aura,24604,Furious Howl
+Spell,162243,Demons Bite, T
+Spell,162794,Chaos Strike, Y
 */
 

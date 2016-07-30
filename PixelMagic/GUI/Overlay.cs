@@ -1,4 +1,10 @@
-﻿using System;
+﻿//////////////////////////////////////////////////
+//                                              //
+//   See License.txt for Licensing information  //
+//                                              //
+//////////////////////////////////////////////////
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;

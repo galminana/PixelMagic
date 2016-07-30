@@ -1,4 +1,10 @@
-﻿// Icon Backlink: http://www.aha-soft.com/
+﻿//////////////////////////////////////////////////
+//                                              //
+//   See License.txt for Licensing information  //
+//                                              //
+//////////////////////////////////////////////////
+
+// Icon Backlink: http://www.aha-soft.com/
 
 using System;
 using System.Windows.Forms;
