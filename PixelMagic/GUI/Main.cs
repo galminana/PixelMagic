@@ -272,6 +272,7 @@ namespace PixelMagic.GUI
             }
 
             hook.RegisterHotKey(Helpers.ModifierKeys.Ctrl, Keys.F5, "Reload Rotation & UI");
+            hook.RegisterHotKey(Helpers.ModifierKeys.Ctrl, Keys.F6, "Reload Rotation");
         }
 
         private void MouseHook_MouseClick(object sender, MouseEventArgs e)
@@ -414,6 +415,11 @@ namespace PixelMagic.GUI
             if (e.Modifier == Helpers.ModifierKeys.Ctrl && e.Key == Keys.F5)
             {
                 cmdReloadRotationAndUI.PerformClick();
+            }
+
+            if (e.Modifier == Helpers.ModifierKeys.Ctrl && e.Key == Keys.F6)
+            {
+                cmdReloadRotation.PerformClick();
             }
 
             if (ConfigFile.ReadValue("Hotkeys", "cmbStartRotationKey") != "")
