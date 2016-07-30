@@ -34,9 +34,9 @@ rotation file.
 - Legion
 
 **Sample screenshots**<br>
-![Alt Text](http://i.imgur.com/1nplBST.png)
+![Alt Text](http://i.imgur.com/5tIwfhI.png)
 <br>
-![Alt Text](http://i.imgur.com/478ZRTS.png)
+![Alt Text](http://i.imgur.com/uz4ODzT.png)
 <br>
 **Sample ingame screenshot of the addon in action**
 <br>
