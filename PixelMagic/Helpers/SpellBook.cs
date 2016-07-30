@@ -21,7 +21,7 @@ namespace PixelMagic.Helpers
         public static DataTable dtSpells;
         public static DataTable dtAuras;
 
-        public static bool Initialize(string fullRotationFilePath)
+        public static bool Initialize(string fullRotationFilePath, bool reloadUI = true)
         {
             FullRotationFilePath = fullRotationFilePath;
 
@@ -39,7 +39,7 @@ namespace PixelMagic.Helpers
             dtAuras.Columns.Add("Aura Name");
             dtAuras.Columns.Add("InternalNo"); // This stores the aura no in the array of auras that will be used on the addon
 
-            return Load();
+            return Load(reloadUI);
         }
 
         public static void AddSpell(NumericUpDown spellId, TextBox spellName, ComboBox keyBind)
@@ -155,7 +155,7 @@ namespace PixelMagic.Helpers
             }
         }
 
-        public static bool Load()
+        public static bool Load(bool reloadUI = true)
         {
             using (var sr = new StreamReader(FullRotationFilePath))
             {
@@ -233,7 +233,7 @@ namespace PixelMagic.Helpers
 
                     if (!File.Exists(AddonPath + "\\" + AddonName + "\\" + AddonName + ".toc"))
                     {
-                        return GenerateLUAFile();
+                        return GenerateLUAFile(reloadUI);
                     }
                 }
                 else
@@ -350,7 +350,7 @@ namespace PixelMagic.Helpers
             }
         }
 
-        public static bool GenerateLUAFile()
+        public static bool GenerateLUAFile(bool reloadUI = true)
         {
             try
             {
@@ -471,8 +471,11 @@ namespace PixelMagic.Helpers
                 Log.Write("Addon file generated.", Color.Green);
                 Log.Write($"Make sure that the addon: [{AddonName}] is enabled in your list of WoW Addons or the rotation bot will fail to work", Color.Black);
 
-                WoW.SendMacro("/console scriptErrors 1");   // Show wow Lua errors
-                WoW.SendMacro("/reload");
+                if (reloadUI)
+                {
+                    WoW.SendMacro("/console scriptErrors 1"); // Show wow Lua errors
+                    WoW.SendMacro("/reload");
+                }
 
                 return true;
             }

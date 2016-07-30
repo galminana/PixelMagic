@@ -34,6 +34,8 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cmbRotation = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,15 +43,15 @@
             // 
             this.cmbWoW.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWoW.FormattingEnabled = true;
-            this.cmbWoW.Location = new System.Drawing.Point(12, 129);
+            this.cmbWoW.Location = new System.Drawing.Point(63, 129);
             this.cmbWoW.Name = "cmbWoW";
-            this.cmbWoW.Size = new System.Drawing.Size(223, 21);
+            this.cmbWoW.Size = new System.Drawing.Size(281, 21);
             this.cmbWoW.TabIndex = 1;
             // 
             // cmdConnect
             // 
             this.cmdConnect.Image = global::PixelMagic.GUI.Properties.Resources.Register;
-            this.cmdConnect.Location = new System.Drawing.Point(270, 140);
+            this.cmdConnect.Location = new System.Drawing.Point(269, 184);
             this.cmdConnect.Name = "cmdConnect";
             this.cmdConnect.Size = new System.Drawing.Size(75, 23);
             this.cmdConnect.TabIndex = 2;
@@ -61,11 +63,13 @@
             // cmdRefresh
             // 
             this.cmdRefresh.Image = global::PixelMagic.GUI.Properties.Resources.Refresh2_16x16;
-            this.cmdRefresh.Location = new System.Drawing.Point(241, 140);
+            this.cmdRefresh.Location = new System.Drawing.Point(189, 184);
             this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(23, 23);
+            this.cmdRefresh.Size = new System.Drawing.Size(75, 23);
             this.cmdRefresh.TabIndex = 5;
             this.cmdRefresh.TabStop = false;
+            this.cmdRefresh.Text = "Refresh";
+            this.cmdRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.cmdRefresh.UseVisualStyleBackColor = true;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
@@ -82,17 +86,37 @@
             // 
             this.cmbRotation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRotation.FormattingEnabled = true;
-            this.cmbRotation.Location = new System.Drawing.Point(12, 156);
+            this.cmbRotation.Location = new System.Drawing.Point(63, 156);
             this.cmbRotation.Name = "cmbRotation";
-            this.cmbRotation.Size = new System.Drawing.Size(223, 21);
+            this.cmbRotation.Size = new System.Drawing.Size(281, 21);
             this.cmbRotation.TabIndex = 7;
             this.cmbRotation.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 132);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Process";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 159);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Rotation";
             // 
             // SelectWoWProcessToAttachTo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(356, 189);
+            this.ClientSize = new System.Drawing.Size(358, 219);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbRotation);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cmbWoW);
@@ -107,6 +131,7 @@
             this.Load += new System.EventHandler(this.SelectWoWProcessToAttachTo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -117,5 +142,7 @@
         private System.Windows.Forms.ComboBox cmbWoW;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ComboBox cmbRotation;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -19,7 +19,7 @@ namespace PixelMagic.GUI
         private void refreshProcessList()
         {
             cmbWoW.Items.Clear();
-
+            
             var processes = Process.GetProcessesByName("Wow");
 
             foreach (Process process in processes)

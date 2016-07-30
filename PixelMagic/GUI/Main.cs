@@ -103,16 +103,16 @@ namespace PixelMagic.GUI
 
             var processName = Process.GetCurrentProcess().ProcessName.ToUpper();
 
-            if (processName == "PIXELMAGIC" || processName == "PIXELMAGIC.VSHOST")
+            if (processName == "PIXELMAGIC")
             {
-                Log.WriteNoTime("It has been detected that you have not renamed 'PixelMagic.exe' before running it, it is reccomended to rename it", Color.Red);
+                Log.WriteNoTime("It has been detected that you have not renamed 'PixelMagic.exe' before running it, it is recommended to rename it", Color.Red);
             }
 
-            Log.HorizontalLine = "-".PadLeft(158, '-');
+            Log.HorizontalLine = "-".PadLeft(152, '-');
             Log.DrawHorizontalLine();
         }
 
-        private bool LoadProfile(string fileName)
+        private bool LoadProfile(string fileName, bool reloadUI = true)
         {
             using (var sr = new StreamReader(fileName))
             {
@@ -185,7 +185,7 @@ namespace PixelMagic.GUI
 
                         Overlay.showOverlay(new Point(20, 680));
                  
-                        if (SpellBook.Initialize(fileName))
+                        if (SpellBook.Initialize(fileName, reloadUI))
                         {
                             spellbookToolStripMenuItem.Enabled = true;
                             submitTicketToolStripMenuItem.Enabled = true;
@@ -194,6 +194,7 @@ namespace PixelMagic.GUI
                             cmdStartBot.BackColor = Color.LightGreen;
                             cmdRotationSettings.Enabled = true;
                             cmdReloadRotation.Enabled = true;
+                            cmdReloadRotationAndUI.Enabled = true;
 
                             return true;
                         }
@@ -269,6 +270,8 @@ namespace PixelMagic.GUI
                 hook.RegisterHotKey(Helpers.ModifierKeys.Alt, Keys.A, "AOE Targets");
                 hook.RegisterHotKey(Helpers.ModifierKeys.Alt, Keys.C, "Single Target Cleave Targets");
             }
+
+            hook.RegisterHotKey(Helpers.ModifierKeys.Ctrl, Keys.F5, "Reload Rotation & UI");
         }
 
         private void MouseHook_MouseClick(object sender, MouseEventArgs e)
@@ -407,6 +410,11 @@ namespace PixelMagic.GUI
         private void Hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
             lblHotkeyInfo.Text = e.Modifier + " + " + e.Key;
+
+            if (e.Modifier == Helpers.ModifierKeys.Ctrl && e.Key == Keys.F5)
+            {
+                cmdReloadRotationAndUI.PerformClick();
+            }
 
             if (ConfigFile.ReadValue("Hotkeys", "cmbStartRotationKey") != "")
             {
@@ -765,16 +773,50 @@ namespace PixelMagic.GUI
             f.ShowDialog();
         }
 
-        private void cmdReloadRotation_Click(object sender, EventArgs e)
+        private void ReloadRotation(bool reloadUI = true)
         {
+            Log.Clear();
+
+            var currentRotationState = combatRoutine.State;
+            var currentRotationType = combatRoutine.Type;
+
+            if (currentRotationState == CombatRoutine.RotationState.Running)
+            {
+                cmdStartBot.PerformClick(); // The bot is running stop it first
+                Log.DrawHorizontalLine();
+            }
+
+            // Then re-load the rotation
             var lastRotation = ConfigFile.ReadValue("PixelMagic", "LastProfile");
 
             if (!File.Exists(lastRotation)) return;
 
-            if (!LoadProfile(lastRotation))
+            if (!LoadProfile(lastRotation, reloadUI)) // Load the last rotation
             {
                 Log.Write("Failed to load profile, please select a valid file.", Color.Red);
+                return;
             }
+            
+            // Then start the bot if it was running
+            if (currentRotationState == CombatRoutine.RotationState.Running)
+            {
+                Log.DrawHorizontalLine();
+
+                cmdStartBot.PerformClick();
+                combatRoutine.ChangeType(currentRotationType);
+            }
+
+            Log.DrawHorizontalLine();
+        }
+
+        private void cmdReloadRotation_Click(object sender, EventArgs e)
+        {
+            ReloadRotation(false);
+        }
+
+        private void cmdReloadRotationAndUI_Click(object sender, EventArgs e)
+        {
+            ReloadRotation();
         }
     }
 }

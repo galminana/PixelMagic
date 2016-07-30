@@ -58,6 +58,9 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.cmdRotationSettings = new System.Windows.Forms.Button();
+            this.cmdReloadRotation = new System.Windows.Forms.Button();
+            this.cmdReloadRotationAndUI = new System.Windows.Forms.Button();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.transparentLabel3 = new PixelMagic.GUI.GUI.TransparentLabel();
             this.prgTargetHealth = new ColorProgressBar.ColorProgressBar();
             this.transparentLabel12 = new PixelMagic.GUI.GUI.TransparentLabel();
@@ -70,7 +73,8 @@
             this.transparentLabel5 = new PixelMagic.GUI.GUI.TransparentLabel();
             this.prgPower = new ColorProgressBar.ColorProgressBar();
             this.prgPlayerHealth = new ColorProgressBar.ColorProgressBar();
-            this.cmdReloadRotation = new System.Windows.Forms.Button();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPulse)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -80,7 +84,7 @@
             // 
             this.cmdStartBot.Enabled = false;
             this.cmdStartBot.ForeColor = System.Drawing.Color.Black;
-            this.cmdStartBot.Location = new System.Drawing.Point(841, 39);
+            this.cmdStartBot.Location = new System.Drawing.Point(800, 35);
             this.cmdStartBot.Name = "cmdStartBot";
             this.cmdStartBot.Size = new System.Drawing.Size(142, 31);
             this.cmdStartBot.TabIndex = 1;
@@ -99,7 +103,7 @@
             this.rtbLog.Name = "rtbLog";
             this.rtbLog.ReadOnly = true;
             this.rtbLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.rtbLog.Size = new System.Drawing.Size(825, 515);
+            this.rtbLog.Size = new System.Drawing.Size(784, 515);
             this.rtbLog.TabIndex = 2;
             this.rtbLog.Text = "";
             this.rtbLog.TextChanged += new System.EventHandler(this.rtbLog_TextChanged);
@@ -116,7 +120,7 @@
             // txtTargetCasting
             // 
             this.txtTargetCasting.ForeColor = System.Drawing.Color.White;
-            this.txtTargetCasting.Location = new System.Drawing.Point(922, 196);
+            this.txtTargetCasting.Location = new System.Drawing.Point(881, 192);
             this.txtTargetCasting.Name = "txtTargetCasting";
             this.txtTargetCasting.ReadOnly = true;
             this.txtTargetCasting.Size = new System.Drawing.Size(61, 20);
@@ -128,7 +132,7 @@
             this.cmdDonate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdDonate.BackColor = System.Drawing.Color.White;
             this.cmdDonate.ForeColor = System.Drawing.Color.DimGray;
-            this.cmdDonate.Location = new System.Drawing.Point(841, 494);
+            this.cmdDonate.Location = new System.Drawing.Point(800, 493);
             this.cmdDonate.Name = "cmdDonate";
             this.cmdDonate.Size = new System.Drawing.Size(142, 31);
             this.cmdDonate.TabIndex = 12;
@@ -145,7 +149,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(996, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(955, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -258,7 +262,7 @@
             // txtMouseXYClick
             // 
             this.txtMouseXYClick.ForeColor = System.Drawing.Color.White;
-            this.txtMouseXYClick.Location = new System.Drawing.Point(922, 250);
+            this.txtMouseXYClick.Location = new System.Drawing.Point(881, 246);
             this.txtMouseXYClick.Name = "txtMouseXYClick";
             this.txtMouseXYClick.ReadOnly = true;
             this.txtMouseXYClick.Size = new System.Drawing.Size(61, 20);
@@ -267,7 +271,7 @@
             // txtMouseXY
             // 
             this.txtMouseXY.ForeColor = System.Drawing.Color.White;
-            this.txtMouseXY.Location = new System.Drawing.Point(922, 223);
+            this.txtMouseXY.Location = new System.Drawing.Point(881, 219);
             this.txtMouseXY.Name = "txtMouseXY";
             this.txtMouseXY.ReadOnly = true;
             this.txtMouseXY.Size = new System.Drawing.Size(61, 20);
@@ -279,7 +283,7 @@
             this.chkPlayErrorSounds.Checked = true;
             this.chkPlayErrorSounds.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPlayErrorSounds.ForeColor = System.Drawing.Color.Black;
-            this.chkPlayErrorSounds.Location = new System.Drawing.Point(969, 304);
+            this.chkPlayErrorSounds.Location = new System.Drawing.Point(928, 300);
             this.chkPlayErrorSounds.Name = "chkPlayErrorSounds";
             this.chkPlayErrorSounds.Size = new System.Drawing.Size(15, 14);
             this.chkPlayErrorSounds.TabIndex = 18;
@@ -292,7 +296,7 @@
             this.chkDisableOverlay.Checked = true;
             this.chkDisableOverlay.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDisableOverlay.ForeColor = System.Drawing.Color.Black;
-            this.chkDisableOverlay.Location = new System.Drawing.Point(969, 325);
+            this.chkDisableOverlay.Location = new System.Drawing.Point(928, 321);
             this.chkDisableOverlay.Name = "chkDisableOverlay";
             this.chkDisableOverlay.Size = new System.Drawing.Size(15, 14);
             this.chkDisableOverlay.TabIndex = 19;
@@ -302,7 +306,7 @@
             // nudPulse
             // 
             this.nudPulse.ForeColor = System.Drawing.Color.White;
-            this.nudPulse.Location = new System.Drawing.Point(922, 277);
+            this.nudPulse.Location = new System.Drawing.Point(881, 273);
             this.nudPulse.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -328,10 +332,13 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
-            this.toolStripStatusLabel1});
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel5,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel6});
             this.statusStrip1.Location = new System.Drawing.Point(0, 537);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(996, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(955, 24);
             this.statusStrip1.TabIndex = 23;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -370,7 +377,7 @@
             // 
             this.cmdRotationSettings.Enabled = false;
             this.cmdRotationSettings.ForeColor = System.Drawing.Color.Black;
-            this.cmdRotationSettings.Location = new System.Drawing.Point(841, 77);
+            this.cmdRotationSettings.Location = new System.Drawing.Point(800, 73);
             this.cmdRotationSettings.Name = "cmdRotationSettings";
             this.cmdRotationSettings.Size = new System.Drawing.Size(142, 31);
             this.cmdRotationSettings.TabIndex = 26;
@@ -378,10 +385,47 @@
             this.cmdRotationSettings.UseVisualStyleBackColor = false;
             this.cmdRotationSettings.Click += new System.EventHandler(this.cmdRotationSettings_Click);
             // 
+            // cmdReloadRotation
+            // 
+            this.cmdReloadRotation.Enabled = false;
+            this.cmdReloadRotation.ForeColor = System.Drawing.Color.Black;
+            this.cmdReloadRotation.Location = new System.Drawing.Point(800, 346);
+            this.cmdReloadRotation.Name = "cmdReloadRotation";
+            this.cmdReloadRotation.Size = new System.Drawing.Size(142, 31);
+            this.cmdReloadRotation.TabIndex = 43;
+            this.cmdReloadRotation.Text = "Reload Rotation";
+            this.cmdReloadRotation.UseVisualStyleBackColor = false;
+            this.cmdReloadRotation.Click += new System.EventHandler(this.cmdReloadRotation_Click);
+            // 
+            // cmdReloadRotationAndUI
+            // 
+            this.cmdReloadRotationAndUI.Enabled = false;
+            this.cmdReloadRotationAndUI.ForeColor = System.Drawing.Color.Black;
+            this.cmdReloadRotationAndUI.Location = new System.Drawing.Point(800, 383);
+            this.cmdReloadRotationAndUI.Name = "cmdReloadRotationAndUI";
+            this.cmdReloadRotationAndUI.Size = new System.Drawing.Size(142, 31);
+            this.cmdReloadRotationAndUI.TabIndex = 44;
+            this.cmdReloadRotationAndUI.Text = "Reload Rotation && UI";
+            this.cmdReloadRotationAndUI.UseVisualStyleBackColor = false;
+            this.cmdReloadRotationAndUI.Click += new System.EventHandler(this.cmdReloadRotationAndUI_Click);
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.AutoSize = false;
+            this.toolStripStatusLabel5.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripStatusLabel5.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.toolStripStatusLabel5.ForeColor = System.Drawing.Color.Gray;
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(210, 19);
+            this.toolStripStatusLabel5.Spring = true;
+            this.toolStripStatusLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // transparentLabel3
             // 
             this.transparentLabel3.ForeColor = System.Drawing.Color.White;
-            this.transparentLabel3.Location = new System.Drawing.Point(871, 172);
+            this.transparentLabel3.Location = new System.Drawing.Point(830, 168);
             this.transparentLabel3.Name = "transparentLabel3";
             this.transparentLabel3.Size = new System.Drawing.Size(69, 15);
             this.transparentLabel3.TabIndex = 32;
@@ -396,7 +440,7 @@
             this.prgTargetHealth.BorderColor = System.Drawing.Color.Green;
             this.prgTargetHealth.FillStyle = ColorProgressBar.ColorProgressBar.FillStyles.Solid;
             this.prgTargetHealth.ForeColor = System.Drawing.Color.White;
-            this.prgTargetHealth.Location = new System.Drawing.Point(841, 169);
+            this.prgTargetHealth.Location = new System.Drawing.Point(800, 165);
             this.prgTargetHealth.Maximum = 100;
             this.prgTargetHealth.Minimum = 0;
             this.prgTargetHealth.Name = "prgTargetHealth";
@@ -408,7 +452,7 @@
             // transparentLabel12
             // 
             this.transparentLabel12.ForeColor = System.Drawing.Color.White;
-            this.transparentLabel12.Location = new System.Drawing.Point(878, 145);
+            this.transparentLabel12.Location = new System.Drawing.Point(837, 141);
             this.transparentLabel12.Name = "transparentLabel12";
             this.transparentLabel12.Size = new System.Drawing.Size(54, 15);
             this.transparentLabel12.TabIndex = 41;
@@ -419,7 +463,7 @@
             // transparentLabel11
             // 
             this.transparentLabel11.ForeColor = System.Drawing.Color.White;
-            this.transparentLabel11.Location = new System.Drawing.Point(878, 118);
+            this.transparentLabel11.Location = new System.Drawing.Point(837, 114);
             this.transparentLabel11.Name = "transparentLabel11";
             this.transparentLabel11.Size = new System.Drawing.Size(54, 15);
             this.transparentLabel11.TabIndex = 40;
@@ -430,7 +474,7 @@
             // transparentLabel10
             // 
             this.transparentLabel10.ForeColor = System.Drawing.Color.Black;
-            this.transparentLabel10.Location = new System.Drawing.Point(841, 325);
+            this.transparentLabel10.Location = new System.Drawing.Point(800, 321);
             this.transparentLabel10.Name = "transparentLabel10";
             this.transparentLabel10.Size = new System.Drawing.Size(85, 15);
             this.transparentLabel10.TabIndex = 39;
@@ -441,7 +485,7 @@
             // transparentLabel9
             // 
             this.transparentLabel9.ForeColor = System.Drawing.Color.Black;
-            this.transparentLabel9.Location = new System.Drawing.Point(841, 304);
+            this.transparentLabel9.Location = new System.Drawing.Point(800, 300);
             this.transparentLabel9.Name = "transparentLabel9";
             this.transparentLabel9.Size = new System.Drawing.Size(93, 15);
             this.transparentLabel9.TabIndex = 38;
@@ -452,7 +496,7 @@
             // transparentLabel7
             // 
             this.transparentLabel7.ForeColor = System.Drawing.Color.Black;
-            this.transparentLabel7.Location = new System.Drawing.Point(841, 252);
+            this.transparentLabel7.Location = new System.Drawing.Point(800, 248);
             this.transparentLabel7.Name = "transparentLabel7";
             this.transparentLabel7.Size = new System.Drawing.Size(59, 15);
             this.transparentLabel7.TabIndex = 37;
@@ -463,7 +507,7 @@
             // transparentLabel8
             // 
             this.transparentLabel8.ForeColor = System.Drawing.Color.Black;
-            this.transparentLabel8.Location = new System.Drawing.Point(841, 225);
+            this.transparentLabel8.Location = new System.Drawing.Point(800, 221);
             this.transparentLabel8.Name = "transparentLabel8";
             this.transparentLabel8.Size = new System.Drawing.Size(59, 15);
             this.transparentLabel8.TabIndex = 36;
@@ -474,7 +518,7 @@
             // transparentLabel6
             // 
             this.transparentLabel6.ForeColor = System.Drawing.Color.Black;
-            this.transparentLabel6.Location = new System.Drawing.Point(841, 280);
+            this.transparentLabel6.Location = new System.Drawing.Point(800, 276);
             this.transparentLabel6.Name = "transparentLabel6";
             this.transparentLabel6.Size = new System.Drawing.Size(58, 15);
             this.transparentLabel6.TabIndex = 35;
@@ -485,7 +529,7 @@
             // transparentLabel5
             // 
             this.transparentLabel5.ForeColor = System.Drawing.Color.Black;
-            this.transparentLabel5.Location = new System.Drawing.Point(841, 198);
+            this.transparentLabel5.Location = new System.Drawing.Point(800, 194);
             this.transparentLabel5.Name = "transparentLabel5";
             this.transparentLabel5.Size = new System.Drawing.Size(85, 15);
             this.transparentLabel5.TabIndex = 34;
@@ -500,7 +544,7 @@
             this.prgPower.BorderColor = System.Drawing.Color.Green;
             this.prgPower.FillStyle = ColorProgressBar.ColorProgressBar.FillStyles.Solid;
             this.prgPower.ForeColor = System.Drawing.Color.White;
-            this.prgPower.Location = new System.Drawing.Point(841, 142);
+            this.prgPower.Location = new System.Drawing.Point(800, 138);
             this.prgPower.Maximum = 100;
             this.prgPower.Minimum = 0;
             this.prgPower.Name = "prgPower";
@@ -516,7 +560,7 @@
             this.prgPlayerHealth.BorderColor = System.Drawing.Color.Green;
             this.prgPlayerHealth.FillStyle = ColorProgressBar.ColorProgressBar.FillStyles.Solid;
             this.prgPlayerHealth.ForeColor = System.Drawing.Color.White;
-            this.prgPlayerHealth.Location = new System.Drawing.Point(841, 115);
+            this.prgPlayerHealth.Location = new System.Drawing.Point(800, 111);
             this.prgPlayerHealth.Maximum = 100;
             this.prgPlayerHealth.Minimum = 0;
             this.prgPlayerHealth.Name = "prgPlayerHealth";
@@ -525,17 +569,27 @@
             this.prgPlayerHealth.TabIndex = 24;
             this.prgPlayerHealth.Value = 70;
             // 
-            // cmdReloadRotation
+            // toolStripStatusLabel4
             // 
-            this.cmdReloadRotation.Enabled = false;
-            this.cmdReloadRotation.ForeColor = System.Drawing.Color.Black;
-            this.cmdReloadRotation.Location = new System.Drawing.Point(841, 346);
-            this.cmdReloadRotation.Name = "cmdReloadRotation";
-            this.cmdReloadRotation.Size = new System.Drawing.Size(142, 31);
-            this.cmdReloadRotation.TabIndex = 43;
-            this.cmdReloadRotation.Text = "Reload Rotation";
-            this.cmdReloadRotation.UseVisualStyleBackColor = false;
-            this.cmdReloadRotation.Click += new System.EventHandler(this.cmdReloadRotation_Click);
+            this.toolStripStatusLabel4.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripStatusLabel4.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.Gray;
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(227, 19);
+            this.toolStripStatusLabel4.Text = "Hoykey: Ctrl + F5 = Reload Rotation && UI";
+            // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripStatusLabel6.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.toolStripStatusLabel6.ForeColor = System.Drawing.Color.Gray;
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(154, 19);
+            this.toolStripStatusLabel6.Text = "Ctrl + F6 = Reload Rotation";
             // 
             // frmMain
             // 
@@ -543,7 +597,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(996, 561);
+            this.ClientSize = new System.Drawing.Size(955, 561);
+            this.Controls.Add(this.cmdReloadRotationAndUI);
             this.Controls.Add(this.cmdReloadRotation);
             this.Controls.Add(this.txtTargetCasting);
             this.Controls.Add(this.transparentLabel3);
@@ -572,6 +627,9 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(971, 600);
+            this.MinimumSize = new System.Drawing.Size(971, 600);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.frmMain_Load);
@@ -628,6 +686,10 @@
         public ColorProgressBar.ColorProgressBar prgTargetHealth;
         private System.Windows.Forms.ToolStripMenuItem imageToByteArrayToolStripMenuItem;
         private System.Windows.Forms.Button cmdReloadRotation;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.Button cmdReloadRotationAndUI;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
     }
 }
 
