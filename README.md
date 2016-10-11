@@ -23,6 +23,7 @@ rotation file.
 **Website for FAQ:** [here](http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-bots-questions-requests/542750-pixel-based-bot.html)<br>
 **Official Discord:** [here](https://discord.gg/0rnM62Wx5pQp8tjT)<br>
 **Additional Sample Rotations:** [here](https://github.com/winifix/PixelMagic-OpenSource/tree/master/Additional%20Sample%20Rotations)<br>
+**Supported Commands in combat routines will be updated on this spreadsheet:** [here](https://docs.google.com/spreadsheets/d/1qqCt4d-tu53beC18WVVBee0CNfAIxNDnxNW2P4Cgjyk/edit?usp=sharing)<br>
 *Instructions on how to use / test / build this version are on Discord along with support*
 
 **Xcesius Rotations:** [here](https://github.com/Xcesius/PixelMagic-OpenSource/tree/master/Rotations)<br>
