@@ -37,6 +37,8 @@ local lastCooldownState = {}
 local lastSpellChargeCharges = {}
 local lastBuffState = {}
 local lastDebuffState = {}
+local TargetBuffs = { }
+local buffLastState  = { }
 
 
 local runePrev = 0
@@ -69,7 +71,71 @@ local isDead = UnitIsDead(""target"")
     end
 end
 
+local function updateTargetBuffs()
+	for _, auraId in pairs(buffs) do
+        local buff = ""Unitbuff"";
+        local auraName = GetSpellInfo(auraId)
 
+        if auraName == nil then
+            if (buffLastState[auraId] ~= ""BuffOff"") then
+                TargetBuffs[auraId].t:SetColorTexture(1, 1, 1, 1)
+                TargetBuffs[auraId].t:SetAllPoints(false)
+                buffLastState[auraId] = ""BuffOff""          
+            end
+    
+            return
+        end
+
+
+
+       local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, nameplateShowPersonal, spellID, canApplyAura, isBossDebuff, _, nameplateShowAll, timeMod, value1, value2, value3 = UnitBuff(""Target"", auraName)
+
+		if (name == auraName) then -- We have Aura up and Aura ID is matching our list
+            local getTime = GetTime()
+            local remainingTime = math.floor(expires - getTime + 0.5) 	
+
+			if (buffLastState[auraId] ~= ""BuffOn"" .. count..remainingTime) then
+            local green = 0
+                local blue = 0
+                local strcount = ""0.0""..count;
+        local strbluecount = ""0.0""..remainingTime;
+                
+                if(remainingTime <= 0 or remainingTime <= -0 or remainingTime == 0) then
+                blue = 0
+
+                strbluecount = 0
+				end
+
+                if (count >= 10) then
+                    strcount = ""0.""..count;
+        end
+
+                if(remainingTime >= 10) then
+                   strbluecount = ""0.""..remainingTime;
+        end
+
+        green = tonumber(strcount)
+        blue = tonumber(strbluecount)
+
+
+
+                TargetBuffs[auraId].t:SetColorTexture(0, green, blue, 1)
+
+                    TargetBuffs[auraId].t:SetAllPoints(false)
+
+
+                buffLastState[auraId] = ""BuffOn"" .. count..remainingTime
+            end
+        else
+            if (buffLastState[auraId] ~= ""BuffOff"") then
+                TargetBuffs[auraId].t:SetColorTexture(1, 1, 1, 1)
+                TargetBuffs[auraId].t:SetAllPoints(false)
+                buffLastState[auraId] = ""BuffOff""
+              
+            end
+        end
+    end
+end
 
 local function updateHolyPower(self, event)
     local power = UnitPower(""player"", 9)
