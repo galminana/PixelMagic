@@ -229,6 +229,7 @@ namespace PixelMagic.Helpers
         private static readonly object thisLock = new object();
         private static readonly Bitmap screenPixel = new Bitmap(1, 1);
         private static DataTable dtColorHelper;
+        public static string lastSpell="";
         
         public static void Initialize(Process wowProcess)
         {
@@ -301,6 +302,67 @@ namespace PixelMagic.Helpers
                     var up = UserPrincipal.FindByIdentity(pc, IdentityType.SamAccountName, "Limited");
                     return up != null;
                 }
+            }
+        }
+
+        public static bool IsInCombat()
+        {
+            var c = WoW.GetBlockColor(1, 11);
+            return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
+        }
+
+        public static bool AutoAtacking()
+        {
+            var c = WoW.GetBlockColor(2, 10);
+            return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
+        }
+
+        public static bool IsMoving()
+        {
+            var c = WoW.GetBlockColor(1, 10);
+            return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
+        }
+
+        public static int CurrentChi
+        {
+            get
+            {
+                var ss = 0;
+                for (var x = 1; x <= 5; x++)
+                {
+                    var c = GetBlockColor(x, 7);
+                    if ((c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B))
+                    {
+                        ss++;
+                    }
+                }
+                return ss;
+            }
+        }
+
+        public static int CurrentArcaneCharges
+        {
+            get
+            {
+                var ss = 0;
+                for (var x = 1; x <= 4; x++)
+                {
+                    var c = GetBlockColor(x, 7);
+                    if ((c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B))
+                    {
+                        ss++;
+                    }
+                }
+                return ss;
+            }
+        }
+
+        public static bool PlayerIsChanneling
+        {
+            get
+            {
+                Color blockColor = WoW.GetBlockColor(3, 3);
+                return blockColor.R == 0 && blockColor.G == 255 && blockColor.B == 0;
             }
         }
 
@@ -437,16 +499,20 @@ namespace PixelMagic.Helpers
                 // It is displayed as binary, so 100% health = 1100100
                 var binaryHealth = "";
 
-                for (var x = 1; x <= 7; x++)
+                for (var x = 1; x <= 8; x++)
                 {
                     var c = GetBlockColor(x, 1);
                     binaryHealth += (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B) ? "1" : "0";
                 }
-
+                
                 return Convert.ToInt32(binaryHealth, 2);
             }
         }
-
+        public static bool HasPet()
+        {
+            Color blockColor = WoW.GetBlockColor(1, 5);
+            return blockColor.R == Color.Red.R && blockColor.G == Color.Red.G && blockColor.B == Color.Red.B;
+        }
         public static int TargetHealthPercent
         {
             get
@@ -456,7 +522,7 @@ namespace PixelMagic.Helpers
                 // It is displayed as binary, so 100% health = 1100100
                 var binaryHealth = "";
 
-                for (var x = 15; x <= 21; x++)
+                for (var x = 17; x <= 24; x++)
                 {
                     var c = GetBlockColor(x, 1);
                     binaryHealth += (c.R == 0) && (c.G == 0) && (c.B == 255) ? "1" : "0";
@@ -475,10 +541,10 @@ namespace PixelMagic.Helpers
                 // It is displayed as binary, so 100 power = 1100100
                 var binaryPower = "";
 
-                for (var x = 8; x <= 14; x++)
+                for (var x = 9; x <= 16; x++)
                 {
                     var c = GetBlockColor(x, 1);
-                    binaryPower += (c.R == 0) && (c.G == 255) && (c.B == 0) ? "1" : "0";
+                    binaryPower = binaryPower + ((c.R == 0) && (c.G == 255) && (c.B == 0) ? "1" : "0");
                 }
 
                 return Convert.ToInt32(binaryPower, 2);
@@ -490,6 +556,9 @@ namespace PixelMagic.Helpers
         public static int Rage => Power;
         public static int Fury => Power;
         public static int RunicPower => Power;
+        public static int Astral => Power;
+        public static int Maelstrom => Power;
+
 
         public static bool HasFocus
         {
@@ -645,7 +714,10 @@ namespace PixelMagic.Helpers
 
             Mouse.LeftClick(x, y);
         }
-
+        public static void stopAttack()
+        {
+            KeyPressRelease(Keys.OemCloseBrackets);
+        }
         public static void SendMacro(string macro)
         {
             Log.Write("Sending macro: " + macro, Color.Gray);
@@ -838,8 +910,9 @@ namespace PixelMagic.Helpers
             }
 
             SendKey(spell.Key, 50, spellBookSpellName);
+            lastSpell = spellBookSpellName;
         }
-
+        
         [DllImport("gdi32.dll")]
         private static extern int BitBlt(IntPtr srchDC, int srcX, int srcY, int srcW, int srcH, IntPtr desthDC, int destX, int destY, int op);
 
@@ -854,8 +927,8 @@ namespace PixelMagic.Helpers
             if ((column <= 0) || (row <= 0))
                 throw new Exception("x and or y must be >= 1");
 
-            column = (column - 1)*7; // For some unknown reason pixel size of 5x5 in WoW = 7x7 in C#
-            row = (row - 1)*7;
+            column = (column - 1)*5; // For some unknown reason pixel size of 5x5 in WoW = 7x7 in C#
+            row = (row - 1)*5;
 
             lock (thisLock) // We lock the bitmap "screenPixel" here to avoid it from being accessed by multiple threads at the same time and crashing
             {

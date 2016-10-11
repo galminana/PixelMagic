@@ -1,0 +1,37 @@
+[10/11/2016 02:05:33] Welcome 
+[10/11/2016 02:05:33] to 
+[10/11/2016 02:05:33] P
+[10/11/2016 02:05:33] i
+[10/11/2016 02:05:33] x
+[10/11/2016 02:05:33] e
+[10/11/2016 02:05:33] l
+[10/11/2016 02:05:33] M
+[10/11/2016 02:05:33] a
+[10/11/2016 02:05:33] g
+[10/11/2016 02:05:33] i
+[10/11/2016 02:05:33] c 
+[10/11/2016 02:05:33] Premium 
+[10/11/2016 02:05:33] Edition 
+[10/11/2016 02:05:33] developed 
+[10/11/2016 02:05:33] by 
+[10/11/2016 02:05:33] WiNiFiX 
+[10/11/2016 02:05:33] 
+
+[10/11/2016 02:05:33] For support please visit: http://goo.gl/0AqNxv
+[10/11/2016 02:05:33] To view a sample rotation see the file: D:\Documentos\GitHub\PixelMagic\PixelMagic\Builds\Rotations\Warrior\Warrior.cs
+[10/11/2016 02:05:33] To find spell / buff id's in WoW use the addon http://mods.curse.com/addons/wow/spellid
+[10/11/2016 02:05:33] It has been detected that you have not renamed 'PixelMagic.exe' before running it, it is recommended to rename it
+[10/11/2016 02:05:33] --------------------------------------------------------------------------------------------------------------------------------------------------------
+[10/11/2016 02:05:34] Windows 10 Home (x64) Version 10.0.14393 SP 0.0
+[10/11/2016 02:05:34] Screen [1] - depth: 32bit - resolution: 1920x1080
+[10/11/2016 02:05:34] Checking for updates...
+[10/11/2016 02:05:34] Latest GitHub version: 120
+[10/11/2016 02:05:34] Current version: 120
+[10/11/2016 02:05:42] Performing Cleanup, application closing...
+[10/11/2016 02:05:42]  - Keyboard Hotkey Hooks...
+[10/11/2016 02:05:42]  - Done.
+[10/11/2016 02:05:42]  - Combat Routine...
+[10/11/2016 02:05:42]  - Done
+[10/11/2016 02:05:42]  - WoW Pixel Reading System...
+[10/11/2016 02:05:42] Disposing of WoW Process...
+[10/11/2016 02:05:42] Object reference not set to an instance of an object.
