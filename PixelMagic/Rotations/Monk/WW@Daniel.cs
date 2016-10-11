@@ -40,29 +40,29 @@ namespace PixelMagic.Rotation
         {
             if (combatRoutine.Type == RotationType.SingleTarget)
             {
-                if (WoW.HasTarget&& WoW.TargetIsEnemy&&!WoW.PlayerIsChanneling&&!WoW.PlayerIsCasting&&!WoW.HasDebuff("Paralysis")&&WoW.IsSpellInRange("Tiger Palm"))
+                if (WoW.HasTarget&& WoW.TargetIsEnemy&&!WoW.PlayerIsChanneling&&!WoW.PlayerIsCasting&&!WoW.HasDebuff("Paralysis"))
                 {
-					if(WoW.CanCast("Energizing Elixir")&&!WoW.IsSpellOnCooldown("Energizing Elixir")&&!WoW.IsSpellOnCooldown("Fists of Fury")&&WoW.CurrentChi<=1)
+					if(WoW.CanCast("Energizing Elixir")&&WoW.IsSpellInRange("Tiger Palm")&&!WoW.IsSpellOnCooldown("Energizing Elixir")&&!WoW.IsSpellOnCooldown("Fists of Fury")&&WoW.CurrentChi<=1)
 					{
 						WoW.CastSpellByName("Energizing Elixir");
 						return;
 					}
-					if(WoW.CanCast("Strike of the Windlord")&&WoW.CurrentChi>=2&&!WoW.lastSpell.Equals("Strike of the Windlord"))
+					if(WoW.CanCast("Strike of the Windlord")&&WoW.CurrentChi>=2&&!WoW.lastSpell.Equals("Strike of the Windlord")&&WoW.IsSpellInRange("Tiger Palm"))
 					{
 						WoW.CastSpellByName("Strike of the Windlord");
 						return;
 					}
-					if(WoW.CanCast("Fists of Fury")&&WoW.CurrentChi>=3&&!WoW.lastSpell.Equals("Fists of Fury"))
+					if(WoW.CanCast("Fists of Fury")&&WoW.CurrentChi>=3&&!WoW.lastSpell.Equals("Fists of Fury")&&WoW.IsSpellInRange("Tiger Palm"))
 					{
 						WoW.CastSpellByName("Fists of Fury");
 						return;
 					}
-					if(WoW.CanCast("Rising Sun Kick")&&!WoW.lastSpell.Equals("Rising Sun Kick")&&WoW.CurrentChi>=2)
+					if(WoW.CanCast("Rising Sun Kick")&&!WoW.lastSpell.Equals("Rising Sun Kick")&&WoW.CurrentChi>=2&&WoW.IsSpellInRange("Tiger Palm"))
 					{
 						WoW.CastSpellByName("Rising Sun Kick");
 						return;
 					}
-					if(WoW.CanCast("Whirling Dragon Punch")&&WoW.IsSpellOnCooldown("Rising Sun Kick")&&WoW.IsSpellOnCooldown("Fists of Fury"))
+					if(WoW.CanCast("Whirling Dragon Punch")&&WoW.IsSpellOnCooldown("Rising Sun Kick")&&WoW.IsSpellOnCooldown("Fists of Fury")&&WoW.IsSpellInRange("Tiger Palm"))
 					{
 						WoW.CastSpellByName("Whirling Dragon Punch");
 						return;
@@ -72,17 +72,17 @@ namespace PixelMagic.Rotation
 						WoW.CastSpellByName("Chi Wave");
 						return;
 					}
-					if(WoW.CanCast("Touch of Death")&&!WoW.lastSpell.Equals("Touch of Death"))
+					if(WoW.CanCast("Touch of Death")&&!WoW.lastSpell.Equals("Touch of Death")&&WoW.IsSpellInRange("Tiger Palm"))
 					{
 						WoW.CastSpellByName("Touch of Death");
 						return;
 					}
-					if(WoW.CanCast("Blackout Kick")&&!WoW.lastSpell.Equals("Blackout Kick")&&(WoW.CurrentChi>=1||WoW.HasBuff("Blackout Kick!")))
+					if(WoW.CanCast("Blackout Kick")&&!WoW.lastSpell.Equals("Blackout Kick")&&(WoW.CurrentChi>=1||WoW.HasBuff("Blackout Kick!"))&&WoW.IsSpellInRange("Tiger Palm"))
 					{
 						WoW.CastSpellByName("Blackout Kick");
 						return;
 					}
-					if(WoW.CanCast("Tiger Palm")&&!WoW.lastSpell.Equals("Tiger Palm")&&WoW.CurrentChi<4&&WoW.Energy>=50)
+					if(WoW.CanCast("Tiger Palm")&&!WoW.lastSpell.Equals("Tiger Palm")&&WoW.CurrentChi<4&&WoW.Energy>=50&&WoW.IsSpellInRange("Tiger Palm"))
 					{
 						WoW.CastSpellByName("Tiger Palm");
 						return;

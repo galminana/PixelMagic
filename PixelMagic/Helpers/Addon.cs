@@ -69,52 +69,6 @@ local isDead = UnitIsDead(""target"")
     end
 end
 
-unitCombatFrame = CreateFrame(""frame"");
-unitCombatFrame:SetSize(size, size);
-unitCombatFrame:SetPoint(""TOPLEFT"", 0, -size* 10)           -- column 1 row 11 <-------
-unitCombatFrame.t = unitCombatFrame:CreateTexture()
-unitCombatFrame.t:SetColorTexture(1, 1, 1, 1)
-unitCombatFrame.t:SetAllPoints(unitCombatFrame)
-unitCombatFrame:Show()
-unitCombatFrame:SetScript(""OnUpdate"", updateCombat)
-
-local function PlayerNotMove()
-    if GetUnitSpeed(""Player"") == 0
-    then
-      Movetime = GetTime()
-      PlayerMovingFrame.t:SetColorTexture(0, 0, 0, 1)
-    else PlayerMovingFrame.t:SetColorTexture(1, 0, 0, 1)
-    end
-end
-
-
-PlayerMovingFrame = CreateFrame(""frame"");
-PlayerMovingFrame:SetSize(size, size);
-PlayerMovingFrame:SetPoint(""TOPLEFT"", 0, -size* 9)           -- column 1 row 10 <-------
-PlayerMovingFrame.t = PlayerMovingFrame:CreateTexture()
-PlayerMovingFrame.t:SetColorTexture(1, 1, 1, 1)
-PlayerMovingFrame.t:SetAllPoints(PlayerMovingFrame)
-PlayerMovingFrame:Show()
-PlayerMovingFrame:SetScript(""OnUpdate"", PlayerNotMove)
-
-
-local function AutoAtacking()
-    if IsCurrentSpell(6603)
-    then
-         AutoAtackingFrame.t:SetColorTexture(1, 0, 0, 1)
-    else AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
-    end
-end
-
-
-AutoAtackingFrame = CreateFrame(""frame"");
-AutoAtackingFrame:SetSize(size, size);
-AutoAtackingFrame:SetPoint(""TOPLEFT"", size, -size* 9)           -- column 2 row 10 <-------
-AutoAtackingFrame.t = AutoAtackingFrame:CreateTexture()
-AutoAtackingFrame.t:SetColorTexture(1, 1, 1, 1)
-AutoAtackingFrame.t:SetAllPoints(AutoAtackingFrame)
-AutoAtackingFrame:Show()
-AutoAtackingFrame:SetScript(""OnUpdate"", AutoAtacking)
 
 
 local function updateHolyPower(self, event)
@@ -1091,6 +1045,75 @@ local function initFrames()
 		targetDebuffFrames[debuffId]:SetScript(""OnUpdate"", updateTargetDebuffs)
 		i = i + 1
 	end
+
+    local i = 0
+	for _, buffId in pairs(buffs) do
+		TargetBuffs[buffId] = CreateFrame(""frame"")
+
+        TargetBuffs[buffId]:SetSize(size, size)
+
+        TargetBuffs[buffId]:SetPoint(""TOPLEFT"", i* size, -(size* 10))                     -- column 1+ row 11
+		TargetBuffs[buffId].t = TargetBuffs[buffId]:CreateTexture()
+
+        TargetBuffs[buffId].t:SetColorTexture(1, 1, 1, 1)
+
+        TargetBuffs[buffId].t:SetAllPoints(TargetBuffs[buffId])
+
+        TargetBuffs[buffId]:Show()
+
+
+        TargetBuffs[buffId]:SetScript(""OnUpdate"", TargetBuff)
+
+        i = i + 1
+	end
+
+    unitCombatFrame = CreateFrame(""frame"");
+    unitCombatFrame:SetSize(size, size);
+    unitCombatFrame:SetPoint(""TOPLEFT"", 0, -size* 11)           -- column 1 row 12 <-------
+    unitCombatFrame.t = unitCombatFrame:CreateTexture()
+    unitCombatFrame.t:SetColorTexture(1, 1, 1, 1)
+    unitCombatFrame.t:SetAllPoints(unitCombatFrame)
+    unitCombatFrame:Show()
+    unitCombatFrame:SetScript(""OnUpdate"", updateCombat)
+
+    local function PlayerNotMove()
+        if GetUnitSpeed(""Player"") == 0
+        then
+        Movetime = GetTime()
+        PlayerMovingFrame.t:SetColorTexture(0, 0, 0, 1)
+        else PlayerMovingFrame.t:SetColorTexture(1, 0, 0, 1)
+        end
+    end
+
+
+    PlayerMovingFrame = CreateFrame(""frame"");
+    PlayerMovingFrame:SetSize(size, size);
+    PlayerMovingFrame:SetPoint(""TOPLEFT"", 0, -size* 9)           -- column 1 row 10 <-------
+    PlayerMovingFrame.t = PlayerMovingFrame:CreateTexture()
+    PlayerMovingFrame.t:SetColorTexture(1, 1, 1, 1)
+    PlayerMovingFrame.t:SetAllPoints(PlayerMovingFrame)
+    PlayerMovingFrame:Show()    
+    PlayerMovingFrame:SetScript(""OnUpdate"", PlayerNotMove)
+
+
+    local function AutoAtacking()
+        if IsCurrentSpell(6603)
+        then
+            AutoAtackingFrame.t:SetColorTexture(1, 0, 0, 1)
+        else AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
+        end
+    end
+
+
+    AutoAtackingFrame = CreateFrame(""frame"");
+    AutoAtackingFrame:SetSize(size, size);
+    AutoAtackingFrame:SetPoint(""TOPLEFT"", size, -size* 9)           -- column 2 row 10 <-------
+    AutoAtackingFrame.t = AutoAtackingFrame:CreateTexture()
+    AutoAtackingFrame.t:SetColorTexture(1, 1, 1, 1)
+    AutoAtackingFrame.t:SetAllPoints(AutoAtackingFrame)
+    AutoAtackingFrame:Show()
+    AutoAtackingFrame:SetScript(""OnUpdate"", AutoAtacking)
+
 	
 	--print (""Initialization Complete"")
 end

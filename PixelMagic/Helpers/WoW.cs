@@ -307,8 +307,27 @@ namespace PixelMagic.Helpers
 
         public static bool IsInCombat()
         {
-            var c = WoW.GetBlockColor(1, 11);
+            var c = WoW.GetBlockColor(1, 12);
             return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
+        }
+
+        public static bool TargetHasBuff(string debuffName)
+        {
+            var aura = SpellBook.Auras.FirstOrDefault(s => s.AuraName == debuffName);
+
+            if (aura == null)
+            {
+                Log.Write($"[HasDebuff] Fant ikke debuff '{debuffName}' in Spell Book");
+                return false;
+            }
+
+            return TargetHasBuff(aura.InternalAuraNo);
+        }
+
+        private static bool TargetHasBuff(int auraNoInArrayOfAuras)
+        {
+            var c = GetBlockColor(auraNoInArrayOfAuras, 11);
+            return ((c.R != 255) && (c.G != 255) && (c.B != 255));
         }
 
         public static bool AutoAtacking()
@@ -610,6 +629,29 @@ namespace PixelMagic.Helpers
             }
 
             return IsSpellOnCooldown(spell.InternalSpellNo);
+        }
+
+        private static bool IsSpellOnGCD(int spellNoInArrayOfSpells)
+        {
+            Color blockColor = WoW.GetBlockColor(spellNoInArrayOfSpells, 2);
+            return blockColor.R == Color.Red.R && blockColor.G == Color.Red.G && blockColor.B == Color.Red.B;
+        }
+
+        public static bool IsSpellOnGCD(string spellBookSpellName)
+        {
+            Spell spell = SpellBook.Spells.FirstOrDefault((Spell s) => s.SpellName == spellBookSpellName);
+            bool flag = spell == null;
+            bool result;
+            if (flag)
+            {
+                Log.Write(string.Format("[IsSpellOnCooldown] Unable to find spell with name '{0}' in Spell Book", spellBookSpellName));
+                result = false;
+            }
+            else
+            {
+                result = WoW.IsSpellOnGCD(spell.InternalSpellNo);
+            }
+            return result;
         }
 
         private static bool IsSpellInRange(int spellNoInArrayOfSpells) // This will take the spell no from the array of spells, 1, 2, 3 ..... n
