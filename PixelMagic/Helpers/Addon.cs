@@ -572,6 +572,7 @@ local function updateDamageModifier()
             damageModifierFrames[i].t:SetAllPoints(false)
         end
         lastDamageModifier = damageModifier
+    end
 end
 
 
