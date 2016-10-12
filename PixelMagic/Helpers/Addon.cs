@@ -71,6 +71,19 @@ local isDead = UnitIsDead(""target"")
     end
 end
 
+local function roundNumber(num)
+    under = math.floor(num)
+    upper = math.floor(num) + 1
+    underV = -(under - num)
+    upperV = upper - num
+    if (upperV > underV) then
+        return under
+    else
+        return upper
+    end
+end
+
+
 local function updateTargetBuffs()
 	for _, auraId in pairs(buffs) do
         local buff = ""Unitbuff"";
@@ -541,6 +554,27 @@ local function updateHealth(self, event)
 	end
 end
 
+local lastDamageModifier = 1
+local function updateDamageModifier()
+    local lowDmg, hiDmg, offlowDmg, offhiDmg, posBuff, negBuff, percentmod = UnitDamage(""player"");
+    local damageModifier = roundNumber((percentmod* 100 - 100))
+    
+    if(damageModifier ~= lastDamageModifier) then
+        local binaryModifier = ToBinary(damageModifier)
+        --print (""Modifier = "" .. damageModifier .. "" binary = "".. binaryModifier)
+        for i = 1, string.len(binaryModifier) do
+            local currentBit = string.sub(binaryModifier, i, i)
+            if (currentBit == ""1"") then
+                damageModifierFrames[i].t:SetColorTexture(1, 0, 0, 1)
+            else
+                damageModifierFrames[i].t:SetColorTexture(1, 1, 1, 1)
+            end
+            damageModifierFrames[i].t:SetAllPoints(false)
+        end
+        lastDamageModifier = damageModifier
+end
+
+
 local lastTargetHealth = 0
 
 local function updateTargetHealth(self, event)
@@ -774,7 +808,7 @@ local function initFrames()
 		healthFrames[i]:SetScript(""OnUpdate"", updateHealth)
 	end
 
-	-- Power can go above 100, it can be 120 maximum to my knowledge
+
 	--print (""Initialising Power Frames (Rage, Energy, etc...)"")  
     local start = 8
 	for i = 9, 16 do
@@ -790,10 +824,10 @@ local function initFrames()
 		
 		powerFrames[i-start]:SetScript(""OnUpdate"", updatePower)
 	end
-
+  
 	--print (""Initialising Target Health Frames"")
-    start = 15
-	for i = 16, 24 do
+    start = 16
+	for i = 17, 24 do
 		targetHealthFrames[i-start] = CreateFrame(""frame"")
 		targetHealthFrames[i-start]:SetSize(size, size)
 		targetHealthFrames[i-start]:SetPoint(""TOPLEFT"", (i - 1) * size, 0)    -- column 17 - 24, row 1        
@@ -807,6 +841,23 @@ local function initFrames()
 		targetHealthFrames[i-start]:SetScript(""OnUpdate"", updateTargetHealth)
 	end
 	
+    --print (""Initialising modifier Frames"")
+        start = 24
+	for i = 25, 32 do
+		damageModifierFrames[i-start] = CreateFrame(""frame"")
+		damageModifierFrames[i-start]:SetSize(size, size)
+		damageModifierFrames[i-start]:SetPoint(""TOPLEFT"", (i - 1) * size, 0)    -- column 25 - 32, row 1        
+		damageModifierFrames[i-start].t = targetHealthFrames[i-start]:CreateTexture()        
+		damageModifierFrames[i-start].t:SetColorTexture(1, 1, 1, 1)
+		damageModifierFrames[i-start].t:SetAllPoints(targetHealthFrames[i-start])
+        damageModifierFrames[i-start]:RegisterEvent(""PLAYER_REGEN_DISABLED"")
+        damageModifierFrames[i-start]:RegisterEvent(""PLAYER_REGEN_ENABLED"")
+		damageModifierFrames[i-start]:Show()		
+		
+		modifierFrames[i-start]:SetScript(""OnUpdate"", updateDamageModifier)
+	end
+
+
 	--print (""Initialising Spell Cooldown Frames"")
 	i = 1
 	for _, spellId in pairs(cooldowns) do	

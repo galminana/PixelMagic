@@ -15,6 +15,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 
 // ReSharper disable once CheckNamespace
 
@@ -230,7 +233,8 @@ namespace PixelMagic.Helpers
         private static readonly Bitmap screenPixel = new Bitmap(1, 1);
         private static DataTable dtColorHelper;
         public static string lastSpell="";
-        
+        private static IDictionary<string, int> damageModifierHash = new Dictionary<string, int>();
+
         public static void Initialize(Process wowProcess)
         {
             random = new Random();
@@ -549,6 +553,53 @@ namespace PixelMagic.Helpers
 
                 return Convert.ToInt32(binaryHealth, 2);
             }
+        }
+
+        private static int DamageModifier
+        {
+            get
+            {
+                // First we build up the binary string that makes up the modifier
+                // This is read from the first row on the screen of pixel information
+                // It is displayed as binary, so 100% modifier = 01100100
+                var binaryDamageModifier = "";
+
+                for (var x = 25; x <= 32; x++)
+                {
+                    var c = GetBlockColor(x, 1);
+                    binaryDamageModifier += (c.R == 0) && (c.G == 0) && (c.B == 255) ? "1" : "0";
+                }
+
+                return Convert.ToInt32(binaryDamageModifier, 2);
+            }
+        }
+
+        public static void SetSpellDamageModifier(string spellName, int milisecondsToExpire)
+        {
+            System.Timers.Timer dMTimer = new System.Timers.Timer(milisecondsToExpire);
+            dMTimer.AutoReset = false;
+            dMTimer.Elapsed += async (sender, e) => await HandleDMTimer(spellName);
+            dMTimer.Start();
+            damageModifierHash.Add(spellName, milisecondsToExpire);
+        }
+        public static int GetSpellDamageModifier(string spellName)
+        {
+            try
+            {
+                return damageModifierHash[spellName];
+            }
+            catch(KeyNotFoundException)
+            {
+                return 0;
+            }
+        }
+
+        private static Task HandleDMTimer(string spellName)
+        {
+            
+            return Task.Run(() => {
+                damageModifierHash.Remove(spellName);
+            });
         }
 
         public static int Power
