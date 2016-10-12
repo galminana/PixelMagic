@@ -856,7 +856,7 @@ local function initFrames()
         damageModifierFrames[i-start]:RegisterEvent(""PLAYER_REGEN_ENABLED"")
 		damageModifierFrames[i-start]:Show()		
 		
-		modifierFrames[i-start]:SetScript(""OnUpdate"", updateDamageModifier)
+		damageModifierFrames[i-start]:SetScript(""OnUpdate"", updateDamageModifier)
 	end
 
 
