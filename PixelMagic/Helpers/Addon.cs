@@ -24,6 +24,7 @@ local updateSpellChargesFrame = {}
 local buffFrames = {}
 local targetDebuffFrames = {}
 local spellInRangeFrames = {}
+local damageModifierFrames = {}
 local healthFrames = {}
 local targetHealthFrames = {}
 local isTargetFriendlyFrame = nil
