@@ -346,6 +346,13 @@ namespace PixelMagic.Helpers
             return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
         }
 
+        public static bool IsPlayer()
+        {
+            var c = WoW.GetBlockColor(3, 10);
+            return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
+        }
+
+
         public static int CurrentChi
         {
             get

@@ -537,6 +537,29 @@ function ToBinary(num)
 	return table.concat(t)
 end
 
+local function PlayerNotMove()
+    if GetUnitSpeed(""Player"") == 0 then
+    Movetime = GetTime()
+    PlayerMovingFrame.t:SetColorTexture(0, 0, 0, 1)
+    else PlayerMovingFrame.t:SetColorTexture(1, 0, 0, 1)
+    end
+end
+    
+local function AutoAtacking()
+    if IsCurrentSpell(6603) then
+        AutoAtackingFrame.t:SetColorTexture(1, 0, 0, 1)
+    else AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
+    end
+end
+
+local function updateIsplayer()
+    if UnitIsPlayer(""Target"") then
+        AutoAtackingFrame.t:SetColorTexture(1, 0, 0, 1)
+    else AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
+    end
+end
+
+
 local lastHealth = 0
 
 local function updateHealth(self, event)
@@ -1204,15 +1227,7 @@ local function initFrames()
     unitCombatFrame:Show()
     unitCombatFrame:SetScript(""OnUpdate"", updateCombat)
 
-    local function PlayerNotMove()
-        if GetUnitSpeed(""Player"") == 0
-        then
-        Movetime = GetTime()
-        PlayerMovingFrame.t:SetColorTexture(0, 0, 0, 1)
-        else PlayerMovingFrame.t:SetColorTexture(1, 0, 0, 1)
-        end
-    end
-
+    
 
     PlayerMovingFrame = CreateFrame(""frame"");
     PlayerMovingFrame:SetSize(size, size);
@@ -1224,13 +1239,7 @@ local function initFrames()
     PlayerMovingFrame:SetScript(""OnUpdate"", PlayerNotMove)
 
 
-    local function AutoAtacking()
-        if IsCurrentSpell(6603)
-        then
-            AutoAtackingFrame.t:SetColorTexture(1, 0, 0, 1)
-        else AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
-        end
-    end
+    
 
 
     AutoAtackingFrame = CreateFrame(""frame"");
@@ -1241,6 +1250,15 @@ local function initFrames()
     AutoAtackingFrame.t:SetAllPoints(AutoAtackingFrame)
     AutoAtackingFrame:Show()
     AutoAtackingFrame:SetScript(""OnUpdate"", AutoAtacking)
+
+    IsPlayerFrame = CreateFrame(""frame"");
+    IsPlayerFrame:SetSize(size, size);
+    IsPlayerFrame:SetPoint(""TOPLEFT"", size*2, -size* 9)           -- column 3 row 10 <-------
+    IsPlayerFrame.t = IsPlayerFrame:CreateTexture()
+    IsPlayerFrame.t:SetColorTexture(1, 1, 1, 1)
+    IsPlayerFrame.t:SetAllPoints(IsPlayerFrame)
+    IsPlayerFrame:Show()
+    IsPlayerFrame:SetScript(""OnUpdate"", updateIsPlayer)
 
 	
 	--print (""Initialization Complete"")
