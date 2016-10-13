@@ -555,10 +555,10 @@ local function updateHealth(self, event)
 	end
 end
 
-local lastDamageModifier = 1
+local lastDamageModifier = 100
 local function updateDamageModifier()
     local lowDmg, hiDmg, offlowDmg, offhiDmg, posBuff, negBuff, percentmod = UnitDamage(""player"");
-    local damageModifier = roundNumber((percentmod* 100 - 100))
+    local damageModifier = roundNumber((percentmod* 100))
     
     if(damageModifier ~= lastDamageModifier) then
         local binaryModifier = ToBinary(damageModifier)
