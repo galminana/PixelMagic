@@ -405,13 +405,17 @@ local function updateMyBuffs(self, event)
 		if (name == auraName) then -- We have Aura up and Aura ID is matching our list					
 			if (lastBuffState[auraId] ~= ""BuffOn"" .. count) then
                 local green = 0             
+                local blue = 0
                 local strcount = ""0.0"" .. count;
+                local strbluecount = ""0.0"" .. expirationTime;
                 
                 if (count >= 10) then
                     strcount = ""0."" .. count;
                 end
                 green = tonumber(strcount)
-                buffFrames[auraId].t:SetColorTexture(0, green, 0, 1)
+                blue = tonumber(strbluecount)
+
+                buffFrames[auraId].t:SetColorTexture(0, green, blue, 1)
 				buffFrames[auraId].t:SetAllPoints(false)
                 --print(""["" .. buff .. ""] "" .. auraName.. "" "" .. count .. "" Green: "" .. green)
                 lastBuffState[auraId] = ""BuffOn"" .. count 

@@ -875,6 +875,26 @@ namespace PixelMagic.Helpers
             return 0;
         }
 
+        public static int GetBuffTimeRemaining(int auraNoInArrayOfAuras)
+        {
+            var c = GetBlockColor(auraNoInArrayOfAuras, 3);
+
+            try
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                var stacks = dtColorHelper.Select($"[Rounded] = '{c.B}'").FirstOrDefault()["Value"].ToString();
+
+                return int.Parse(stacks);
+            }
+            catch (Exception ex)
+            {
+                Log.Write("Failed to find buff stacks for color G = " + c.B, Color.Red);
+                Log.Write("Error: " + ex.Message, Color.Red);
+            }
+
+            return 0;
+        }
+
         public static int GetDebuffTimeRemaining(string debuffName)
         {
             var aura = SpellBook.Auras.FirstOrDefault(s => s.AuraName == debuffName);
@@ -886,6 +906,19 @@ namespace PixelMagic.Helpers
             }
 
             return GetDebuffTimeRemaining(aura.InternalAuraNo);
+        }
+
+        public static int GetBuffTimeRemaining(string buffName)
+        {
+            var aura = SpellBook.Auras.FirstOrDefault(s => s.AuraName == buffName);
+
+            if (aura == null)
+            {
+                Log.Write($"[GetBuffTimeRemaining] Unable to find buff with name '{buffName}' in Spell Book");
+                return -1;
+            }
+
+            return GetBuffTimeRemaining(aura.InternalAuraNo);
         }
 
         public static int GetDebuffStacks(int auraNoInArrayOfAuras)
