@@ -402,17 +402,19 @@ local function updateMyBuffs(self, event)
 		
 		local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitBuff(""player"", auraName)		
 		
-		if (name == auraName) then -- We have Aura up and Aura ID is matching our list					
-			if (lastBuffState[auraId] ~= ""BuffOn"" .. count .. expirationTime) then
+		if (name == auraName) then -- We have Aura up and Aura ID is matching our list	
+            local getTime = GetTime()
+            local remainingTime = math.floor(expirationTime - getTime + 0.5) 					
+			if (lastBuffState[auraId] ~= ""BuffOn"" .. count .. remainingTime) then
                 local green = 0             
                 local blue = 0
                 local strcount = ""0.0"" .. count;
-                local strbluecount = ""0.0"" .. expirationTime;
+                local strbluecount = ""0.0"" .. remainingTime;
                 
                 if (count >= 10) then
                     strcount = ""0."" .. count;
                 end
-                if(expirationTime >= 10) then
+                if(remainingTime >= 10) then
                    strbluecount = ""0."" .. remainingTime
                 end
                 green = tonumber(strcount)
