@@ -404,18 +404,17 @@ local function updateMyBuffs(self, event)
 		
 		if (name == auraName) then -- We have Aura up and Aura ID is matching our list	
             local getTime = GetTime()
-            local remainingTime = math.floor(expirationTime - getTime + 0.5) 					
-			if (lastBuffState[auraId] ~= ""BuffOn"" .. count .. remainingTime) then
+			if (lastBuffState[auraId] ~= ""BuffOn"" .. count .. expirationTime) then
                 local green = 0             
                 local blue = 0
                 local strcount = ""0.0"" .. count;
-                local strbluecount = ""0.0"" .. remainingTime;
+                local strbluecount = ""0.0"" .. expirationTime;
                 
                 if (count >= 10) then
                     strcount = ""0."" .. count;
                 end
-                if(remainingTime >= 10) then
-                   strbluecount = ""0."" .. remainingTime
+                if(expirationTime >= 10) then
+                   strbluecount = ""0."" .. expirationTime
                 end
                 green = tonumber(strcount)
                 blue = tonumber(strbluecount)

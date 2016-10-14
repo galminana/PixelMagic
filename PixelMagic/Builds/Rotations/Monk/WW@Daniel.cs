@@ -67,7 +67,7 @@ namespace PixelMagic.Rotation
 						WoW.CastSpellByName("Whirling Dragon Punch");
 						return;
 					}
-					if(WoW.CanCast("Chi Wave")&&!WoW.lastSpell.Equals("Chi Wave"))
+					if(WoW.CanCast("Chi Wave")&&!WoW.lastSpell.Equals("Chi Wave")&&WoW.IsSpellInRange("Chi Wave"))
 					{
 						WoW.CastSpellByName("Chi Wave");
 						return;
