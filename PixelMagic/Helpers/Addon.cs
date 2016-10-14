@@ -403,12 +403,11 @@ local function updateMyBuffs(self, event)
 		local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitBuff(""player"", auraName)		
 		
 		if (name == auraName) then -- We have Aura up and Aura ID is matching our list	
-            if(expirationTime>0) then
                 local getTime = GetTime()
-                local remainingTime = math.floor(expirationTime - getTime + 0.5) 	
-            else
                 local remainingTime = 0
-            end
+                if(expirationTime~=0) then
+                    remainingTime = math.floor(expirationTime - getTime + 0.5)
+                end
 			if (lastBuffState[auraId] ~= ""BuffOn"" .. count .. remainingTime) then
                 local green = 0             
                 local blue = 0
@@ -423,8 +422,8 @@ local function updateMyBuffs(self, event)
                    strbluecount = ""0."" .. remainingTime
                 end
                 green = tonumber(strcount)
-                blue = tonumber(strbluecount)
-
+                --blue = tonumber(strbluecount)
+                print(""expirationTime:""..expirationTime.."" remainingTime:"" .. remainingTime .. "" blue:"" .. blue .. "" strbluecount:"" ..  strbluecount)
                 buffFrames[auraId].t:SetColorTexture(0, green, blue, 1)
 				buffFrames[auraId].t:SetAllPoints(false)
                 --print(""["" .. buff .. ""] "" .. auraName.. "" "" .. count .. "" Green: "" .. green)
