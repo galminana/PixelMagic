@@ -407,7 +407,7 @@ local function updateMyBuffs(self, event)
                 local getTime = GetTime()
                 local remainingTime = math.floor(expirationTime - getTime + 0.5) 	
             else
-                remainingTime = 0
+                local remainingTime = 0
             end
 			if (lastBuffState[auraId] ~= ""BuffOn"" .. count .. remainingTime) then
                 local green = 0             
