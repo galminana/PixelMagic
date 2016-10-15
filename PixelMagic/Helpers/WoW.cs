@@ -587,9 +587,9 @@ namespace PixelMagic.Helpers
             dMTimer.AutoReset = false;
             dMTimer.Elapsed += async (sender, e) => await HandleDMTimer(spellName);
             dMTimer.Start();
-            damageModifierHash.Add(spellName, milisecondsToExpire);
+            damageModifierHash.Add(spellName, DamageModifier);
         }
-        public static int GetSpellDamageModifier(string spellName)
+        public static int LastDamageModifier(string spellName)
         {
             try
             {
@@ -599,6 +599,11 @@ namespace PixelMagic.Helpers
             {
                 return 0;
             }
+        }
+
+        public static int CurrentDamageModifier(string spellName)
+        {
+            return DamageModifier;
         }
 
         private static Task HandleDMTimer(string spellName)
