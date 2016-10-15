@@ -156,7 +156,7 @@ local function updateHolyPower(self, event)
     local power = UnitPower(""player"", 9)
 	
 	if power ~= hpPrev then	
-		print(""Holy Power: "" .. power)   
+		--print(""Holy Power: "" .. power)   
 	   
 		local i = 1
 
@@ -309,7 +309,7 @@ local function updateUnitPet(self, event)
     local playerdead = UnitIsDead(""player"")
 	if (pet == false or petdead) then			
         if (pet ~= lastPet) then
-            print(""Pet Is Not Up"")
+            --print(""Pet Is Not Up"")
 
 
             unitPetFrame.t:SetColorTexture(1, 1, 1, 1)
@@ -318,7 +318,7 @@ local function updateUnitPet(self, event)
         end
 	else
 		if pet ~= lastPet and not playerdead  then
-            print(""Pet is up!"")
+            --print(""Pet is up!"")
 
 
             unitPetFrame.t:SetColorTexture(1, 0, 0, 1)
