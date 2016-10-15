@@ -25,6 +25,7 @@ local buffFrames = {}
 local targetDebuffFrames = {}
 local spellInRangeFrames = {}
 local damageModifierFrames = {}
+local IsDispellableFrame = {}
 local healthFrames = {}
 local targetHealthFrames = {}
 local isTargetFriendlyFrame = nil
@@ -422,8 +423,8 @@ local function updateMyBuffs(self, event)
                    strbluecount = ""0."" .. remainingTime
                 end
                 green = tonumber(strcount)
-                --blue = tonumber(strbluecount)
-                print(""expirationTime:""..expirationTime.."" remainingTime:"" .. remainingTime .. "" blue:"" .. blue .. "" strbluecount:"" ..  strbluecount)
+                blue = tonumber(strbluecount)
+                --print(""expirationTime:""..expirationTime.."" remainingTime:"" .. remainingTime .. "" blue:"" .. blue .. "" strbluecount:"" ..  strbluecount)
                 buffFrames[auraId].t:SetColorTexture(0, green, blue, 1)
 				buffFrames[auraId].t:SetAllPoints(false)
                 --print(""["" .. buff .. ""] "" .. auraName.. "" "" .. count .. "" Green: "" .. green)
@@ -462,7 +463,6 @@ local function updateTargetDebuffs(self, event)
 
 		if (name == auraName) then -- We have Aura up and Aura ID is matching our list					
             local getTime = GetTime()
-            local getTime = GetTime()
             local remainingTime = math.floor(expirationTime - getTime + 0.5) 	
 
 			if (lastDebuffState[auraId] ~= ""DebuffOn"" .. count .. remainingTime) then
@@ -495,6 +495,7 @@ local function updateTargetDebuffs(self, event)
                 --print(""["" .. buff .. ""] "" .. auraName.. "" Off"")
             end
         end
+
     end
 end
 
@@ -1265,7 +1266,6 @@ local function initFrames()
     IsPlayerFrame:Show()
     IsPlayerFrame:SetScript(""OnUpdate"", updateIsPlayer)
 
-	
 	--print (""Initialization Complete"")
 end
 
