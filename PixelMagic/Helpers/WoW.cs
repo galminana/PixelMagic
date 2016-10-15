@@ -601,7 +601,7 @@ namespace PixelMagic.Helpers
             }
         }
 
-        public static int CurrentDamageModifier(string spellName)
+        public static int CurrentDamageModifier()
         {
             return DamageModifier;
         }
