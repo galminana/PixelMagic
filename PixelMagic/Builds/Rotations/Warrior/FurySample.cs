@@ -124,17 +124,17 @@ namespace PixelMagic.Rotation
                 {
                     if (WoW.TargetHealthPercent <= 20)
                     {
-                        if (WoW.CanCast("Bloodthirst") && WoW.Power <= 100)
+                        if (WoW.CanCast("Bloodthirst") && WoW.Rage <= 100)
                         {
                             WoW.CastSpellByName("Bloodthirst");
                         }
 
-                        if (WoW.CanCast("Raging Blow") && WoW.Power <= 100)
+                        if (WoW.CanCast("Raging Blow") && WoW.Rage <= 100)
                         {
                             WoW.CastSpellByName("Raging Blow");
                         }
 
-                        if (WoW.CanCast("Execute") && WoW.Power >= 50)
+                        if (WoW.CanCast("Execute") && WoW.Rage >= 50)
                         {
                             WoW.CastSpellByName("Execute");
                         }
@@ -147,17 +147,17 @@ namespace PixelMagic.Rotation
 
                     if (WoW.TargetHealthPercent >= 20)
                     {
-                        if (WoW.CanCast("Bloodthirst") && WoW.Power <= 100)
+                        if (WoW.CanCast("Bloodthirst") && WoW.Rage <= 100)
                         {
                             WoW.CastSpellByName("Bloodthirst");
                         }
 
-                        if (WoW.CanCast("Raging Blow") && WoW.Power <= 100)
+                        if (WoW.CanCast("Raging Blow") && WoW.Rage <= 100)
                         {
                             WoW.CastSpellByName("Raging Blow");
                         }
 
-                        if (WoW.CanCast("Rampage") && WoW.Power >= 70)
+                        if (WoW.CanCast("Rampage") && WoW.Rage >= 70)
                         {
                             WoW.CastSpellByName("Rampage");
                         }
@@ -174,12 +174,12 @@ namespace PixelMagic.Rotation
             {
                 if (WoW.HasTarget && WoW.TargetIsEnemy && WoW.CanCast("Furious Slash", true, true, true, false))
                 {
-                    if (WoW.CanCast("Bloodthirst") && WoW.Power <= 100)
+                    if (WoW.CanCast("Bloodthirst") && WoW.Rage <= 100)
                     {
                         WoW.CastSpellByName("Bloodthirst");
                     }
 
-                    if (WoW.CanCast("Raging Blow") && WoW.Power <= 100)
+                    if (WoW.CanCast("Raging Blow") && WoW.Rage <= 100)
                     {
                         WoW.CastSpellByName("Raging Blow");
                     }
@@ -189,7 +189,7 @@ namespace PixelMagic.Rotation
                         WoW.CastSpellByName("Whirlwind");
                     }
 
-                    if (WoW.CanCast("Rampage") && WoW.Power >= 70)
+                    if (WoW.CanCast("Rampage") && WoW.Rage >= 70)
                     {
                         WoW.CastSpellByName("Rampage");
                     }
@@ -199,7 +199,7 @@ namespace PixelMagic.Rotation
             {
                 if (WoW.HasTarget && WoW.TargetIsEnemy && WoW.CanCast("Furious Slash", true, true, true, false))
                 {
-                    if (WoW.CanCast("Bloodthirst") && WoW.Power <= 100 && WoW.HasBuff("Meat-Cleaver"))
+                    if (WoW.CanCast("Bloodthirst") && WoW.Rage <= 100 && WoW.HasBuff("Meat-Cleaver"))
                     {
                         WoW.CastSpellByName("Bloodthirst");
                     }
@@ -209,7 +209,7 @@ namespace PixelMagic.Rotation
                         WoW.CastSpellByName("Whirlwind");
                     }
 
-                    if (WoW.CanCast("Rampage") && WoW.Power >= 70 && WoW.HasBuff("Meat-Cleaver"))
+                    if (WoW.CanCast("Rampage") && WoW.Rage >= 70 && WoW.HasBuff("Meat-Cleaver"))
                     {
                         WoW.CastSpellByName("Rampage");
                     }

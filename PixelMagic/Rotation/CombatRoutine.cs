@@ -71,7 +71,7 @@ namespace PixelMagic.Rotation
                 pause.WaitOne();
 
                 Threads.UpdateProgressBar2(parent.prgPlayerHealth, WoW.HealthPercent);
-                Threads.UpdateProgressBar2(parent.prgPower, WoW.Power);
+                Threads.UpdateProgressBar2(parent.prgPower, WoW.GetPower());
                 Threads.UpdateProgressBar2(parent.prgTargetHealth, WoW.TargetHealthPercent);
                 Threads.UpdateTextBox(parent.txtTargetCasting, WoW.TargetIsCasting.ToString());
 

@@ -583,11 +583,21 @@ namespace PixelMagic.Helpers
 
         public static void SetSpellDamageModifier(string spellName, int milisecondsToExpire)
         {
+            if (!damageModifierHash.ContainsKey(spellName))
+            {
+                damageModifierHash.Add(spellName, DamageModifier);
+            }
+            else
+            {
+                damageModifierHash.Remove(spellName);
+                damageModifierHash.Add(spellName, DamageModifier);
+            }
+                       
             System.Timers.Timer dMTimer = new System.Timers.Timer(milisecondsToExpire);
             dMTimer.AutoReset = false;
             dMTimer.Elapsed += async (sender, e) => await HandleDMTimer(spellName);
             dMTimer.Start();
-            damageModifierHash.Add(spellName, DamageModifier);
+            
         }
         public static int LastDamageModifier(string spellName)
         {
@@ -614,7 +624,7 @@ namespace PixelMagic.Helpers
             });
         }
 
-        public static int Power
+        private static int Power
         {
             get
             {
@@ -631,6 +641,10 @@ namespace PixelMagic.Helpers
 
                 return Convert.ToInt32(binaryPower, 2);
             }
+        }
+        public static int GetPower()
+        {
+            return Power;
         }
         public static int Focus => Power;
         public static int Mana => Power;

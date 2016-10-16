@@ -59,12 +59,12 @@ namespace PixelMagic.Rotation
                         WoW.CastSpellByName("Flametounge");
                     }
 
-                    if (WoW.CanCast("Crash Lightning", true, true, false, false) && WoW.Power > 80)
+                    if (WoW.CanCast("Crash Lightning", true, true, false, false) && WoW.Maelstrom > 80)
                     {
                         WoW.CastSpellByName("Crash Lightning");
                     }
 
-                    if (WoW.CanCast("Lava Lash", true, true, false, false) && WoW.Power > 90)
+                    if (WoW.CanCast("Lava Lash", true, true, false, false) && WoW.Maelstrom > 90)
                     {
                         WoW.CastSpellByName("Lava Lash");
                     }
