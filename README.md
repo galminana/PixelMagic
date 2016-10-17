@@ -53,6 +53,9 @@ rotation file.
 **How to setup your spellbook** (sample for basic Unholy DeathKnight)<br>
 ![Alt Text](http://i.imgur.com/T281wlY.png)
 
+NB! - bot does't work after windows 10 anniverary update then disable ingame DVR in Xbox App settings as below
+![Alt Text](http://i.imgur.com/lrtRt0g.png)
+
 ---
 
 **License Agreement**<br>
