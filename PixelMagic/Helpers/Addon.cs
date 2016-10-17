@@ -1219,7 +1219,7 @@ local function initFrames()
         TargetBuffs[buffId]:Show()
 
 
-        TargetBuffs[buffId]:SetScript(""OnUpdate"", TargetBuff)
+        TargetBuffs[buffId]:SetScript(""OnUpdate"", updateTargetBuffs)
 
         i = i + 1
 	end
