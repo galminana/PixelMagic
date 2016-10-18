@@ -8,7 +8,7 @@ namespace PixelMagic.Helpers
 {
     public static class Addon
     {
-        public static string LuaContents = @"
+        public const string LuaContents = @"
 -- Configurable Variables
 local size = 3.5;	-- this is the size of the ""pixels"" at the top of the screen that will show stuff, currently 5x5 because its easier to see and debug with
 
@@ -41,33 +41,26 @@ local lastBuffState = {}
 local lastDebuffState = {}
 local TargetBuffs = { }
 local buffLastState  = { }
-
-
 local runePrev = 0
 local ssPrev = 0
 local ccPrev = 0
 local hpPrev = 0
-
 local lastCombat = nil
 local function updateCombat()
 local IsInCombat = UnitAffectingCombat(""player"");
 local playerdead = UnitIsDead(""player"")
 local isDead = UnitIsDead(""target"")
-    if (IsInCombat == false) then
-        if (IsInCombat ~= lastCombat) then
-          --  print(""We are not in combat"")
 
-            unitCombatFrame.t:SetColorTexture(1, 1, 1, 1)
-
-            lastCombat = IsInCombat
-        end
+if (IsInCombat == false) then
+    if (IsInCombat ~= lastCombat) then
+        --  print(""We are not in combat"")
+        unitCombatFrame.t:SetColorTexture(1, 1, 1, 1)
+        lastCombat = IsInCombat
+    end
     else
         if IsInCombat ~= lastCombat and not playerdead and not IsDead then
-
-          --  print(""We are in Combat!"")
-
+            --  print(""We are in Combat!"")
             unitCombatFrame.t:SetColorTexture(1, 0, 0, 1)
-
             lastCombat = IsInCombat
         end
     end
@@ -85,7 +78,6 @@ local function roundNumber(num)
     end
 end
 
-
 local function updateTargetBuffs()
 	for _, auraId in pairs(buffs) do
         local buff = ""Unitbuff"";
@@ -101,52 +93,43 @@ local function updateTargetBuffs()
             return
         end
 
-
-
-       local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, nameplateShowPersonal, spellID, canApplyAura, isBossDebuff, _, nameplateShowAll, timeMod, value1, value2, value3 = UnitBuff(""Target"", auraName)
+		local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, nameplateShowPersonal, spellID, canApplyAura, isBossDebuff, _, nameplateShowAll, timeMod, value1, value2, value3 = UnitBuff(""Target"", auraName)
 
 		if (name == auraName) then -- We have Aura up and Aura ID is matching our list
-            local getTime = GetTime()
-            local remainingTime = math.floor(expires - getTime + 0.5) 	
+			local getTime = GetTime()
+			local remainingTime = math.floor(expires - getTime + 0.5) 	
 
 			if (buffLastState[auraId] ~= ""BuffOn"" .. count..remainingTime) then
-            local green = 0
-                local blue = 0
-                local strcount = ""0.0""..count;
-        local strbluecount = ""0.0""..remainingTime;
-                
-                if(remainingTime <= 0 or remainingTime <= -0 or remainingTime == 0) then
-                blue = 0
-
-                strbluecount = 0
+				local green = 0
+					local blue = 0
+					local strcount = ""0.0""..count;
+				local strbluecount = ""0.0""..remainingTime;
+						
+				if(remainingTime <= 0 or remainingTime <= -0 or remainingTime == 0) then 
+					blue = 0
+					strbluecount = 0
 				end
 
-                if (count >= 10) then
-                    strcount = ""0.""..count;
-        end
+				if (count >= 10) then
+					strcount = ""0.""..count;
+				end
 
-                if(remainingTime >= 10) then
-                   strbluecount = ""0.""..remainingTime;
-        end
+				if(remainingTime >= 10) then
+				   strbluecount = ""0.""..remainingTime;
+				end
 
-        green = tonumber(strcount)
-        blue = tonumber(strbluecount)
+				green = tonumber(strcount)
+				blue = tonumber(strbluecount)
 
-
-
-                TargetBuffs[auraId].t:SetColorTexture(0, green, blue, 1)
-
-                    TargetBuffs[auraId].t:SetAllPoints(false)
-
-
-                buffLastState[auraId] = ""BuffOn"" .. count..remainingTime
+				TargetBuffs[auraId].t:SetColorTexture(0, green, blue, 1)
+				TargetBuffs[auraId].t:SetAllPoints(false)
+				buffLastState[auraId] = ""BuffOn"" .. count..remainingTime
             end
         else
             if (buffLastState[auraId] ~= ""BuffOff"") then
                 TargetBuffs[auraId].t:SetColorTexture(1, 1, 1, 1)
                 TargetBuffs[auraId].t:SetAllPoints(false)
-                buffLastState[auraId] = ""BuffOff""
-              
+                buffLastState[auraId] = ""BuffOff""              
             end
         end
     end
@@ -328,11 +311,6 @@ local function updateUnitPet(self, event)
 
     end
 end
-
-
-
-
-
 
 local function updateSpellCooldowns(self, event) 
     for _, spellId in pairs(cooldowns) do
@@ -614,7 +592,6 @@ local function updateDamageModifier()
     end
 end
 
-
 local lastTargetHealth = 0
 
 local function updateTargetHealth(self, event)
@@ -722,7 +699,11 @@ end
 local lastTargetGUID = """"
 
 local function hasTarget()
-	guid = UnitGUID(""target"")
+	local guid = UnitGUID(""target"")
+
+    local health = 0		
+    local maxHealth = 100
+    local percHealth = 0
 		
 	if (guid ~= lastTargetGUID) then
 		if (guid == nil) then
@@ -731,8 +712,15 @@ local function hasTarget()
 			hasTargetFrame.t:SetColorTexture(0, 0, 0, 1)
 		else			
 			--print (""Target GUID: "" .. guid )	
+			health = UnitHealth(""target"");		
+			maxHealth = UnitHealthMax(""target"");
+			percHealth = ceil((health / maxHealth) * 100)
 			
-			hasTargetFrame.t:SetColorTexture(1, 0, 0, 1)
+			if (percHealth <= 1)
+    			hasTargetFrame.t:SetColorTexture(0, 0, 0, 1)
+			else
+				hasTargetFrame.t:SetColorTexture(1, 0, 0, 1)
+			end
 		end
 			
 		lastTargetGUID = guid		
@@ -848,7 +836,6 @@ local function initFrames()
 		healthFrames[i]:SetScript(""OnUpdate"", updateHealth)
 	end
 
-
 	--print (""Initialising Power Frames (Rage, Energy, etc...)"")  
     local start = 8
 	for i = 9, 16 do
@@ -882,7 +869,7 @@ local function initFrames()
 	end
 	
     --print (""Initialising modifier Frames"")
-        start = 24
+    start = 24
 	for i = 25, 32 do
 		damageModifierFrames[i-start] = CreateFrame(""frame"")
 		damageModifierFrames[i-start]:SetSize(size, size)
@@ -896,7 +883,6 @@ local function initFrames()
 		
 		damageModifierFrames[i-start]:SetScript(""OnUpdate"", updateDamageModifier)
 	end
-
 
 	--print (""Initialising Spell Cooldown Frames"")
 	i = 1
@@ -999,39 +985,29 @@ local function initFrames()
 	    end
     end
 
-    if classIndex == 6 then                                 -- DeathKnight
-	    --print(""Initialising Unit Is Visible Frame"")
-    
+    if classIndex == 6 then                                 -- DeathKnight   
         unitPetFrame = CreateFrame(""frame"");
         unitPetFrame:SetSize(size, size);
         unitPetFrame:SetPoint(""TOPLEFT"", i* size, -size* 4)           -- column 5 row 3
-	    unitPetFrame.t = unitPetFrame:CreateTexture()
-    
+	    unitPetFrame.t = unitPetFrame:CreateTexture()    
         unitPetFrame.t:SetColorTexture(0, 1, 0, 1)
-
         unitPetFrame.t:SetAllPoints(unitPetFrame)
         unitPetFrame:RegisterEvent(""PLAYER_REGEN_DISABLED"")
         unitPetFrame:RegisterEvent(""PLAYER_REGEN_ENABLED"")
         unitPetFrame:Show()
-
-
+		
         unitPetFrame:SetScript(""OnUpdate"", updateUnitPet)
     end
     if classIndex == 3 then                                 -- Hunter
-	    --print(""Initialising Unit Is Visible Frame"")
-
         unitPetFrame = CreateFrame(""frame"");
         unitPetFrame:SetSize(size, size);
         unitPetFrame:SetPoint(""TOPLEFT"", i* size, -size* 4)           -- column 5 row 3
 	    unitPetFrame.t = unitPetFrame:CreateTexture()
-
         unitPetFrame.t:SetColorTexture(0, 1, 0, 1)
-
         unitPetFrame.t:SetAllPoints(unitPetFrame)
         unitPetFrame:RegisterEvent(""PLAYER_REGEN_DISABLED"")
         unitPetFrame:RegisterEvent(""PLAYER_REGEN_ENABLED"")
         unitPetFrame:Show()
-
 
         unitPetFrame:SetScript(""OnUpdate"", updateUnitPet)
     end
@@ -1048,12 +1024,11 @@ local function initFrames()
             hpframes[i]:RegisterEvent(""PLAYER_REGEN_ENABLED"")
             hpframes[i]:RegisterEvent(""PLAYER_REGEN_DISABLED"")
             hpframes[i]:Show()
+			
             hpframes[i]:SetScript(""OnUpdate"", updateComboPoints)
 
         end
-    end
-
-    
+    end    
 	
 	if classIndex == 11 then                                 -- Druid Feral
         --print(""Initialising Combo Point Frames - Class Index = "" .. classIndex)
@@ -1206,21 +1181,14 @@ local function initFrames()
     local i = 0
 	for _, buffId in pairs(buffs) do
 		TargetBuffs[buffId] = CreateFrame(""frame"")
-
         TargetBuffs[buffId]:SetSize(size, size)
-
         TargetBuffs[buffId]:SetPoint(""TOPLEFT"", i* size, -(size* 10))                     -- column 1+ row 11
 		TargetBuffs[buffId].t = TargetBuffs[buffId]:CreateTexture()
-
         TargetBuffs[buffId].t:SetColorTexture(1, 1, 1, 1)
-
         TargetBuffs[buffId].t:SetAllPoints(TargetBuffs[buffId])
-
         TargetBuffs[buffId]:Show()
 
-
         TargetBuffs[buffId]:SetScript(""OnUpdate"", updateTargetBuffs)
-
         i = i + 1
 	end
 
@@ -1233,8 +1201,6 @@ local function initFrames()
     unitCombatFrame:Show()
     unitCombatFrame:SetScript(""OnUpdate"", updateCombat)
 
-    
-
     PlayerMovingFrame = CreateFrame(""frame"");
     PlayerMovingFrame:SetSize(size, size);
     PlayerMovingFrame:SetPoint(""TOPLEFT"", 0, -size* 9)           -- column 1 row 10 <-------
@@ -1243,11 +1209,7 @@ local function initFrames()
     PlayerMovingFrame.t:SetAllPoints(PlayerMovingFrame)
     PlayerMovingFrame:Show()    
     PlayerMovingFrame:SetScript(""OnUpdate"", PlayerNotMove)
-
-
-    
-
-
+	
     AutoAtackingFrame = CreateFrame(""frame"");
     AutoAtackingFrame:SetSize(size, size);
     AutoAtackingFrame:SetPoint(""TOPLEFT"", size, -size* 9)           -- column 2 row 10 <-------
@@ -1266,15 +1228,13 @@ local function initFrames()
     IsPlayerFrame:Show()
     IsPlayerFrame:SetScript(""OnUpdate"", updateIsPlayer)
 
-	--print (""Initialization Complete"")
+	print (""[Addon Loaded]"")
 end
 
 local function eventHandler(self, event, ...)
 	local arg1 = ...
 	if event == ""ADDON_LOADED"" then
 		if (arg1 == ""DoIt"") then
-			--print(""Addon Loaded... DoIt"")
-			--print(""Tracking "" .. table.getn(cooldowns) .. "" cooldowns"")
 			initFrames()
 		end
 	end
@@ -1282,6 +1242,5 @@ end
 
 f:SetScript(""OnEvent"", eventHandler)
 ";
-
     }
 }
