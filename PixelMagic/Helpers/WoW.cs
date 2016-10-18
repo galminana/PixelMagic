@@ -5,19 +5,18 @@
 //////////////////////////////////////////////////
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.DirectoryServices.AccountManagement;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using PixelMagic.GUI;
+using Timer = System.Timers.Timer;
 
 // ReSharper disable once CheckNamespace
 
@@ -232,127 +231,20 @@ namespace PixelMagic.Helpers
         private static readonly object thisLock = new object();
         private static readonly Bitmap screenPixel = new Bitmap(1, 1);
         private static DataTable dtColorHelper;
-        public static string lastSpell="";
-        private static IDictionary<string, int> damageModifierHash = new Dictionary<string, int>();
-
-        public static void Initialize(Process wowProcess)
-        {
-            random = new Random();
-
-            pWow = wowProcess;
-
-            Log.Write("Successfully connected to WoW with process ID: " + pWow.Id, Color.Green);
-
-            var is64 = pWow.ProcessName.Contains("64");
-
-            Log.Write($"WoW Version: {Version} (x{(is64 ? "64" : "86")})", Color.Gray);
-
-            var wowRectangle = new Rectangle();
-            GetWindowRect(pWow.MainWindowHandle, ref wowRectangle);
-            Log.Write($"WoW Screen Resolution: {wowRectangle.Width}x{wowRectangle.Height}", Color.Gray);
-
-            if (ConfigFile.ReadValue("PixelMagic", "AddonName") == "")
-            {
-                Log.Write("This is the first time you have run the program, please specify a name you would like the PixelMagic addon to use");
-                Log.Write("this can be anything you like (letters only no numbers)");
-
-                while (ConfigFile.ReadValue("PixelMagic", "AddonName") == "")
-                {
-                    var f = new GUI.frmSelectAddonName();
-                    f.ShowDialog();
-                }
-            }
-
-            Log.Write($"Addon Name set to: [{ConfigFile.ReadValue("PixelMagic", "AddonName")}]", Color.Blue);
-
-            dtColorHelper = new DataTable();
-            dtColorHelper.Columns.Add("Percent");
-            dtColorHelper.Columns.Add("Unrounded");
-            dtColorHelper.Columns.Add("Rounded");
-            dtColorHelper.Columns.Add("Value");
-
-            for (var i = 0; i <= 99; i++)
-            {
-                var drNew = dtColorHelper.NewRow();
-                drNew["Percent"] = (i < 10) ? "0.0" + i : "0." + i;
-                drNew["Unrounded"] = double.Parse(drNew["Percent"].ToString()) * 255;
-                drNew["Rounded"] = Math.Round(double.Parse(drNew["Percent"].ToString()) * 255, 0);
-                drNew["Value"] = i;
-                dtColorHelper.Rows.Add(drNew);
-            }
-            {
-                var drNew = dtColorHelper.NewRow();
-                drNew["Percent"] = "255";
-                drNew["Unrounded"] = "255";
-                drNew["Rounded"] = "255";
-                drNew["Value"] = 0;
-                dtColorHelper.Rows.Add(drNew);
-            }
-        }
-
+        public static string lastSpell = "";
+        private static readonly IDictionary<string, int> damageModifierHash = new Dictionary<string, int>();
         private static string Version => pWow.MainModule.FileVersionInfo.FileVersion;
-
         public static string InstallPath => Path.GetDirectoryName(pWow?.MainModule.FileName);
-
         public static string AddonPath => InstallPath + "\\Interface\\AddOns";
         public static string Config => new StreamReader(Path.Combine(InstallPath, "WTF\\Config.wtf")).ReadToEnd();
-
-        private static bool LimitedUserExists
+        public static bool IsInCombat
         {
             get
             {
-                using (var pc = new PrincipalContext(ContextType.Machine))
-                {
-                    var up = UserPrincipal.FindByIdentity(pc, IdentityType.SamAccountName, "Limited");
-                    return up != null;
-                }
+                var c = GetBlockColor(1, 12);
+                return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
             }
         }
-
-        public static bool IsInCombat()
-        {
-            var c = WoW.GetBlockColor(1, 12);
-            return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
-        }
-
-        public static bool TargetHasBuff(string debuffName)
-        {
-            var aura = SpellBook.Auras.FirstOrDefault(s => s.AuraName == debuffName);
-
-            if (aura == null)
-            {
-                Log.Write($"[HasDebuff] Fant ikke debuff '{debuffName}' in Spell Book");
-                return false;
-            }
-
-            return TargetHasBuff(aura.InternalAuraNo);
-        }
-
-        private static bool TargetHasBuff(int auraNoInArrayOfAuras)
-        {
-            var c = GetBlockColor(auraNoInArrayOfAuras, 11);
-            return ((c.R != 255) && (c.G != 255) && (c.B != 255));
-        }
-
-        public static bool AutoAtacking()
-        {
-            var c = WoW.GetBlockColor(2, 10);
-            return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
-        }
-
-        public static bool IsMoving()
-        {
-            var c = WoW.GetBlockColor(1, 10);
-            return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
-        }
-
-        public static bool IsPlayer()
-        {
-            var c = WoW.GetBlockColor(3, 10);
-            return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
-        }
-
-
         public static int CurrentChi
         {
             get
@@ -369,7 +261,6 @@ namespace PixelMagic.Helpers
                 return ss;
             }
         }
-
         public static int CurrentArcaneCharges
         {
             get
@@ -386,16 +277,14 @@ namespace PixelMagic.Helpers
                 return ss;
             }
         }
-
         public static bool PlayerIsChanneling
         {
             get
             {
-                Color blockColor = WoW.GetBlockColor(3, 3);
+                var blockColor = GetBlockColor(3, 3);
                 return blockColor.R == 0 && blockColor.G == 255 && blockColor.B == 0;
             }
         }
-
         public static bool HasTarget
         {
             get
@@ -404,7 +293,6 @@ namespace PixelMagic.Helpers
                 return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
             }
         }
-
         //public static bool HasBossTarget
         //{
         //    get
@@ -413,7 +301,6 @@ namespace PixelMagic.Helpers
         //        return ((c.R == Color.Blue.R) && (c.G == Color.Blue.G) && (c.B == Color.Blue.B));
         //    }
         //}
-
         public static bool PlayerIsCasting
         {
             get
@@ -422,7 +309,6 @@ namespace PixelMagic.Helpers
                 return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
             }
         }
-
         public static bool TargetIsCasting
         {
             get
@@ -431,7 +317,6 @@ namespace PixelMagic.Helpers
                 return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
             }
         }
-
         public static bool TargetIsVisible
         {
             get
@@ -440,7 +325,6 @@ namespace PixelMagic.Helpers
                 return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
             }
         }
-
         public static bool TargetIsFriend
         {
             get
@@ -449,7 +333,6 @@ namespace PixelMagic.Helpers
                 return (c.R == 0) && (c.G == 255) && (c.B == 0);
             }
         }
-
         public static int CurrentRunes
         {
             get
@@ -466,7 +349,6 @@ namespace PixelMagic.Helpers
                 return runes;
             }
         }
-
         public static int CurrentComboPoints
         {
             get
@@ -483,7 +365,6 @@ namespace PixelMagic.Helpers
                 return comboPoints;
             }
         }
-
         public static int CurrentSoulShards
         {
             get
@@ -500,7 +381,6 @@ namespace PixelMagic.Helpers
                 return ss;
             }
         }
-
         public static int CurrentHolyPower
         {
             get
@@ -517,9 +397,7 @@ namespace PixelMagic.Helpers
                 return hp;
             }
         }
-
         public static bool TargetIsEnemy => !TargetIsFriend;
-
         public static int HealthPercent
         {
             get
@@ -534,14 +412,17 @@ namespace PixelMagic.Helpers
                     var c = GetBlockColor(x, 1);
                     binaryHealth += (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B) ? "1" : "0";
                 }
-                
+
                 return Convert.ToInt32(binaryHealth, 2);
             }
         }
-        public static bool HasPet()
+        public static bool HasPet
         {
-            Color blockColor = WoW.GetBlockColor(1, 5);
-            return blockColor.R == Color.Red.R && blockColor.G == Color.Red.G && blockColor.B == Color.Red.B;
+            get
+            {
+                var c = GetBlockColor(1, 5);
+                return c.R == Color.Red.R && c.G == Color.Red.G && c.B == Color.Red.B;
+            }
         }
         public static int TargetHealthPercent
         {
@@ -561,7 +442,6 @@ namespace PixelMagic.Helpers
                 return Convert.ToInt32(binaryHealth, 2);
             }
         }
-
         private static int DamageModifier
         {
             get
@@ -580,50 +460,6 @@ namespace PixelMagic.Helpers
                 return Convert.ToInt32(binaryDamageModifier, 2);
             }
         }
-
-        public static void SetSpellDamageModifier(string spellName, int milisecondsToExpire)
-        {
-            if (!damageModifierHash.ContainsKey(spellName))
-            {
-                damageModifierHash.Add(spellName, DamageModifier);
-            }
-            else
-            {
-                damageModifierHash.Remove(spellName);
-                damageModifierHash.Add(spellName, DamageModifier);
-            }
-                       
-            System.Timers.Timer dMTimer = new System.Timers.Timer(milisecondsToExpire);
-            dMTimer.AutoReset = false;
-            dMTimer.Elapsed += async (sender, e) => await HandleDMTimer(spellName);
-            dMTimer.Start();
-            
-        }
-        public static int LastDamageModifier(string spellName)
-        {
-            try
-            {
-                return damageModifierHash[spellName];
-            }
-            catch(KeyNotFoundException)
-            {
-                return 0;
-            }
-        }
-
-        public static int CurrentDamageModifier()
-        {
-            return DamageModifier;
-        }
-
-        private static Task HandleDMTimer(string spellName)
-        {
-            
-            return Task.Run(() => {
-                damageModifierHash.Remove(spellName);
-            });
-        }
-
         private static int Power
         {
             get
@@ -642,10 +478,6 @@ namespace PixelMagic.Helpers
                 return Convert.ToInt32(binaryPower, 2);
             }
         }
-        public static int GetPower()
-        {
-            return Power;
-        }
         public static int Focus => Power;
         public static int Mana => Power;
         public static int Energy => Power;
@@ -655,8 +487,7 @@ namespace PixelMagic.Helpers
         public static int Astral => Power;
         public static int Maelstrom => Power;
 
-
-        public static bool HasFocus
+        public static bool WowWindowHasFocus
         {
             get
             {
@@ -678,6 +509,153 @@ namespace PixelMagic.Helpers
             }
         }
 
+        public static void Initialize(Process wowProcess)
+        {
+            random = new Random();
+
+            pWow = wowProcess;
+
+            Log.Write("Successfully connected to WoW with process ID: " + pWow.Id, Color.Green);
+
+            var is64 = pWow.ProcessName.Contains("64");
+
+            Log.Write($"WoW Version: {Version} (x{(is64 ? "64" : "86")})", Color.Gray);
+
+            var wowRectangle = new Rectangle();
+            GetWindowRect(pWow.MainWindowHandle, ref wowRectangle);
+            Log.Write($"WoW Screen Resolution: {wowRectangle.Width}x{wowRectangle.Height}", Color.Gray);
+
+            if (ConfigFile.ReadValue("PixelMagic", "AddonName") == "")
+            {
+                Log.Write(
+                    "This is the first time you have run the program, please specify a name you would like the PixelMagic addon to use");
+                Log.Write("this can be anything you like (letters only no numbers)");
+
+                while (ConfigFile.ReadValue("PixelMagic", "AddonName") == "")
+                {
+                    var f = new frmSelectAddonName();
+                    f.ShowDialog();
+                }
+            }
+
+            Log.Write($"Addon Name set to: [{ConfigFile.ReadValue("PixelMagic", "AddonName")}]", Color.Blue);
+
+            dtColorHelper = new DataTable();
+            dtColorHelper.Columns.Add("Percent");
+            dtColorHelper.Columns.Add("Unrounded");
+            dtColorHelper.Columns.Add("Rounded");
+            dtColorHelper.Columns.Add("Value");
+
+            for (var i = 0; i <= 99; i++)
+            {
+                var drNew = dtColorHelper.NewRow();
+                drNew["Percent"] = i < 10 ? "0.0" + i : "0." + i;
+                drNew["Unrounded"] = double.Parse(drNew["Percent"].ToString())*255;
+                drNew["Rounded"] = Math.Round(double.Parse(drNew["Percent"].ToString())*255, 0);
+                drNew["Value"] = i;
+                dtColorHelper.Rows.Add(drNew);
+            }
+            {
+                var drNew = dtColorHelper.NewRow();
+                drNew["Percent"] = "255";
+                drNew["Unrounded"] = "255";
+                drNew["Rounded"] = "255";
+                drNew["Value"] = 0;
+                dtColorHelper.Rows.Add(drNew);
+            }
+        }
+
+        public static bool TargetHasBuff(string debuffName)
+        {
+            var aura = SpellBook.Auras.FirstOrDefault(s => s.AuraName == debuffName);
+
+            if (aura == null)
+            {
+                Log.Write($"[HasDebuff] Fant ikke debuff '{debuffName}' in Spell Book");
+                return false;
+            }
+
+            return TargetHasBuff(aura.InternalAuraNo);
+        }
+
+        private static bool TargetHasBuff(int auraNoInArrayOfAuras)
+        {
+            var c = GetBlockColor(auraNoInArrayOfAuras, 11);
+            return (c.R != 255) && (c.G != 255) && (c.B != 255);
+        }
+
+        public static bool AutoAtacking
+        {
+            get
+            {
+                var c = GetBlockColor(2, 10);
+                return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
+            }
+        }
+
+        public static bool IsMoving
+        {
+            get
+            {
+                var c = GetBlockColor(1, 10);
+                return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
+            }
+        }
+
+        public static bool IsPlayer
+        {
+            get
+            {
+                var c = GetBlockColor(3, 10);
+                return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
+            }
+        }
+
+        public static void SetSpellDamageModifier(string spellName, int milisecondsToExpire)
+        {
+            if (!damageModifierHash.ContainsKey(spellName))
+            {
+                damageModifierHash.Add(spellName, DamageModifier);
+            }
+            else
+            {
+                damageModifierHash.Remove(spellName);
+                damageModifierHash.Add(spellName, DamageModifier);
+            }
+
+            var dMTimer = new Timer(milisecondsToExpire);
+            dMTimer.AutoReset = false;
+            dMTimer.Elapsed += async (sender, e) => await HandleDMTimer(spellName);
+            dMTimer.Start();
+        }
+
+        public static int LastDamageModifier(string spellName)
+        {
+            try
+            {
+                return damageModifierHash[spellName];
+            }
+            catch (KeyNotFoundException)
+            {
+                return 0;
+            }
+        }
+
+        public static int CurrentDamageModifier()
+        {
+            return DamageModifier;
+        }
+
+        private static Task HandleDMTimer(string spellName)
+        {
+            return Task.Run(() => { damageModifierHash.Remove(spellName); });
+        }
+
+        public static int GetPower()
+        {
+            return Power;
+        }
+
         [DllImport("user32.dll")]
         private static extern bool GetWindowRect(IntPtr hWnd, ref Rectangle rect);
 
@@ -689,7 +667,7 @@ namespace PixelMagic.Helpers
             Log.Write("Disposing of WoW Process Completed.");
         }
 
-        private static bool IsSpellOnCooldown(int spellNoInArrayOfSpells) // This will take the spell no from the array of spells, 1, 2, 3 ..... n
+        private static bool IsSpellOnCooldown(int spellNoInArrayOfSpells)  // This will take the spell no from the array of spells, 1, 2, 3 ..... n
         {
             var c = GetBlockColor(spellNoInArrayOfSpells, 2);
             return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
@@ -710,28 +688,30 @@ namespace PixelMagic.Helpers
 
         private static bool IsSpellOnGCD(int spellNoInArrayOfSpells)
         {
-            Color blockColor = WoW.GetBlockColor(spellNoInArrayOfSpells, 2);
+            var blockColor = GetBlockColor(spellNoInArrayOfSpells, 2);
             return blockColor.R == Color.Red.R && blockColor.G == Color.Red.G && blockColor.B == Color.Red.B;
         }
 
         public static bool IsSpellOnGCD(string spellBookSpellName)
         {
-            Spell spell = SpellBook.Spells.FirstOrDefault((Spell s) => s.SpellName == spellBookSpellName);
-            bool flag = spell == null;
+            var spell = SpellBook.Spells.FirstOrDefault(s => s.SpellName == spellBookSpellName);
+            var flag = spell == null;
             bool result;
             if (flag)
             {
-                Log.Write(string.Format("[IsSpellOnCooldown] Unable to find spell with name '{0}' in Spell Book", spellBookSpellName));
+                Log.Write(string.Format("[IsSpellOnCooldown] Unable to find spell with name '{0}' in Spell Book",
+                    spellBookSpellName));
                 result = false;
             }
             else
             {
-                result = WoW.IsSpellOnGCD(spell.InternalSpellNo);
+                result = IsSpellOnGCD(spell.InternalSpellNo);
             }
             return result;
         }
 
-        private static bool IsSpellInRange(int spellNoInArrayOfSpells) // This will take the spell no from the array of spells, 1, 2, 3 ..... n
+        private static bool IsSpellInRange(int spellNoInArrayOfSpells)
+            // This will take the spell no from the array of spells, 1, 2, 3 ..... n
         {
             var c = GetBlockColor(spellNoInArrayOfSpells, 6);
             return (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B);
@@ -750,12 +730,12 @@ namespace PixelMagic.Helpers
             return IsSpellInRange(spell.InternalSpellNo);
         }
 
-        private static bool CanCast(int spellNoInArrayOfSpells, 
-                                   bool checkIfPlayerIsCasting = true, 
-                                   bool checkIfSpellIsOnCooldown = true, 
-                                   bool checkIfSpellIsInRange = true, 
-                                   bool checkSpellCharges = true, 
-                                   bool checkIfTargetIsVisible = true)
+        private static bool CanCast(int spellNoInArrayOfSpells,
+            bool checkIfPlayerIsCasting = true,
+            bool checkIfSpellIsOnCooldown = true,
+            bool checkIfSpellIsInRange = true,
+            bool checkSpellCharges = true,
+            bool checkIfTargetIsVisible = true)
         {
             if (checkIfPlayerIsCasting)
                 if (PlayerIsCasting)
@@ -781,11 +761,11 @@ namespace PixelMagic.Helpers
         }
 
         public static bool CanCast(string spellBookSpellName,
-                                   bool checkIfPlayerIsCasting = true,
-                                   bool checkIfSpellIsOnCooldown = true,
-                                   bool checkIfSpellIsInRange = false,
-                                   bool checkSpellCharges = false,
-                                   bool checkIfTargetIsVisible = true)
+            bool checkIfPlayerIsCasting = true,
+            bool checkIfSpellIsOnCooldown = true,
+            bool checkIfSpellIsInRange = false,
+            bool checkSpellCharges = false,
+            bool checkIfTargetIsVisible = true)
         {
             var spell = SpellBook.Spells.FirstOrDefault(s => s.SpellName == spellBookSpellName);
 
@@ -795,7 +775,8 @@ namespace PixelMagic.Helpers
                 return false;
             }
 
-            var ret = CanCast(spell.InternalSpellNo, checkIfPlayerIsCasting, checkIfSpellIsOnCooldown, checkIfSpellIsInRange, checkSpellCharges, checkIfTargetIsVisible);
+            var ret = CanCast(spell.InternalSpellNo, checkIfPlayerIsCasting, checkIfSpellIsOnCooldown,
+                checkIfSpellIsInRange, checkSpellCharges, checkIfTargetIsVisible);
 
             //Log.Write($"CanCast [{spellBookSpellName}] = {ret}", ret ? Color.Green : Color.Gray);
 
@@ -833,10 +814,7 @@ namespace PixelMagic.Helpers
 
             Mouse.LeftClick(x, y);
         }
-        public static void stopAttack()
-        {
-            KeyPressRelease(Keys.OemCloseBrackets);
-        }
+
         public static void SendMacro(string macro)
         {
             Log.Write("Sending macro: " + macro, Color.Gray);
@@ -847,7 +825,7 @@ namespace PixelMagic.Helpers
             Thread.Sleep(100);
             KeyPressRelease(Keys.Enter);
         }
-        
+
         public static int GetBuffStacks(int auraNoInArrayOfAuras)
         {
             var c = GetBlockColor(5 + auraNoInArrayOfAuras, 3);
@@ -855,19 +833,19 @@ namespace PixelMagic.Helpers
             try
             {
                 // ReSharper disable once PossibleNullReferenceException
-                string stacks = dtColorHelper.Select($"[Rounded] = '{c.G}'").FirstOrDefault()["Value"].ToString();
+                var stacks = dtColorHelper.Select($"[Rounded] = '{c.G}'").FirstOrDefault()["Value"].ToString();
 
                 return int.Parse(stacks);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Write("Failed to find buff stacks for color G = " + c.G, Color.Red);
                 Log.Write("Error: " + ex.Message, Color.Red);
             }
-             
-            return 0;   
+
+            return 0;
         }
-        
+
         public static int GetBuffStacks(string auraName)
         {
             var aura = SpellBook.Auras.FirstOrDefault(s => s.AuraName == auraName);
@@ -987,7 +965,7 @@ namespace PixelMagic.Helpers
             try
             {
                 // ReSharper disable once PossibleNullReferenceException
-                string stacks = dtColorHelper.Select($"[Rounded] = '{c.G}'").FirstOrDefault()["Value"].ToString();
+                var stacks = dtColorHelper.Select($"[Rounded] = '{c.G}'").FirstOrDefault()["Value"].ToString();
 
                 return int.Parse(stacks);
             }
@@ -1016,7 +994,7 @@ namespace PixelMagic.Helpers
         public static bool HasBuff(int auraNoInArrayOfAuras)
         {
             var c = GetBlockColor(5 + auraNoInArrayOfAuras, 3);
-            return ((c.R != 255) && (c.G != 255) && (c.B != 255));
+            return (c.R != 255) && (c.G != 255) && (c.B != 255);
         }
 
         public static bool HasBuff(string buffName)
@@ -1048,7 +1026,7 @@ namespace PixelMagic.Helpers
         public static bool HasDebuff(int auraNoInArrayOfAuras)
         {
             var c = GetBlockColor(auraNoInArrayOfAuras, 8);
-            return ((c.R != 255) && (c.G != 255) && (c.B != 255));
+            return (c.R != 255) && (c.G != 255) && (c.B != 255);
         }
 
         public static void CastSpellByName(string spellBookSpellName)
@@ -1064,10 +1042,9 @@ namespace PixelMagic.Helpers
             SendKey(spell.Key, 50, spellBookSpellName);
             lastSpell = spellBookSpellName;
         }
-        
+
         [DllImport("gdi32.dll")]
         private static extern int BitBlt(IntPtr srchDC, int srcX, int srcY, int srcW, int srcH, IntPtr desthDC, int destX, int destY, int op);
-
         // This is apparently one of the fastest ways to read single pixel color
         // http://stackoverflow.com/questions/17130138/fastest-way-to-get-screen-pixel-color-in-c-sharp
 
@@ -1079,10 +1056,10 @@ namespace PixelMagic.Helpers
             if ((column <= 0) || (row <= 0))
                 throw new Exception("x and or y must be >= 1");
 
-            column = (column - 1)*5; // For some unknown reason pixel size of 5x5 in WoW = 7x7 in C#
-            row = (row - 1)*5;
+            column = (column - 1) * 5; // For some unknown reason pixel size of 5x5 in WoW = 7x7 in C#
+            row = (row - 1) * 5;
 
-            lock (thisLock) // We lock the bitmap "screenPixel" here to avoid it from being accessed by multiple threads at the same time and crashing
+            lock (thisLock)  // We lock the bitmap "screenPixel" here to avoid it from being accessed by multiple threads at the same time and crashing
             {
                 try
                 {
@@ -1117,60 +1094,6 @@ namespace PixelMagic.Helpers
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
-
-        //public Color GetPixelColorAt(int x, int y)
-        //{
-        //    if (pWow == null)
-        //        return Color.Black;
-
-        //    using (Graphics gdest = Graphics.FromImage(screenPixel))
-        //    {
-        //        using (Graphics gsrc = Graphics.FromHwnd(pWow.MainWindowHandle))
-        //        {
-        //            IntPtr hSrcDC = gsrc.GetHdc();
-        //            IntPtr hDC = gdest.GetHdc();
-        //            int retval = BitBlt(hDC, 0, 0, 1, 1, hSrcDC, x, y, (int)CopyPixelOperation.SourceCopy);
-        //            gdest.ReleaseHdc();
-        //            gsrc.ReleaseHdc();
-        //        }
-        //    }
-        //    Color temp = screenPixel.GetPixel(0, 0);
-
-        //    if ((temp.R == Color.White.R) && (temp.G == Color.White.G) && (temp.B == Color.White.B))
-        //    {
-        //        Log.Write($"Color @ (x,y) = ({x},{y}) = {temp.ToString()}", Color.Black);
-        //    }
-        //    else
-        //    {
-        //        Log.Write($"Color @ (x,y) = ({x},{y}) = {temp.ToString()}", temp);
-        //    }
-
-        //    return temp;
-        //}
-
-        //public class Status
-        //{
-        //    public enum GameState
-        //    {
-        //        InGame,
-        //        NotInGame
-        //    }
-        //}
-
-        //public Status.GameState GameState
-        //{
-        //    get
-        //    {
-        //        if (wow.Read<byte>(Offsets.GameState) == 1)
-        //        {
-        //            return Status.GameState.InGame;
-        //        }
-        //        else
-        //        {
-        //            return Status.GameState.NotInGame;
-        //        }
-        //    }
-        //}
 
         #region Keyboard Input
 
