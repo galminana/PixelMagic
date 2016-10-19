@@ -563,8 +563,11 @@ local function updateHealth(self, event)
 			strHealth = ""0."" .. percHealth;
 		end
 		red = tonumber(strHealth)
-
-		healthFrame.t:SetColorTexture(red, 0, 0, 1)
+        if (percHealth == 100) then
+		    healthFrame.t:SetColorTexture(255, 0, 0, 1)
+        else
+            healthFrame.t:SetColorTexture(red, 0, 0, 1)
+        end
 
 		print (""Health = "" .. percHealth .. "" strHealth = "".. strHealth)
 			
@@ -714,10 +717,10 @@ local function hasTarget()
 		else			
 			--print (""Target GUID: "" .. guid )	
 			health = UnitHealth(""target"");		
-			maxHealth = UnitHealthMax(""target"");
+			maxHealth = UnitHealthMax(""target"")
 			percHealth = ceil((health / maxHealth) * 100)
 			
-			if (percHealth <= 1)
+			if (percHealth <= 1) then
     			hasTargetFrame.t:SetColorTexture(0, 0, 0, 1)
 			else
 				hasTargetFrame.t:SetColorTexture(1, 0, 0, 1)
@@ -827,7 +830,7 @@ local function initFrames()
 	healthFrame = CreateFrame(""frame"")
 	healthFrame:SetSize(size, size)
 	healthFrame:SetPoint(""TOPLEFT"", 0, 0)                -- column 1 row 1
-	healthFrame.t = healthFrames[i]:CreateTexture()        
+	healthFrame.t = healthFrame:CreateTexture()        
 	healthFrame.t:SetColorTexture(1, 1, 1, 1)
 	healthFrame.t:SetAllPoints(healthFrame)	
 	healthFrame:Show()		

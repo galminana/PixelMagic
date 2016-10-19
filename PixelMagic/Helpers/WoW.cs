@@ -551,10 +551,10 @@ namespace PixelMagic.Helpers
             }
             {
                 var drNew = dtColorHelper.NewRow();
-                drNew["Percent"] = "255";
+                drNew["Percent"] = "1.00";
                 drNew["Unrounded"] = "255";
                 drNew["Rounded"] = "255";
-                drNew["Value"] = 0;
+                drNew["Value"] = 100;
                 dtColorHelper.Rows.Add(drNew);
             }
         }
