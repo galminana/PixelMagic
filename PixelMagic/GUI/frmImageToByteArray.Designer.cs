@@ -91,7 +91,7 @@
             // 
             this.picSample.Location = new System.Drawing.Point(12, 39);
             this.picSample.Name = "picSample";
-            this.picSample.Size = new System.Drawing.Size(400, 300);
+            this.picSample.Size = new System.Drawing.Size(440, 300);
             this.picSample.TabIndex = 3;
             this.picSample.TabStop = false;
             this.picSample.Click += new System.EventHandler(this.picSample_Click);

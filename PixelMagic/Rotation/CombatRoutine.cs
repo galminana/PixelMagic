@@ -87,7 +87,7 @@ namespace PixelMagic.Rotation
                 {
                     pause.WaitOne();
 
-                    if (WoW.HasFocus)
+                    if (WoW.WowWindowHasFocus)
                     {
                         Pulse();
 
