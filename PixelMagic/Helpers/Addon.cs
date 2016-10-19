@@ -523,23 +523,26 @@ end
 
 local function PlayerNotMove()
     if GetUnitSpeed(""Player"") == 0 then
-    Movetime = GetTime()
-    PlayerMovingFrame.t:SetColorTexture(0, 0, 0, 1)
-    else PlayerMovingFrame.t:SetColorTexture(1, 0, 0, 1)
+		Movetime = GetTime()
+		PlayerMovingFrame.t:SetColorTexture(0, 0, 0, 1)
+    else 
+		PlayerMovingFrame.t:SetColorTexture(1, 0, 0, 1)
     end
 end
     
 local function AutoAtacking()
     if IsCurrentSpell(6603) then
         AutoAtackingFrame.t:SetColorTexture(1, 0, 0, 1)
-    else AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
+    else 
+		AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
     end
 end
 
 local function updateIsplayer()
     if UnitIsPlayer(""Target"") then
         AutoAtackingFrame.t:SetColorTexture(1, 0, 0, 1)
-    else AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
+    else 
+		AutoAtackingFrame.t:SetColorTexture(0, 0, 0, 1)
     end
 end
 
