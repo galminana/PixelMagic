@@ -26,7 +26,7 @@ local targetDebuffFrames = {}
 local spellInRangeFrames = {}
 local damageModifierFrames = {}
 local IsDispellableFrame = {}
-local healthFrames = {}
+local healthFrame = nil
 local targetHealthFrames = {}
 local isTargetFriendlyFrame = nil
 local hasTargetFrame = nil
@@ -53,13 +53,13 @@ local isDead = UnitIsDead(""target"")
 
 if (IsInCombat == false) then
     if (IsInCombat ~= lastCombat) then
-        --  print(""We are not in combat"")
+        print(""Entering Combat"")
         unitCombatFrame.t:SetColorTexture(1, 1, 1, 1)
         lastCombat = IsInCombat
     end
     else
         if IsInCombat ~= lastCombat and not playerdead and not IsDead then
-            --  print(""We are in Combat!"")
+            print(""Out of Combat"")
             unitCombatFrame.t:SetColorTexture(1, 0, 0, 1)
             lastCombat = IsInCombat
         end
@@ -552,22 +552,20 @@ local function updateHealth(self, event)
 	local maxHealth = UnitHealthMax(""player"");
 	local percHealth = ceil((health / maxHealth) * 100)
 	
-	if (percHealth ~= lastHealth) then		
-		local binaryHealth = ToBinary(percHealth)
-		--print (""Health = "" .. percHealth .. "" binary = "".. binaryHealth)
-		
-		for i = 1, string.len(binaryHealth) do
-			local currentBit = string.sub(binaryHealth, i, i)
-			
-			if (currentBit == ""1"") then
-				healthFrames[i].t:SetColorTexture(1, 0, 0, 1)
-			else
-				healthFrames[i].t:SetColorTexture(1, 1, 1, 1)
-			end
-			healthFrames[i].t:SetAllPoints(false)
+	if (percHealth ~= lastHealth) then			
+		local red = 0             
+		local strHealth = ""0.0"" .. percHealth;
+				
+		if (percHealth >= 10) then
+			strHealth = ""0."" .. percHealth;
 		end
-		
-		lastHealth = percHealth
+		red = tonumber(strHealth)
+
+		healthFrame.t:SetColorTexture(red, 0, 0, 1)
+
+		print (""Health = "" .. percHealth .. "" strHealth = "".. strHealth)
+			
+	lastHealth = percHealth
 	end
 end
 
@@ -822,19 +820,17 @@ local function initFrames()
     local i = 0
 
 	--print (""Initialising Health Frames"")
-	for i = 1, 8 do
-		healthFrames[i] = CreateFrame(""frame"")
-		healthFrames[i]:SetSize(size, size)
-		healthFrames[i]:SetPoint(""TOPLEFT"", (i - 1) * size, 0)                -- column 1 - 8, row 1
-		healthFrames[i].t = healthFrames[i]:CreateTexture()        
-		healthFrames[i].t:SetColorTexture(1, 1, 1, 1)
-		healthFrames[i].t:SetAllPoints(healthFrames[i])
-        healthFrames[i]:RegisterEvent(""PLAYER_REGEN_DISABLED"")
-        healthFrames[i]:RegisterEvent(""PLAYER_REGEN_ENABLED"")
-		healthFrames[i]:Show()		
-		
-		healthFrames[i]:SetScript(""OnUpdate"", updateHealth)
-	end
+	
+	healthFrame = CreateFrame(""frame"")
+	healthFrame:SetSize(size, size)
+	healthFrame:SetPoint(""TOPLEFT"", 0, 0)                -- column 1 row 1
+	healthFrame.t = healthFrames[i]:CreateTexture()        
+	healthFrame.t:SetColorTexture(1, 1, 1, 1)
+	healthFrame.t:SetAllPoints(healthFrame)	
+	healthFrame:Show()		
+	
+	healthFrame:SetScript(""OnUpdate"", updateHealth)
+
 
 	--print (""Initialising Power Frames (Rage, Energy, etc...)"")  
     local start = 8

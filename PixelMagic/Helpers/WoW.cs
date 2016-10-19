@@ -402,18 +402,12 @@ namespace PixelMagic.Helpers
         {
             get
             {
-                // First we build up the binary string that makes up health
-                // This is read from the 1st row on the screen of pixel information
-                // It is displayed as binary, so 100% health = 1100100
-                var binaryHealth = "";
+                var c = GetBlockColor(1, 1);
 
-                for (var x = 1; x <= 8; x++)
-                {
-                    var c = GetBlockColor(x, 1);
-                    binaryHealth += (c.R == Color.Red.R) && (c.G == Color.Red.G) && (c.B == Color.Red.B) ? "1" : "0";
-                }
+                var health = dtColorHelper.Select($"[Rounded] = '{c.R}'").FirstOrDefault()?["Value"].ToString();
 
-                return Convert.ToInt32(binaryHealth, 2);
+                // ReSharper disable once AssignNullToNotNullAttribute
+                return int.Parse(health);
             }
         }
         public static bool HasPet
