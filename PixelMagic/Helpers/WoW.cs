@@ -484,7 +484,7 @@ namespace PixelMagic.Helpers
         public static int Rage => Power;
         public static int Fury => Power;
         public static int RunicPower => Power;
-        public static int Astral => Power;
+        public static int CurrentAstralPower => Power;
         public static int Maelstrom => Power;
 
         public static bool WowWindowHasFocus
@@ -782,6 +782,8 @@ namespace PixelMagic.Helpers
 
             return ret;
         }
+
+        public static bool IsBoss => HasTarget; //  Temporary fix 
 
         private static void SendKey(Keys key, int milliseconds = 50, string spellName = null)
         {

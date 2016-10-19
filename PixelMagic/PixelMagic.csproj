@@ -185,6 +185,7 @@
     <Compile Include="Rotations\Shaman\EnhancementSample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Rotations\Warrior\Fury.cs" />
     <Compile Include="Rotations\Warrior\FurySample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

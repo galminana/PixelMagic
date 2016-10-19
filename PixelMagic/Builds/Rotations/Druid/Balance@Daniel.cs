@@ -40,7 +40,7 @@ namespace PixelMagic.Rotation
         {
             if (combatRoutine.Type == RotationType.SingleTarget)
             {
-                if (WoW.HasTarget&& WoW.TargetIsEnemy&&WoW.HasBuff("Moonkin")&&!WoW.IsMoving())
+                if (WoW.HasTarget&& WoW.TargetIsEnemy&&WoW.HasBuff("Moonkin")&&!WoW.IsMoving)
                 {	
 					if(WoW.IsSpellInRange("Moonfire")&&WoW.CanCast("Moonfire")&&!WoW.HasDebuff("Moonfire"))
 					{
@@ -52,36 +52,36 @@ namespace PixelMagic.Rotation
 						WoW.CastSpellByName("Sunfire");
 						return;
 					}
-					if(WoW.IsSpellInRange("LStrike")&&WoW.CanCast("LStrike")&&WoW.GetBuffStacks("LunarEmp")==3&&WoW.Astral<=80)
+					if(WoW.IsSpellInRange("LStrike")&&WoW.CanCast("LStrike")&&WoW.GetBuffStacks("LunarEmp")==3&&WoW.CurrentAstralPower<=80)
 					{
 						WoW.CastSpellByName("LStrike");
 						return;
 					}
-					if((WoW.IsSpellInRange("SolarW")&&WoW.CanCast("SolarW")&&WoW.HasBuff("SolarEmp")&&WoW.Astral<=80)||(WoW.IsSpellInRange("SolarW")&&
-					WoW.Astral<=40&&WoW.GetSpellCharges("Moon")<1&&WoW.GetSpellCharges("HalfMoon")<1&&WoW.GetSpellCharges("FullMoon")<1&&WoW.GetBuffStacks("LunarEmp")<=2))
+					if((WoW.IsSpellInRange("SolarW")&&WoW.CanCast("SolarW")&&WoW.HasBuff("SolarEmp")&&WoW.CurrentAstralPower<=80)||(WoW.IsSpellInRange("SolarW")&&
+					WoW.CurrentAstralPower<=40&&WoW.GetSpellCharges("Moon")<1&&WoW.GetSpellCharges("HalfMoon")<1&&WoW.GetSpellCharges("FullMoon")<1&&WoW.GetBuffStacks("LunarEmp")<=2))
 					{
 						WoW.CastSpellByName("SolarW");
 						return;
 					}
-					if(WoW.IsSpellInRange("StarSurge")&&WoW.CanCast("StarSurge")&&WoW.Astral>=40&&!(WoW.GetBuffStacks("LunarEmp")==3)&&!(WoW.GetBuffStacks("SolarEmp")==3))
+					if(WoW.IsSpellInRange("StarSurge")&&WoW.CanCast("StarSurge")&&WoW.CurrentAstralPower>=40&&!(WoW.GetBuffStacks("LunarEmp")==3)&&!(WoW.GetBuffStacks("SolarEmp")==3))
 					{
 						WoW.CastSpellByName("StarSurge");
 						return;
 					}
-					if(WoW.IsSpellInRange("Moon")&&WoW.CanCast("Moon")&&WoW.Astral<=60&&WoW.HasDebuff("Moonfire")&&WoW.HasDebuff("Sunfire"))
+					if(WoW.IsSpellInRange("Moon")&&WoW.CanCast("Moon")&&WoW.CurrentAstralPower<=60&&WoW.HasDebuff("Moonfire")&&WoW.HasDebuff("Sunfire"))
 					{
 						WoW.CastSpellByName("Moon");
 						return;
 					}
                 }
-				if (WoW.HasTarget&& WoW.TargetIsEnemy&&WoW.HasBuff("Moonkin")&&WoW.IsMoving())
+				if (WoW.HasTarget&& WoW.TargetIsEnemy&&WoW.HasBuff("Moonkin")&&WoW.IsMoving)
 				{
-					if(WoW.IsSpellInRange("Moonfire")&&WoW.CanCast("Moonfire")&&WoW.Astral<=40)
+					if(WoW.IsSpellInRange("Moonfire")&&WoW.CanCast("Moonfire")&&WoW.CurrentAstralPower<=40)
 					{
 						WoW.CastSpellByName("Moonfire");
 						return;
 					}
-					if(WoW.IsSpellInRange("StarSurge")&&WoW.CanCast("StarSurge")&&WoW.Astral>=40)
+					if(WoW.IsSpellInRange("StarSurge")&&WoW.CanCast("StarSurge")&&WoW.CurrentAstralPower>=40)
 					{
 						WoW.CastSpellByName("StarSurge");
 						return;
@@ -93,56 +93,55 @@ namespace PixelMagic.Rotation
 					}
 				}
             }
-			//12 e 18
             if (combatRoutine.Type == RotationType.AOE)
             {
-                if (WoW.HasTarget&& WoW.TargetIsEnemy&&WoW.HasBuff("Moonkin")&&!WoW.IsMoving())
+                if (WoW.HasTarget&& WoW.TargetIsEnemy&&WoW.HasBuff("Moonkin")&&!WoW.IsMoving)
                 {	
-					if(WoW.CanCast("Moonfire")&&!WoW.HasDebuff("Moonfire"))
+					if(WoW.CanCast("Moonfire") && !WoW.HasDebuff("Moonfire"))
 					{
 						WoW.CastSpellByName("Moonfire");
 						return;
 					}
-					if(WoW.CanCast("Sunfire")&&!WoW.HasDebuff("Sunfire"))
+					if(WoW.CanCast("Sunfire") && !WoW.HasDebuff("Sunfire"))
 					{
 						WoW.CastSpellByName("Sunfire");
 						return;
 					}
-					if(WoW.CanCast("SolarW")&&WoW.GetBuffStacks("SolarEmp")==3&&WoW.Astral<=80)
+					if(WoW.CanCast("SolarW")&&WoW.GetBuffStacks("SolarEmp") == 3 && WoW.CurrentAstralPower <= 80)
 					{
 						WoW.CastSpellByName("SolarW");
 						return;
 					}
-					if((WoW.CanCast("LStrike")&&WoW.HasBuff("LunarEmp")&&WoW.Astral<=80)||(
-					WoW.Astral<=40&&WoW.GetSpellCharges("Moon")<1&&WoW.GetSpellCharges("HalfMoon")<1&&WoW.GetSpellCharges("FullMoon")<1&&WoW.GetBuffStacks("SolarEmp")<=2))
+					if((WoW.CanCast("LStrike") && WoW.HasBuff("LunarEmp") && WoW.CurrentAstralPower <= 80)||(
+					WoW.CurrentAstralPower<=40 && WoW.GetSpellCharges("Moon") < 1 && WoW.GetSpellCharges("HalfMoon") < 1 && WoW.GetSpellCharges("FullMoon") < 1 && WoW.GetBuffStacks("SolarEmp")<=2))
 					{
 						WoW.CastSpellByName("LStrike");
 						return;
 					}
-					if(WoW.CanCast("StarSurge")&&WoW.Astral>=40&&!(WoW.GetBuffStacks("LunarEmp")==3)&&!(WoW.GetBuffStacks("SolarEmp")==3))
+					if(WoW.CanCast("StarSurge") && WoW.CurrentAstralPower>=40 && !(WoW.GetBuffStacks("LunarEmp")==3) && !(WoW.GetBuffStacks("SolarEmp")==3))
 					{
 						WoW.CastSpellByName("StarSurge");
 						return;
 					}
-					if(WoW.CanCast("Moon")&&WoW.Astral<=60&&WoW.HasDebuff("Sunfire")&&WoW.HasDebuff("Moonfire"))
+					if(WoW.CanCast("Moon")&&WoW.CurrentAstralPower<=60&&WoW.HasDebuff("Sunfire")&&WoW.HasDebuff("Moonfire"))
 					{
 						WoW.CastSpellByName("Moon");
 						return;
 					}
                 }
-				if (WoW.HasTarget&& WoW.TargetIsEnemy&&WoW.HasBuff("Moonkin")&&WoW.IsMoving())
+				if (WoW.HasTarget&& WoW.TargetIsEnemy&&WoW.HasBuff("Moonkin") && WoW.IsMoving)
 				{
-					if(WoW.IsSpellInRange("Moonfire")&&WoW.CanCast("Moonfire")&&WoW.Astral<=40)
+					if(WoW.IsSpellInRange("Moonfire")&&WoW.CanCast("Moonfire") && WoW.CurrentAstralPower<=40)
 					{
 						WoW.CastSpellByName("Moonfire");
 						return;
 					}
-					if(WoW.IsSpellInRange("StarSurge")&&WoW.CanCast("StarSurge")&&WoW.Astral>=40)
+					if(WoW.IsSpellInRange("StarSurge")&&WoW.CanCast("StarSurge") && WoW.CurrentAstralPower>=40)
 					{
 						WoW.CastSpellByName("StarSurge");
 						return;
 					}
-					if(WoW.IsSpellInRange("Sunfire")&&WoW.CanCast("Sunfire")&&!WoW.HasDebuff("Sunfire"))
+					if(WoW.IsSpellInRange("Sunfire")&&WoW.CanCast("Sunfire") && !WoW.HasDebuff("Sunfire"))
 					{
 						WoW.CastSpellByName("Sunfire");
 						return;
